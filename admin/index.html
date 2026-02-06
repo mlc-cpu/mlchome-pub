@@ -1,0 +1,1727 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MLC Admin CMS</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #F8F9FA;
+  --primary: #1B5E3B;
+  --primary-hover: #14472D;
+  --primary-light: #E8F5EE;
+  --sidebar-bg: #FFFFFF;
+  --card-bg: #FFFFFF;
+  --border: #DEE2E6;
+  --text: #212529;
+  --text-muted: #6C757D;
+  --danger: #DC3545;
+  --warning: #FFC107;
+  --success: #28A745;
+  --info: #17A2B8;
+  --shadow: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-lg: 0 4px 12px rgba(0,0,0,0.1);
+  --radius: 8px;
+  --sidebar-w: 240px;
+  --topbar-h: 60px;
+}
+html { font-size: 14px; }
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── Topbar ── */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; height: var(--topbar-h);
+  background: var(--primary); color: #fff; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px; box-shadow: var(--shadow-lg);
+}
+.topbar-left { display: flex; align-items: center; gap: 12px; }
+.topbar-logo { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.5px; }
+.topbar-logo span { opacity: 0.7; font-weight: 400; }
+.badge-admin {
+  background: rgba(255,255,255,0.2); padding: 2px 10px; border-radius: 20px;
+  font-size: 0.75rem; font-weight: 600;
+}
+.topbar-right { display: flex; align-items: center; gap: 8px; }
+.topbar-btn {
+  background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.25);
+  padding: 7px 16px; border-radius: 6px; cursor: pointer; font-size: 0.8rem;
+  font-family: inherit; font-weight: 500; transition: all 0.2s;
+  display: flex; align-items: center; gap: 5px;
+}
+.topbar-btn:hover { background: rgba(255,255,255,0.25); }
+.topbar-btn.btn-save { background: #fff; color: var(--primary); font-weight: 700; border-color: #fff; }
+.topbar-btn.btn-save:hover { background: #e8e8e8; }
+.topbar-btn.btn-danger { background: rgba(220,53,69,0.8); border-color: rgba(220,53,69,0.9); }
+.topbar-btn.btn-danger:hover { background: rgba(220,53,69,1); }
+.autosave-indicator {
+  font-size: 0.7rem; opacity: 0.7; margin-right: 8px;
+  display: flex; align-items: center; gap: 4px;
+}
+.autosave-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: #28a745;
+  display: inline-block;
+}
+.autosave-dot.saving { background: var(--warning); animation: pulse 0.6s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.hamburger {
+  display: none; background: none; border: none; color: #fff; font-size: 1.5rem;
+  cursor: pointer; padding: 4px 8px; line-height: 1;
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  position: fixed; top: var(--topbar-h); left: 0; bottom: 0;
+  width: var(--sidebar-w); background: var(--sidebar-bg);
+  box-shadow: 2px 0 8px rgba(0,0,0,0.06); z-index: 90;
+  overflow-y: auto; padding: 16px 0;
+  transition: transform 0.3s;
+}
+.sidebar-section { padding: 0 16px; margin-bottom: 4px; }
+.sidebar-label {
+  font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px;
+  color: var(--text-muted); padding: 8px 0 4px; font-weight: 600;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 16px; border-radius: 6px; cursor: pointer;
+  transition: all 0.15s; font-size: 0.85rem; color: var(--text);
+  border: none; background: none; width: 100%; text-align: left;
+  font-family: inherit;
+}
+.nav-item:hover { background: var(--bg); }
+.nav-item.active { background: var(--primary-light); color: var(--primary); font-weight: 600; }
+.nav-icon { width: 20px; text-align: center; font-size: 1rem; flex-shrink: 0; }
+
+/* ── Main Content ── */
+.main {
+  margin-left: var(--sidebar-w); margin-top: var(--topbar-h);
+  padding: 24px; min-height: calc(100vh - var(--topbar-h));
+}
+
+/* ── Section Panels ── */
+.section-panel { display: none; }
+.section-panel.active { display: block; }
+.section-header {
+  margin-bottom: 20px;
+}
+.section-title { font-size: 1.4rem; font-weight: 700; color: var(--text); }
+.section-desc { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; }
+
+/* ── Cards ── */
+.card {
+  background: var(--card-bg); border-radius: var(--radius);
+  box-shadow: var(--shadow); border: 1px solid var(--border);
+  margin-bottom: 20px; overflow: hidden;
+}
+.card-header {
+  padding: 14px 20px; border-bottom: 1px solid var(--border);
+  font-weight: 600; font-size: 0.9rem; background: #FAFBFC;
+  display: flex; align-items: center; gap: 8px;
+}
+.card-header .lang-badge {
+  font-size: 0.65rem; padding: 2px 8px; border-radius: 10px;
+  font-weight: 700; text-transform: uppercase;
+}
+.lang-ko { background: #E8F5EE; color: var(--primary); }
+.lang-en { background: #E3F2FD; color: #1565C0; }
+.card-body { padding: 20px; }
+
+/* ── 2-col grid ── */
+.dual-lang { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+/* ── Form Elements ── */
+.form-group { margin-bottom: 16px; }
+.form-group:last-child { margin-bottom: 0; }
+.form-label {
+  display: block; font-size: 0.78rem; font-weight: 600;
+  color: var(--text-muted); margin-bottom: 5px;
+}
+.form-input, .form-textarea {
+  width: 100%; padding: 9px 12px; border: 1px solid var(--border);
+  border-radius: 6px; font-family: inherit; font-size: 0.85rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: #fff; color: var(--text);
+}
+.form-input:focus, .form-textarea:focus {
+  outline: none; border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(27,94,59,0.1);
+}
+.form-textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+.form-textarea.tall { min-height: 120px; }
+
+/* ── Sub-card (for repeating items) ── */
+.sub-card {
+  border: 1px solid var(--border); border-radius: 6px;
+  padding: 16px; margin-bottom: 12px; background: #FAFBFC;
+}
+.sub-card:last-child { margin-bottom: 0; }
+.sub-card-title {
+  font-size: 0.78rem; font-weight: 700; color: var(--primary);
+  margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;
+}
+
+/* ── Toast ── */
+.toast-container {
+  position: fixed; bottom: 24px; right: 24px; z-index: 999;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.toast {
+  background: #333; color: #fff; padding: 12px 20px;
+  border-radius: 8px; font-size: 0.85rem; box-shadow: var(--shadow-lg);
+  transform: translateX(120%); transition: transform 0.3s;
+  display: flex; align-items: center; gap: 8px;
+}
+.toast.show { transform: translateX(0); }
+.toast.success { background: var(--success); }
+.toast.error { background: var(--danger); }
+.toast.info { background: var(--info); }
+
+/* ── File input hidden ── */
+.file-input-hidden { display: none; }
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .dual-lang { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .hamburger { display: block; }
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; }
+  :root { --sidebar-w: 260px; }
+  .topbar-btn span.btn-label { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Topbar ── -->
+<header class="topbar">
+  <div class="topbar-left">
+    <button class="hamburger" onclick="toggleSidebar()" aria-label="메뉴">&#9776;</button>
+    <div class="topbar-logo">mullae<span>company</span></div>
+    <span class="badge-admin">관리자</span>
+  </div>
+  <div class="topbar-right">
+    <div class="autosave-indicator">
+      <span class="autosave-dot" id="autosaveDot"></span>
+      <span id="autosaveText">자동 저장됨</span>
+    </div>
+    <button class="topbar-btn" onclick="importJSON()" title="JSON 파일에서 콘텐츠 불러오기">
+      <span>&#8593;</span><span class="btn-label">가져오기</span>
+    </button>
+    <button class="topbar-btn" onclick="exportJSON()" title="콘텐츠를 JSON 파일로 내보내기">
+      <span>&#8595;</span><span class="btn-label">내보내기</span>
+    </button>
+    <button class="topbar-btn" onclick="openPreview('ko')" title="한국어 사이트 미리보기">
+      <span>&#128065;</span><span class="btn-label">미리보기 KO</span>
+    </button>
+    <button class="topbar-btn" onclick="openPreview('en')" title="영어 사이트 미리보기">
+      <span>&#128065;</span><span class="btn-label">미리보기 EN</span>
+    </button>
+    <button class="topbar-btn btn-danger" onclick="resetDefaults()" title="모든 내용을 기본값으로 초기화">
+      <span>&#8634;</span><span class="btn-label">초기화</span>
+    </button>
+    <button class="topbar-btn btn-save" onclick="saveAll()" title="저장 및 JSON 다운로드">
+      <span>&#10003;</span><span class="btn-label">저장</span>
+    </button>
+  </div>
+</header>
+
+<!-- ── Sidebar ── -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-label">콘텐츠 관리</div>
+    <button class="nav-item active" data-section="hero" onclick="switchSection('hero', this)">
+      <span class="nav-icon">&#127968;</span> 히어로
+    </button>
+    <button class="nav-item" data-section="about" onclick="switchSection('about', this)">
+      <span class="nav-icon">&#128218;</span> 회사 소개
+    </button>
+    <button class="nav-item" data-section="services" onclick="switchSection('services', this)">
+      <span class="nav-icon">&#9881;</span> 서비스
+    </button>
+    <button class="nav-item" data-section="products" onclick="switchSection('products', this)">
+      <span class="nav-icon">&#128230;</span> 제품
+    </button>
+    <button class="nav-item" data-section="stats" onclick="switchSection('stats', this)">
+      <span class="nav-icon">&#128200;</span> 통계
+    </button>
+    <button class="nav-item" data-section="news" onclick="switchSection('news', this)">
+      <span class="nav-icon">&#128240;</span> 뉴스
+    </button>
+    <button class="nav-item" data-section="careers" onclick="switchSection('careers', this)">
+      <span class="nav-icon">&#128188;</span> 채용
+    </button>
+    <button class="nav-item" data-section="cta" onclick="switchSection('cta', this)">
+      <span class="nav-icon">&#128227;</span> CTA
+    </button>
+    <button class="nav-item" data-section="contact" onclick="switchSection('contact', this)">
+      <span class="nav-icon">&#128231;</span> 연락처
+    </button>
+    <button class="nav-item" data-section="footer" onclick="switchSection('footer', this)">
+      <span class="nav-icon">&#128270;</span> 푸터
+    </button>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">설정</div>
+    <button class="nav-item" data-section="settings" onclick="switchSection('settings', this)">
+      <span class="nav-icon">&#9881;</span> 사이트 설정
+    </button>
+  </div>
+</nav>
+
+<!-- ── Main ── -->
+<main class="main" id="mainContent">
+
+  <!-- ======== HERO ======== -->
+  <div class="section-panel active" data-panel="hero">
+    <div class="section-header">
+      <div class="section-title">히어로 섹션</div>
+      <div class="section-desc">메인 페이지 상단에 표시되는 대표 문구와 버튼을 편집합니다.</div>
+    </div>
+    <div class="dual-lang">
+      <div class="card">
+        <div class="card-header"><span class="lang-badge lang-ko">KO</span> 한국어</div>
+        <div class="card-body">
+          <div class="form-group">
+            <label class="form-label">대표 헤드라인</label>
+            <input class="form-input" data-section="hero" data-lang="ko" data-field="headline">
+          </div>
+          <div class="form-group">
+            <label class="form-label">설명 문구</label>
+            <textarea class="form-textarea" data-section="hero" data-lang="ko" data-field="description"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">CTA 버튼 1</label>
+            <input class="form-input" data-section="hero" data-lang="ko" data-field="cta1">
+          </div>
+          <div class="form-group">
+            <label class="form-label">CTA 버튼 2</label>
+            <input class="form-input" data-section="hero" data-lang="ko" data-field="cta2">
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="lang-badge lang-en">EN</span> English</div>
+        <div class="card-body">
+          <div class="form-group">
+            <label class="form-label">대표 헤드라인</label>
+            <input class="form-input" data-section="hero" data-lang="en" data-field="headline">
+          </div>
+          <div class="form-group">
+            <label class="form-label">설명 문구</label>
+            <textarea class="form-textarea" data-section="hero" data-lang="en" data-field="description"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">CTA 버튼 1</label>
+            <input class="form-input" data-section="hero" data-lang="en" data-field="cta1">
+          </div>
+          <div class="form-group">
+            <label class="form-label">CTA 버튼 2</label>
+            <input class="form-input" data-section="hero" data-lang="en" data-field="cta2">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== ABOUT ======== -->
+  <div class="section-panel" data-panel="about">
+    <div class="section-header">
+      <div class="section-title">회사 소개 섹션</div>
+      <div class="section-desc">회사 소개 영역의 텍스트와 핵심 가치 카드를 편집합니다.</div>
+    </div>
+    <div class="dual-lang">
+      <div class="card">
+        <div class="card-header"><span class="lang-badge lang-ko">KO</span> 한국어</div>
+        <div class="card-body">
+          <div class="form-group">
+            <label class="form-label">섹션 제목</label>
+            <input class="form-input" data-section="about" data-lang="ko" data-field="heading">
+          </div>
+          <div class="form-group">
+            <label class="form-label">소개 문단 1</label>
+            <textarea class="form-textarea" data-section="about" data-lang="ko" data-field="paragraph1"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">소개 문단 2</label>
+            <textarea class="form-textarea" data-section="about" data-lang="ko" data-field="paragraph2"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">소개 문단 3</label>
+            <textarea class="form-textarea" data-section="about" data-lang="ko" data-field="paragraph3"></textarea>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">핵심 가치 1</div>
+            <div class="form-group">
+              <label class="form-label">제목</label>
+              <input class="form-input" data-section="about" data-lang="ko" data-field="value1_title">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="about" data-lang="ko" data-field="value1_desc"></textarea>
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">핵심 가치 2</div>
+            <div class="form-group">
+              <label class="form-label">제목</label>
+              <input class="form-input" data-section="about" data-lang="ko" data-field="value2_title">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="about" data-lang="ko" data-field="value2_desc"></textarea>
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">핵심 가치 3</div>
+            <div class="form-group">
+              <label class="form-label">제목</label>
+              <input class="form-input" data-section="about" data-lang="ko" data-field="value3_title">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="about" data-lang="ko" data-field="value3_desc"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="lang-badge lang-en">EN</span> English</div>
+        <div class="card-body">
+          <div class="form-group">
+            <label class="form-label">섹션 제목</label>
+            <input class="form-input" data-section="about" data-lang="en" data-field="heading">
+          </div>
+          <div class="form-group">
+            <label class="form-label">소개 문단 1</label>
+            <textarea class="form-textarea" data-section="about" data-lang="en" data-field="paragraph1"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">소개 문단 2</label>
+            <textarea class="form-textarea" data-section="about" data-lang="en" data-field="paragraph2"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">소개 문단 3</label>
+            <textarea class="form-textarea" data-section="about" data-lang="en" data-field="paragraph3"></textarea>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">Value 1</div>
+            <div class="form-group">
+              <label class="form-label">제목</label>
+              <input class="form-input" data-section="about" data-lang="en" data-field="value1_title">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="about" data-lang="en" data-field="value1_desc"></textarea>
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">Value 2</div>
+            <div class="form-group">
+              <label class="form-label">제목</label>
+              <input class="form-input" data-section="about" data-lang="en" data-field="value2_title">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="about" data-lang="en" data-field="value2_desc"></textarea>
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">Value 3</div>
+            <div class="form-group">
+              <label class="form-label">제목</label>
+              <input class="form-input" data-section="about" data-lang="en" data-field="value3_title">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="about" data-lang="en" data-field="value3_desc"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== SERVICES ======== -->
+  <div class="section-panel" data-panel="services">
+    <div class="section-header">
+      <div class="section-title">서비스 섹션</div>
+      <div class="section-desc">서비스 영역의 제목과 카드 3개를 편집합니다.</div>
+    </div>
+    <div class="dual-lang">
+      <div class="card">
+        <div class="card-header"><span class="lang-badge lang-ko">KO</span> 한국어</div>
+        <div class="card-body">
+          <div class="form-group">
+            <label class="form-label">섹션 제목</label>
+            <input class="form-input" data-section="services" data-lang="ko" data-field="heading">
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">서비스 카드 1</div>
+            <div class="form-group">
+              <label class="form-label">제목</label>
+              <input class="form-input" data-section="services" data-lang="ko" data-field="card1_title">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="services" data-lang="ko" data-field="card1_desc"></textarea>
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">서비스 카드 2</div>
+            <div class="form-group">
+              <label class="form-label">제목</label>
+              <input class="form-input" data-section="services" data-lang="ko" data-field="card2_title">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="services" data-lang="ko" data-field="card2_desc"></textarea>
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">서비스 카드 3</div>
+            <div class="form-group">
+              <label class="form-label">제목</label>
+              <input class="form-input" data-section="services" data-lang="ko" data-field="card3_title">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="services" data-lang="ko" data-field="card3_desc"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="lang-badge lang-en">EN</span> English</div>
+        <div class="card-body">
+          <div class="form-group">
+            <label class="form-label">섹션 제목</label>
+            <input class="form-input" data-section="services" data-lang="en" data-field="heading">
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">Service Card 1</div>
+            <div class="form-group">
+              <label class="form-label">제목</label>
+              <input class="form-input" data-section="services" data-lang="en" data-field="card1_title">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="services" data-lang="en" data-field="card1_desc"></textarea>
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">Service Card 2</div>
+            <div class="form-group">
+              <label class="form-label">제목</label>
+              <input class="form-input" data-section="services" data-lang="en" data-field="card2_title">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="services" data-lang="en" data-field="card2_desc"></textarea>
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">Service Card 3</div>
+            <div class="form-group">
+              <label class="form-label">제목</label>
+              <input class="form-input" data-section="services" data-lang="en" data-field="card3_title">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="services" data-lang="en" data-field="card3_desc"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== PRODUCTS ======== -->
+  <div class="section-panel" data-panel="products">
+    <div class="section-header">
+      <div class="section-title">제품 섹션</div>
+      <div class="section-desc">제품 영역의 제목과 제품 카드를 편집합니다.</div>
+    </div>
+    <div class="dual-lang">
+      <div class="card">
+        <div class="card-header"><span class="lang-badge lang-ko">KO</span> 한국어</div>
+        <div class="card-body">
+          <div class="form-group">
+            <label class="form-label">섹션 제목</label>
+            <input class="form-input" data-section="products" data-lang="ko" data-field="heading">
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">제품 1</div>
+            <div class="form-group">
+              <label class="form-label">제품명</label>
+              <input class="form-input" data-section="products" data-lang="ko" data-field="product1_name">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="products" data-lang="ko" data-field="product1_desc"></textarea>
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">제품 2</div>
+            <div class="form-group">
+              <label class="form-label">제품명</label>
+              <input class="form-input" data-section="products" data-lang="ko" data-field="product2_name">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="products" data-lang="ko" data-field="product2_desc"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="lang-badge lang-en">EN</span> English</div>
+        <div class="card-body">
+          <div class="form-group">
+            <label class="form-label">섹션 제목</label>
+            <input class="form-input" data-section="products" data-lang="en" data-field="heading">
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">Product 1</div>
+            <div class="form-group">
+              <label class="form-label">제품명</label>
+              <input class="form-input" data-section="products" data-lang="en" data-field="product1_name">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="products" data-lang="en" data-field="product1_desc"></textarea>
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">Product 2</div>
+            <div class="form-group">
+              <label class="form-label">제품명</label>
+              <input class="form-input" data-section="products" data-lang="en" data-field="product2_name">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="products" data-lang="en" data-field="product2_desc"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== STATS ======== -->
+  <div class="section-panel" data-panel="stats">
+    <div class="section-header">
+      <div class="section-title">통계 섹션</div>
+      <div class="section-desc">핵심 수치 지표 4개를 편집합니다.</div>
+    </div>
+    <div class="dual-lang">
+      <div class="card">
+        <div class="card-header"><span class="lang-badge lang-ko">KO</span> 한국어</div>
+        <div class="card-body">
+          <div class="sub-card">
+            <div class="sub-card-title">통계 1</div>
+            <div class="form-group">
+              <label class="form-label">수치</label>
+              <input class="form-input" data-section="stats" data-lang="ko" data-field="stat1_number">
+            </div>
+            <div class="form-group">
+              <label class="form-label">라벨</label>
+              <input class="form-input" data-section="stats" data-lang="ko" data-field="stat1_label">
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">통계 2</div>
+            <div class="form-group">
+              <label class="form-label">수치</label>
+              <input class="form-input" data-section="stats" data-lang="ko" data-field="stat2_number">
+            </div>
+            <div class="form-group">
+              <label class="form-label">라벨</label>
+              <input class="form-input" data-section="stats" data-lang="ko" data-field="stat2_label">
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">통계 3</div>
+            <div class="form-group">
+              <label class="form-label">수치</label>
+              <input class="form-input" data-section="stats" data-lang="ko" data-field="stat3_number">
+            </div>
+            <div class="form-group">
+              <label class="form-label">라벨</label>
+              <input class="form-input" data-section="stats" data-lang="ko" data-field="stat3_label">
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">통계 4</div>
+            <div class="form-group">
+              <label class="form-label">수치</label>
+              <input class="form-input" data-section="stats" data-lang="ko" data-field="stat4_number">
+            </div>
+            <div class="form-group">
+              <label class="form-label">라벨</label>
+              <input class="form-input" data-section="stats" data-lang="ko" data-field="stat4_label">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="lang-badge lang-en">EN</span> English</div>
+        <div class="card-body">
+          <div class="sub-card">
+            <div class="sub-card-title">Stat 1</div>
+            <div class="form-group">
+              <label class="form-label">수치</label>
+              <input class="form-input" data-section="stats" data-lang="en" data-field="stat1_number">
+            </div>
+            <div class="form-group">
+              <label class="form-label">라벨</label>
+              <input class="form-input" data-section="stats" data-lang="en" data-field="stat1_label">
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">Stat 2</div>
+            <div class="form-group">
+              <label class="form-label">수치</label>
+              <input class="form-input" data-section="stats" data-lang="en" data-field="stat2_number">
+            </div>
+            <div class="form-group">
+              <label class="form-label">라벨</label>
+              <input class="form-input" data-section="stats" data-lang="en" data-field="stat2_label">
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">Stat 3</div>
+            <div class="form-group">
+              <label class="form-label">수치</label>
+              <input class="form-input" data-section="stats" data-lang="en" data-field="stat3_number">
+            </div>
+            <div class="form-group">
+              <label class="form-label">라벨</label>
+              <input class="form-input" data-section="stats" data-lang="en" data-field="stat3_label">
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">Stat 4</div>
+            <div class="form-group">
+              <label class="form-label">수치</label>
+              <input class="form-input" data-section="stats" data-lang="en" data-field="stat4_number">
+            </div>
+            <div class="form-group">
+              <label class="form-label">라벨</label>
+              <input class="form-input" data-section="stats" data-lang="en" data-field="stat4_label">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== NEWS ======== -->
+  <div class="section-panel" data-panel="news">
+    <div class="section-header">
+      <div class="section-title">뉴스 섹션</div>
+      <div class="section-desc">뉴스 카드 3개의 제목, 날짜, 설명을 편집합니다.</div>
+    </div>
+    <div class="dual-lang">
+      <div class="card">
+        <div class="card-header"><span class="lang-badge lang-ko">KO</span> 한국어</div>
+        <div class="card-body">
+          <div class="sub-card">
+            <div class="sub-card-title">뉴스 1</div>
+            <div class="form-group">
+              <label class="form-label">제목</label>
+              <input class="form-input" data-section="news" data-lang="ko" data-field="news1_title">
+            </div>
+            <div class="form-group">
+              <label class="form-label">날짜</label>
+              <input class="form-input" data-section="news" data-lang="ko" data-field="news1_date">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="news" data-lang="ko" data-field="news1_desc"></textarea>
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">뉴스 2</div>
+            <div class="form-group">
+              <label class="form-label">제목</label>
+              <input class="form-input" data-section="news" data-lang="ko" data-field="news2_title">
+            </div>
+            <div class="form-group">
+              <label class="form-label">날짜</label>
+              <input class="form-input" data-section="news" data-lang="ko" data-field="news2_date">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="news" data-lang="ko" data-field="news2_desc"></textarea>
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">뉴스 3</div>
+            <div class="form-group">
+              <label class="form-label">제목</label>
+              <input class="form-input" data-section="news" data-lang="ko" data-field="news3_title">
+            </div>
+            <div class="form-group">
+              <label class="form-label">날짜</label>
+              <input class="form-input" data-section="news" data-lang="ko" data-field="news3_date">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="news" data-lang="ko" data-field="news3_desc"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="lang-badge lang-en">EN</span> English</div>
+        <div class="card-body">
+          <div class="sub-card">
+            <div class="sub-card-title">News 1</div>
+            <div class="form-group">
+              <label class="form-label">제목</label>
+              <input class="form-input" data-section="news" data-lang="en" data-field="news1_title">
+            </div>
+            <div class="form-group">
+              <label class="form-label">날짜</label>
+              <input class="form-input" data-section="news" data-lang="en" data-field="news1_date">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="news" data-lang="en" data-field="news1_desc"></textarea>
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">News 2</div>
+            <div class="form-group">
+              <label class="form-label">제목</label>
+              <input class="form-input" data-section="news" data-lang="en" data-field="news2_title">
+            </div>
+            <div class="form-group">
+              <label class="form-label">날짜</label>
+              <input class="form-input" data-section="news" data-lang="en" data-field="news2_date">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="news" data-lang="en" data-field="news2_desc"></textarea>
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">News 3</div>
+            <div class="form-group">
+              <label class="form-label">제목</label>
+              <input class="form-input" data-section="news" data-lang="en" data-field="news3_title">
+            </div>
+            <div class="form-group">
+              <label class="form-label">날짜</label>
+              <input class="form-input" data-section="news" data-lang="en" data-field="news3_date">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="news" data-lang="en" data-field="news3_desc"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== CAREERS ======== -->
+  <div class="section-panel" data-panel="careers">
+    <div class="section-header">
+      <div class="section-title">채용 섹션</div>
+      <div class="section-desc">채용 영역의 제목, 설명, 문화 태그, 채용 공고를 편집합니다.</div>
+    </div>
+    <div class="dual-lang">
+      <div class="card">
+        <div class="card-header"><span class="lang-badge lang-ko">KO</span> 한국어</div>
+        <div class="card-body">
+          <div class="form-group">
+            <label class="form-label">섹션 제목</label>
+            <input class="form-input" data-section="careers" data-lang="ko" data-field="heading">
+          </div>
+          <div class="form-group">
+            <label class="form-label">섹션 설명</label>
+            <textarea class="form-textarea" data-section="careers" data-lang="ko" data-field="description"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">문화 태그 (쉼표로 구분)</label>
+            <input class="form-input" data-section="careers" data-lang="ko" data-field="culture_tags">
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">채용 공고 1</div>
+            <div class="form-group">
+              <label class="form-label">직무 제목</label>
+              <input class="form-input" data-section="careers" data-lang="ko" data-field="job1_title">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="careers" data-lang="ko" data-field="job1_desc"></textarea>
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">채용 공고 2</div>
+            <div class="form-group">
+              <label class="form-label">직무 제목</label>
+              <input class="form-input" data-section="careers" data-lang="ko" data-field="job2_title">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="careers" data-lang="ko" data-field="job2_desc"></textarea>
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">채용 공고 3</div>
+            <div class="form-group">
+              <label class="form-label">직무 제목</label>
+              <input class="form-input" data-section="careers" data-lang="ko" data-field="job3_title">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="careers" data-lang="ko" data-field="job3_desc"></textarea>
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">채용 공고 4</div>
+            <div class="form-group">
+              <label class="form-label">직무 제목</label>
+              <input class="form-input" data-section="careers" data-lang="ko" data-field="job4_title">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="careers" data-lang="ko" data-field="job4_desc"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="lang-badge lang-en">EN</span> English</div>
+        <div class="card-body">
+          <div class="form-group">
+            <label class="form-label">섹션 제목</label>
+            <input class="form-input" data-section="careers" data-lang="en" data-field="heading">
+          </div>
+          <div class="form-group">
+            <label class="form-label">섹션 설명</label>
+            <textarea class="form-textarea" data-section="careers" data-lang="en" data-field="description"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">문화 태그 (쉼표로 구분)</label>
+            <input class="form-input" data-section="careers" data-lang="en" data-field="culture_tags">
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">Job 1</div>
+            <div class="form-group">
+              <label class="form-label">직무 제목</label>
+              <input class="form-input" data-section="careers" data-lang="en" data-field="job1_title">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="careers" data-lang="en" data-field="job1_desc"></textarea>
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">Job 2</div>
+            <div class="form-group">
+              <label class="form-label">직무 제목</label>
+              <input class="form-input" data-section="careers" data-lang="en" data-field="job2_title">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="careers" data-lang="en" data-field="job2_desc"></textarea>
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">Job 3</div>
+            <div class="form-group">
+              <label class="form-label">직무 제목</label>
+              <input class="form-input" data-section="careers" data-lang="en" data-field="job3_title">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="careers" data-lang="en" data-field="job3_desc"></textarea>
+            </div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">Job 4</div>
+            <div class="form-group">
+              <label class="form-label">직무 제목</label>
+              <input class="form-input" data-section="careers" data-lang="en" data-field="job4_title">
+            </div>
+            <div class="form-group">
+              <label class="form-label">설명</label>
+              <textarea class="form-textarea" data-section="careers" data-lang="en" data-field="job4_desc"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== CTA ======== -->
+  <div class="section-panel" data-panel="cta">
+    <div class="section-header">
+      <div class="section-title">CTA 섹션</div>
+      <div class="section-desc">행동 유도(Call to Action) 영역의 제목과 설명을 편집합니다.</div>
+    </div>
+    <div class="dual-lang">
+      <div class="card">
+        <div class="card-header"><span class="lang-badge lang-ko">KO</span> 한국어</div>
+        <div class="card-body">
+          <div class="form-group">
+            <label class="form-label">제목</label>
+            <input class="form-input" data-section="cta" data-lang="ko" data-field="heading">
+          </div>
+          <div class="form-group">
+            <label class="form-label">설명</label>
+            <textarea class="form-textarea" data-section="cta" data-lang="ko" data-field="description"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="lang-badge lang-en">EN</span> English</div>
+        <div class="card-body">
+          <div class="form-group">
+            <label class="form-label">제목</label>
+            <input class="form-input" data-section="cta" data-lang="en" data-field="heading">
+          </div>
+          <div class="form-group">
+            <label class="form-label">설명</label>
+            <textarea class="form-textarea" data-section="cta" data-lang="en" data-field="description"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== CONTACT ======== -->
+  <div class="section-panel" data-panel="contact">
+    <div class="section-header">
+      <div class="section-title">연락처 섹션</div>
+      <div class="section-desc">연락처 영역의 제목, 설명, 이메일, 주소, 소셜 미디어를 편집합니다.</div>
+    </div>
+    <div class="dual-lang">
+      <div class="card">
+        <div class="card-header"><span class="lang-badge lang-ko">KO</span> 한국어</div>
+        <div class="card-body">
+          <div class="form-group">
+            <label class="form-label">섹션 제목</label>
+            <input class="form-input" data-section="contact" data-lang="ko" data-field="heading">
+          </div>
+          <div class="form-group">
+            <label class="form-label">설명</label>
+            <textarea class="form-textarea" data-section="contact" data-lang="ko" data-field="description"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">대표 이메일</label>
+            <input class="form-input" data-section="contact" data-lang="ko" data-field="email">
+          </div>
+          <div class="form-group">
+            <label class="form-label">브랜드 이메일</label>
+            <input class="form-input" data-section="contact" data-lang="ko" data-field="brand_email">
+          </div>
+          <div class="form-group">
+            <label class="form-label">주소</label>
+            <input class="form-input" data-section="contact" data-lang="ko" data-field="address">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Instagram</label>
+            <input class="form-input" data-section="contact" data-lang="ko" data-field="instagram">
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="lang-badge lang-en">EN</span> English</div>
+        <div class="card-body">
+          <div class="form-group">
+            <label class="form-label">섹션 제목</label>
+            <input class="form-input" data-section="contact" data-lang="en" data-field="heading">
+          </div>
+          <div class="form-group">
+            <label class="form-label">설명</label>
+            <textarea class="form-textarea" data-section="contact" data-lang="en" data-field="description"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">대표 이메일</label>
+            <input class="form-input" data-section="contact" data-lang="en" data-field="email">
+          </div>
+          <div class="form-group">
+            <label class="form-label">브랜드 이메일</label>
+            <input class="form-input" data-section="contact" data-lang="en" data-field="brand_email">
+          </div>
+          <div class="form-group">
+            <label class="form-label">주소</label>
+            <input class="form-input" data-section="contact" data-lang="en" data-field="address">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Instagram</label>
+            <input class="form-input" data-section="contact" data-lang="en" data-field="instagram">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== FOOTER ======== -->
+  <div class="section-panel" data-panel="footer">
+    <div class="section-header">
+      <div class="section-title">푸터 섹션</div>
+      <div class="section-desc">페이지 하단 푸터의 브랜드 설명과 링크 텍스트를 편집합니다.</div>
+    </div>
+    <div class="dual-lang">
+      <div class="card">
+        <div class="card-header"><span class="lang-badge lang-ko">KO</span> 한국어</div>
+        <div class="card-body">
+          <div class="form-group">
+            <label class="form-label">브랜드 설명</label>
+            <textarea class="form-textarea tall" data-section="footer" data-lang="ko" data-field="brand_desc"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">링크 텍스트: 회사 소개</label>
+            <input class="form-input" data-section="footer" data-lang="ko" data-field="link_about">
+          </div>
+          <div class="form-group">
+            <label class="form-label">링크 텍스트: 서비스</label>
+            <input class="form-input" data-section="footer" data-lang="ko" data-field="link_services">
+          </div>
+          <div class="form-group">
+            <label class="form-label">링크 텍스트: 제품</label>
+            <input class="form-input" data-section="footer" data-lang="ko" data-field="link_products">
+          </div>
+          <div class="form-group">
+            <label class="form-label">링크 텍스트: 뉴스</label>
+            <input class="form-input" data-section="footer" data-lang="ko" data-field="link_news">
+          </div>
+          <div class="form-group">
+            <label class="form-label">링크 텍스트: 채용</label>
+            <input class="form-input" data-section="footer" data-lang="ko" data-field="link_careers">
+          </div>
+          <div class="form-group">
+            <label class="form-label">링크 텍스트: 연락처</label>
+            <input class="form-input" data-section="footer" data-lang="ko" data-field="link_contact">
+          </div>
+          <div class="form-group">
+            <label class="form-label">저작권 문구</label>
+            <input class="form-input" data-section="footer" data-lang="ko" data-field="copyright">
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="lang-badge lang-en">EN</span> English</div>
+        <div class="card-body">
+          <div class="form-group">
+            <label class="form-label">브랜드 설명</label>
+            <textarea class="form-textarea tall" data-section="footer" data-lang="en" data-field="brand_desc"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">링크 텍스트: About</label>
+            <input class="form-input" data-section="footer" data-lang="en" data-field="link_about">
+          </div>
+          <div class="form-group">
+            <label class="form-label">링크 텍스트: Services</label>
+            <input class="form-input" data-section="footer" data-lang="en" data-field="link_services">
+          </div>
+          <div class="form-group">
+            <label class="form-label">링크 텍스트: Products</label>
+            <input class="form-input" data-section="footer" data-lang="en" data-field="link_products">
+          </div>
+          <div class="form-group">
+            <label class="form-label">링크 텍스트: News</label>
+            <input class="form-input" data-section="footer" data-lang="en" data-field="link_news">
+          </div>
+          <div class="form-group">
+            <label class="form-label">링크 텍스트: Careers</label>
+            <input class="form-input" data-section="footer" data-lang="en" data-field="link_careers">
+          </div>
+          <div class="form-group">
+            <label class="form-label">링크 텍스트: Contact</label>
+            <input class="form-input" data-section="footer" data-lang="en" data-field="link_contact">
+          </div>
+          <div class="form-group">
+            <label class="form-label">저작권 문구</label>
+            <input class="form-input" data-section="footer" data-lang="en" data-field="copyright">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== SETTINGS ======== -->
+  <div class="section-panel" data-panel="settings">
+    <div class="section-header">
+      <div class="section-title">사이트 설정</div>
+      <div class="section-desc">도메인, 소셜 미디어 링크, SEO 메타 정보를 편집합니다.</div>
+    </div>
+    <div class="card" style="max-width:720px;">
+      <div class="card-header">일반 설정</div>
+      <div class="card-body">
+        <div class="form-group">
+          <label class="form-label">회사 도메인</label>
+          <input class="form-input" data-section="settings" data-lang="global" data-field="domain">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Instagram URL</label>
+          <input class="form-input" data-section="settings" data-lang="global" data-field="instagram_url">
+        </div>
+        <div class="form-group">
+          <label class="form-label">네이버 블로그 URL</label>
+          <input class="form-input" data-section="settings" data-lang="global" data-field="blog_url">
+        </div>
+        <div class="form-group">
+          <label class="form-label">스마트스토어 URL</label>
+          <input class="form-input" data-section="settings" data-lang="global" data-field="smartstore_url">
+        </div>
+      </div>
+    </div>
+    <div class="dual-lang" style="margin-top:20px;">
+      <div class="card">
+        <div class="card-header"><span class="lang-badge lang-ko">KO</span> SEO 메타 (한국어)</div>
+        <div class="card-body">
+          <div class="form-group">
+            <label class="form-label">페이지 타이틀</label>
+            <input class="form-input" data-section="settings" data-lang="ko" data-field="meta_title">
+          </div>
+          <div class="form-group">
+            <label class="form-label">메타 설명 (description)</label>
+            <textarea class="form-textarea" data-section="settings" data-lang="ko" data-field="meta_description"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">메타 키워드 (쉼표로 구분)</label>
+            <input class="form-input" data-section="settings" data-lang="ko" data-field="meta_keywords">
+          </div>
+          <div class="form-group">
+            <label class="form-label">OG 타이틀</label>
+            <input class="form-input" data-section="settings" data-lang="ko" data-field="og_title">
+          </div>
+          <div class="form-group">
+            <label class="form-label">OG 설명</label>
+            <textarea class="form-textarea" data-section="settings" data-lang="ko" data-field="og_description"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="lang-badge lang-en">EN</span> SEO Meta (English)</div>
+        <div class="card-body">
+          <div class="form-group">
+            <label class="form-label">페이지 타이틀</label>
+            <input class="form-input" data-section="settings" data-lang="en" data-field="meta_title">
+          </div>
+          <div class="form-group">
+            <label class="form-label">메타 설명 (description)</label>
+            <textarea class="form-textarea" data-section="settings" data-lang="en" data-field="meta_description"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">메타 키워드 (쉼표로 구분)</label>
+            <input class="form-input" data-section="settings" data-lang="en" data-field="meta_keywords">
+          </div>
+          <div class="form-group">
+            <label class="form-label">OG 타이틀</label>
+            <input class="form-input" data-section="settings" data-lang="en" data-field="og_title">
+          </div>
+          <div class="form-group">
+            <label class="form-label">OG 설명</label>
+            <textarea class="form-textarea" data-section="settings" data-lang="en" data-field="og_description"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ── Toast Container ── -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- ── Hidden file input ── -->
+<input type="file" id="fileInput" class="file-input-hidden" accept=".json">
+
+<script>
+/* ===================================================================
+   MLC Admin CMS - Vanilla JS
+   =================================================================== */
+
+// ── Default Content Data ──
+const DEFAULT_CONTENT = {
+  hero: {
+    ko: {
+      headline: "좋은 제품은 좋은 원료에서 시작됩니다",
+      description: "약사가 직접 검증하고, 품질을 공개하는 건강기능식품. 글로벌 프리미엄 원료를 직소싱하여 믿을 수 있는 건강을 약속합니다.",
+      cta1: "제품 알아보기",
+      cta2: "회사 소개"
+    },
+    en: {
+      headline: "Great Products Start with Great Ingredients",
+      description: "Pharmacist-verified, quality-transparent health supplements. We source premium ingredients directly from world-class global suppliers.",
+      cta1: "Explore Our Products",
+      cta2: "Learn More"
+    }
+  },
+  about: {
+    ko: {
+      heading: "(주)문래컴퍼니를 소개합니다",
+      paragraph1: "(주)문래컴퍼니는 약사가 직접 설계하고 검증하는 건강기능식품 전문 기업입니다. '좋은 제품은 좋은 원료에서 시작된다'는 신념 아래, 글로벌 프리미엄 원료를 직소싱하고, 투명한 품질 관리 시스템을 운영합니다.",
+      paragraph2: "모든 제품에는 COA(성분분석표)를 공개하여 소비자가 직접 원료의 품질을 확인할 수 있도록 합니다. 이는 단순한 마케팅이 아닌, 제품에 대한 확신에서 비롯된 약속입니다.",
+      paragraph3: "문래컴퍼니는 건강기능식품 시장의 새로운 기준을 제시하며, 고객과 함께 건강한 내일을 만들어갑니다.",
+      value1_title: "단단함",
+      value1_desc: "과학적 근거와 약사의 전문성을 바탕으로, 흔들리지 않는 품질 기준을 세웁니다.",
+      value2_title: "순환",
+      value2_desc: "원료 소싱부터 고객 피드백까지, 선순환 구조로 지속 가능한 성장을 추구합니다.",
+      value3_title: "뿌리",
+      value3_desc: "문래동에서 시작된 우리의 이야기. 지역에 뿌리내리며 세계로 뻗어나갑니다."
+    },
+    en: {
+      heading: "Meet Mullae Company",
+      paragraph1: "Mullae Company is a health supplement company designed and verified by licensed pharmacists. Under the belief that 'Great products start with great ingredients,' we directly source premium global ingredients and operate a transparent quality management system.",
+      paragraph2: "We publish COA (Certificate of Analysis) for every product, allowing consumers to verify ingredient quality firsthand. This is not mere marketing — it's a promise born from confidence in our products.",
+      paragraph3: "Mullae Company sets new standards in the health supplement market and builds a healthier tomorrow together with our customers.",
+      value1_title: "Solidity",
+      value1_desc: "Built on scientific evidence and pharmacist expertise, we establish unwavering quality standards.",
+      value2_title: "Cycle",
+      value2_desc: "From ingredient sourcing to customer feedback, we pursue sustainable growth through virtuous cycles.",
+      value3_title: "Roots",
+      value3_desc: "Our story began in Mullae-dong. We grow roots locally while reaching out to the world."
+    }
+  },
+  services: {
+    ko: {
+      heading: "우리가 하는 일",
+      card1_title: "글로벌 원료 직소싱",
+      card1_desc: "스위스, 독일, 노르웨이 등 세계 최고 수준의 원료사로부터 프리미엄 원료를 직접 소싱합니다. 중간 유통 과정을 줄여 품질과 가격 경쟁력을 동시에 확보합니다.",
+      card2_title: "약사 주도 품질 관리",
+      card2_desc: "약사가 원료 선정부터 제조, 출하까지 전 과정을 직접 관리합니다. COA(성분분석표)를 공개하여 원료의 순도, 함량, 안전성을 투명하게 증명합니다.",
+      card3_title: "D2C 브랜드 운영",
+      card3_desc: "자사몰과 스마트스토어를 통해 소비자에게 직접 제품을 전달합니다. 고객과의 직접 소통으로 제품 개선과 신뢰를 동시에 쌓아갑니다."
+    },
+    en: {
+      heading: "Three Pillars of Quality",
+      card1_title: "Global Direct Sourcing",
+      card1_desc: "We source premium ingredients directly from world-leading suppliers in Switzerland, Germany, Norway, and beyond. By reducing intermediaries, we secure both quality and price competitiveness.",
+      card2_title: "Pharmacist-Led Quality Control",
+      card2_desc: "Licensed pharmacists oversee the entire process from ingredient selection to manufacturing and shipping. We publish COA (Certificate of Analysis) to transparently verify purity, content, and safety.",
+      card3_title: "D2C Brand Operation",
+      card3_desc: "We deliver products directly to consumers through our own store and Smart Store. Direct communication with customers allows us to build trust and improve products simultaneously."
+    }
+  },
+  products: {
+    ko: {
+      heading: "엄선된 원료, 검증된 제품",
+      product1_name: "든든베리",
+      product1_desc: "스위스산 아로니아 추출물을 핵심 원료로, 12종 복합 베리와 비타민을 담은 프리미엄 건강기능식품. 항산화 관리와 일상 활력을 동시에.",
+      product2_name: "신선한 오메가3",
+      product2_desc: "노르웨이산 rTG 오메가3를 사용한 고순도 오메가3. 산패 걱정 없는 신선한 원료로, 심혈관 건강과 인지 기능을 지원합니다."
+    },
+    en: {
+      heading: "Science-Backed Supplements",
+      product1_name: "DDeunDeunBerry",
+      product1_desc: "A premium health supplement featuring Swiss aronia extract as its core ingredient, combined with 12 complex berries and vitamins. Antioxidant care and daily vitality in one.",
+      product2_name: "Fresh Omega-3",
+      product2_desc: "High-purity omega-3 made with Norwegian rTG omega-3. Fresh ingredients with no oxidation concerns, supporting cardiovascular health and cognitive function."
+    }
+  },
+  stats: {
+    ko: {
+      stat1_number: "2025",
+      stat1_label: "설립연도",
+      stat2_number: "40%",
+      stat2_label: "재구매율",
+      stat3_number: "15K+",
+      stat3_label: "팔로워",
+      stat4_number: "1억+",
+      stat4_label: "매출"
+    },
+    en: {
+      stat1_number: "2025",
+      stat1_label: "Established",
+      stat2_number: "40%",
+      stat2_label: "Repeat Rate",
+      stat3_number: "15K+",
+      stat3_label: "Followers",
+      stat4_number: "$75K+",
+      stat4_label: "Revenue"
+    }
+  },
+  news: {
+    ko: {
+      news1_title: "문래컴퍼니, 프리미엄 건강기능식품 브랜드 공식 런칭",
+      news1_date: "2025.03",
+      news1_desc: "약사가 직접 검증하는 건강기능식품 브랜드 (주)문래컴퍼니가 공식 런칭했습니다. 글로벌 프리미엄 원료 직소싱과 투명한 품질 관리를 핵심 가치로 내세웁니다.",
+      news2_title: "든든베리 스마트스토어 판매 개시",
+      news2_date: "2025.04",
+      news2_desc: "첫 번째 제품 '든든베리'가 네이버 스마트스토어에서 판매를 시작했습니다. 스위스산 아로니아 추출물을 핵심으로 12종 복합 베리를 담았습니다.",
+      news3_title: "인스타그램 팔로워 15,000명 돌파",
+      news3_date: "2025.05",
+      news3_desc: "공식 인스타그램 계정이 15,000 팔로워를 돌파했습니다. 건강 정보 콘텐츠와 제품 소식으로 소비자와 활발히 소통하고 있습니다."
+    },
+    en: {
+      news1_title: "Mullae Company Officially Launches Premium Health Supplement Brand",
+      news1_date: "Mar 2025",
+      news1_desc: "Mullae Company, a pharmacist-verified health supplement brand, has officially launched. The company emphasizes global premium ingredient sourcing and transparent quality management.",
+      news2_title: "DDeunDeunBerry Now Available on Smart Store",
+      news2_date: "Apr 2025",
+      news2_desc: "Our first product 'DDeunDeunBerry' is now available on Naver Smart Store. It features Swiss aronia extract as its core ingredient with 12 complex berries.",
+      news3_title: "Instagram Followers Surpass 15,000",
+      news3_date: "May 2025",
+      news3_desc: "Our official Instagram account has surpassed 15,000 followers. We actively engage with consumers through health information content and product updates."
+    }
+  },
+  careers: {
+    ko: {
+      heading: "함께 성장할 동료를 찾습니다",
+      description: "문래컴퍼니는 건강기능식품의 새로운 기준을 만들어가는 팀입니다. 투명하고 정직한 제품으로 사람들의 건강한 일상에 기여하고 싶은 분을 기다립니다.",
+      culture_tags: "자율과 책임, 투명한 소통, 빠른 실행, 데이터 기반 의사결정, 고객 중심",
+      job1_title: "브랜드 마케터",
+      job1_desc: "SNS 콘텐츠 기획 및 운영, 브랜드 캠페인 전략 수립, 인플루언서 마케팅 관리",
+      job2_title: "이커머스 운영 매니저",
+      job2_desc: "스마트스토어 및 자사몰 운영, 상품 페이지 관리, 프로모션 기획 및 실행",
+      job3_title: "콘텐츠 디자이너",
+      job3_desc: "제품 상세페이지 디자인, SNS 콘텐츠 제작, 브랜드 비주얼 가이드 관리",
+      job4_title: "제품 기획자 (건강기능식품)",
+      job4_desc: "신제품 기획 및 원료 리서치, 제조사 커뮤니케이션, 제품 출시 프로세스 관리"
+    },
+    en: {
+      heading: "Grow With Us",
+      description: "Mullae Company is a team creating new standards in health supplements. We welcome those who want to contribute to healthier daily lives through transparent and honest products.",
+      culture_tags: "Autonomy & Responsibility, Transparent Communication, Fast Execution, Data-Driven Decisions, Customer First",
+      job1_title: "Brand Marketer",
+      job1_desc: "SNS content planning and management, brand campaign strategy, influencer marketing coordination",
+      job2_title: "E-commerce Operations Manager",
+      job2_desc: "Smart Store and own-mall operations, product page management, promotion planning and execution",
+      job3_title: "Content Designer",
+      job3_desc: "Product detail page design, SNS content creation, brand visual guide management",
+      job4_title: "Product Planner (Health Supplements)",
+      job4_desc: "New product planning and ingredient research, manufacturer communication, product launch process management"
+    }
+  },
+  cta: {
+    ko: {
+      heading: "함께 만들어가는 건강한 내일",
+      description: "문래컴퍼니와 함께 건강한 일상을 시작하세요. 약사가 검증한 프리미엄 건강기능식품으로 당신의 내일이 더 건강해집니다."
+    },
+    en: {
+      heading: "Building a Healthier Tomorrow, Together",
+      description: "Start your healthy journey with Mullae Company. Pharmacist-verified premium health supplements for a healthier you."
+    }
+  },
+  contact: {
+    ko: {
+      heading: "문의하기",
+      description: "제품, 입점, 협업 등 어떤 문의든 환영합니다. 아래 연락처로 편하게 연락해 주세요.",
+      email: "contact@mlc.co.kr",
+      brand_email: "brand@mlc.co.kr",
+      address: "서울특별시 영등포구 문래동",
+      instagram: "@mullaecompany"
+    },
+    en: {
+      heading: "Contact Us",
+      description: "We welcome inquiries about products, partnerships, and collaborations. Please feel free to reach out through the channels below.",
+      email: "contact@mlc.co.kr",
+      brand_email: "brand@mlc.co.kr",
+      address: "Mullae-dong, Yeongdeungpo-gu, Seoul, South Korea",
+      instagram: "@mullaecompany"
+    }
+  },
+  footer: {
+    ko: {
+      brand_desc: "(주)문래컴퍼니는 약사가 직접 검증하는 건강기능식품 전문 기업입니다. 글로벌 프리미엄 원료를 직소싱하고, COA 공개를 통해 투명한 품질 관리를 실천합니다.",
+      link_about: "회사 소개",
+      link_services: "서비스",
+      link_products: "제품",
+      link_news: "뉴스",
+      link_careers: "채용",
+      link_contact: "문의하기",
+      copyright: "\u00A9 2025 (주)문래컴퍼니. All rights reserved."
+    },
+    en: {
+      brand_desc: "Mullae Company is a health supplement company designed and verified by licensed pharmacists. We source premium global ingredients directly and practice transparent quality management through COA disclosure.",
+      link_about: "About",
+      link_services: "Services",
+      link_products: "Products",
+      link_news: "News",
+      link_careers: "Careers",
+      link_contact: "Contact",
+      copyright: "\u00A9 2025 Mullae Company. All rights reserved."
+    }
+  },
+  settings: {
+    global: {
+      domain: "mlc.co.kr",
+      instagram_url: "https://www.instagram.com/mullaecompany",
+      blog_url: "https://blog.naver.com/mullaecompany",
+      smartstore_url: "https://smartstore.naver.com/mullaecompany"
+    },
+    ko: {
+      meta_title: "(주)문래컴퍼니 | 약사가 검증하는 프리미엄 건강기능식품",
+      meta_description: "약사가 직접 검증하고 품질을 공개하는 건강기능식품 전문 기업. 글로벌 프리미엄 원료 직소싱, COA 공개, 투명한 품질 관리.",
+      meta_keywords: "문래컴퍼니, 건강기능식품, 약사, 프리미엄 원료, COA, 든든베리, 오메가3",
+      og_title: "(주)문래컴퍼니 - 좋은 제품은 좋은 원료에서 시작됩니다",
+      og_description: "약사가 직접 검증하고, 품질을 공개하는 건강기능식품. 글로벌 프리미엄 원료를 직소싱하여 믿을 수 있는 건강을 약속합니다."
+    },
+    en: {
+      meta_title: "Mullae Company | Pharmacist-Verified Premium Health Supplements",
+      meta_description: "A health supplement company verified by licensed pharmacists. Global premium ingredient sourcing, COA disclosure, transparent quality management.",
+      meta_keywords: "Mullae Company, health supplements, pharmacist, premium ingredients, COA, DDeunDeunBerry, Omega-3",
+      og_title: "Mullae Company - Great Products Start with Great Ingredients",
+      og_description: "Pharmacist-verified, quality-transparent health supplements. We source premium ingredients directly from world-class global suppliers."
+    }
+  }
+};
+
+// ── State ──
+let content = {};
+let debounceTimer = null;
+const STORAGE_KEY = "mlc_cms_content";
+
+// ── Initialize ──
+function init() {
+  loadContent();
+  populateFields();
+  bindInputEvents();
+  bindFileInput();
+}
+
+// ── Load from localStorage or defaults ──
+function loadContent() {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      content = JSON.parse(stored);
+      // Merge any new default keys that might not exist in stored data
+      for (const section in DEFAULT_CONTENT) {
+        if (!content[section]) {
+          content[section] = JSON.parse(JSON.stringify(DEFAULT_CONTENT[section]));
+        } else {
+          for (const lang in DEFAULT_CONTENT[section]) {
+            if (!content[section][lang]) {
+              content[section][lang] = JSON.parse(JSON.stringify(DEFAULT_CONTENT[section][lang]));
+            } else {
+              for (const field in DEFAULT_CONTENT[section][lang]) {
+                if (content[section][lang][field] === undefined) {
+                  content[section][lang][field] = DEFAULT_CONTENT[section][lang][field];
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      content = JSON.parse(JSON.stringify(DEFAULT_CONTENT));
+    }
+  } catch (e) {
+    content = JSON.parse(JSON.stringify(DEFAULT_CONTENT));
+  }
+}
+
+// ── Populate all form fields from content object ──
+function populateFields() {
+  const fields = document.querySelectorAll("[data-section][data-lang][data-field]");
+  fields.forEach(function(el) {
+    const section = el.getAttribute("data-section");
+    const lang = el.getAttribute("data-lang");
+    const field = el.getAttribute("data-field");
+    if (content[section] && content[section][lang] && content[section][lang][field] !== undefined) {
+      el.value = content[section][lang][field];
+    }
+  });
+}
+
+// ── Bind input/textarea change events ──
+function bindInputEvents() {
+  const fields = document.querySelectorAll("[data-section][data-lang][data-field]");
+  fields.forEach(function(el) {
+    el.addEventListener("input", function() {
+      const section = el.getAttribute("data-section");
+      const lang = el.getAttribute("data-lang");
+      const field = el.getAttribute("data-field");
+      if (!content[section]) content[section] = {};
+      if (!content[section][lang]) content[section][lang] = {};
+      content[section][lang][field] = el.value;
+      triggerAutosave();
+    });
+  });
+}
+
+// ── Autosave with debounce ──
+function triggerAutosave() {
+  const dot = document.getElementById("autosaveDot");
+  const text = document.getElementById("autosaveText");
+  dot.classList.add("saving");
+  text.textContent = "저장 중...";
+
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(function() {
+    saveToLocalStorage();
+    dot.classList.remove("saving");
+    text.textContent = "자동 저장됨";
+  }, 800);
+}
+
+// ── Save to localStorage ──
+function saveToLocalStorage() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(content));
+  } catch (e) {
+    showToast("localStorage 저장 실패", "error");
+  }
+}
+
+// ── Section Navigation ──
+function switchSection(sectionId, navEl) {
+  // Update nav
+  document.querySelectorAll(".nav-item").forEach(function(n) { n.classList.remove("active"); });
+  navEl.classList.add("active");
+  // Update panels
+  document.querySelectorAll(".section-panel").forEach(function(p) { p.classList.remove("active"); });
+  var panel = document.querySelector('[data-panel="' + sectionId + '"]');
+  if (panel) panel.classList.add("active");
+  // Close sidebar on mobile
+  document.getElementById("sidebar").classList.remove("open");
+}
+
+// ── Toggle sidebar (mobile) ──
+function toggleSidebar() {
+  document.getElementById("sidebar").classList.toggle("open");
+}
+
+// Close sidebar when clicking on main content on mobile
+document.addEventListener("click", function(e) {
+  var sidebar = document.getElementById("sidebar");
+  var hamburger = document.querySelector(".hamburger");
+  if (sidebar.classList.contains("open") && !sidebar.contains(e.target) && !hamburger.contains(e.target)) {
+    sidebar.classList.remove("open");
+  }
+});
+
+// ── Save All (localStorage + download JSON) ──
+function saveAll() {
+  // Collect current values from all fields
+  var fields = document.querySelectorAll("[data-section][data-lang][data-field]");
+  fields.forEach(function(el) {
+    var section = el.getAttribute("data-section");
+    var lang = el.getAttribute("data-lang");
+    var field = el.getAttribute("data-field");
+    if (!content[section]) content[section] = {};
+    if (!content[section][lang]) content[section][lang] = {};
+    content[section][lang][field] = el.value;
+  });
+
+  saveToLocalStorage();
+  downloadJSON();
+  showToast("모든 콘텐츠가 저장되었습니다.", "success");
+}
+
+// ── Download JSON ──
+function downloadJSON() {
+  var dataStr = JSON.stringify(content, null, 2);
+  var blob = new Blob([dataStr], { type: "application/json" });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url;
+  var now = new Date();
+  var ts = now.getFullYear() + "-" +
+    String(now.getMonth() + 1).padStart(2, "0") + "-" +
+    String(now.getDate()).padStart(2, "0") + "_" +
+    String(now.getHours()).padStart(2, "0") +
+    String(now.getMinutes()).padStart(2, "0");
+  a.download = "mlc-content-" + ts + ".json";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// ── Export JSON (without saving to localStorage) ──
+function exportJSON() {
+  downloadJSON();
+  showToast("JSON 파일이 다운로드되었습니다.", "info");
+}
+
+// ── Import JSON ──
+function importJSON() {
+  document.getElementById("fileInput").click();
+}
+
+function bindFileInput() {
+  document.getElementById("fileInput").addEventListener("change", function(e) {
+    var file = e.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function(ev) {
+      try {
+        var imported = JSON.parse(ev.target.result);
+        // Validate structure
+        if (typeof imported !== "object" || imported === null) {
+          throw new Error("Invalid format");
+        }
+        content = imported;
+        populateFields();
+        saveToLocalStorage();
+        showToast("콘텐츠를 성공적으로 불러왔습니다.", "success");
+      } catch (err) {
+        showToast("JSON 파일 형식이 올바르지 않습니다.", "error");
+      }
+    };
+    reader.readAsText(file);
+    // Reset input so same file can be re-imported
+    e.target.value = "";
+  });
+}
+
+// ── Preview ──
+function openPreview(lang) {
+  var path = lang === "ko" ? "../ko/index.html" : "../en/index.html";
+  window.open(path, "_blank");
+}
+
+// ── Reset to Defaults ──
+function resetDefaults() {
+  if (!confirm("모든 콘텐츠를 기본값으로 초기화하시겠습니까?\n\n이 작업은 되돌릴 수 없습니다.")) return;
+  content = JSON.parse(JSON.stringify(DEFAULT_CONTENT));
+  populateFields();
+  saveToLocalStorage();
+  showToast("기본값으로 초기화되었습니다.", "info");
+}
+
+// ── Toast Notifications ──
+function showToast(message, type) {
+  type = type || "info";
+  var container = document.getElementById("toastContainer");
+  var toast = document.createElement("div");
+  toast.className = "toast " + type;
+
+  var icon = "";
+  if (type === "success") icon = "&#10003; ";
+  else if (type === "error") icon = "&#10007; ";
+  else icon = "&#8505; ";
+
+  toast.innerHTML = icon + message;
+  container.appendChild(toast);
+
+  // Trigger animation
+  requestAnimationFrame(function() {
+    toast.classList.add("show");
+  });
+
+  // Auto remove
+  setTimeout(function() {
+    toast.classList.remove("show");
+    setTimeout(function() {
+      if (toast.parentNode) container.removeChild(toast);
+    }, 300);
+  }, 3000);
+}
+
+// ── Boot ──
+document.addEventListener("DOMContentLoaded", init);
+</script>
+</body>
+</html>
