@@ -1,5 +1,5 @@
 /**
- * Mullae Company - Shared Main JavaScript
+ * MullaeCompany - Shared Main JavaScript
  * Shared between Korean (/ko) and English (/en) site versions.
  * Vanilla JS -- no frameworks required.
  */
