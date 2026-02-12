@@ -314,27 +314,35 @@
     .news-empty { text-align: center; padding: 80px 0; }
     .news-empty p { font-size: 15px; color: #bbb; letter-spacing: -0.3px; }
 
-    /* ── Blog preview ── */
-    .blog-preview-list { display: flex; flex-direction: column; }
-    .blog-preview-item {
-      display: block; padding: 24px 0; border-bottom: 1px solid #f0f0f0;
-      transition: opacity 0.2s ease;
+    /* ── Hero headlines ── */
+    .hero-headlines {
+      position: absolute;
+      bottom: 48px; left: 50%; transform: translateX(-50%);
+      z-index: 3;
+      background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 8px;
+      padding: 16px 20px;
+      display: flex; flex-direction: column; gap: 10px;
+      min-width: 280px; max-width: 360px;
     }
-    .blog-preview-item:first-child { border-top: 1px solid #f0f0f0; }
-    .blog-preview-item:hover { opacity: 0.7; }
-    .blog-preview-date {
+    .hero-headline {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: #444; letter-spacing: -0.2px;
+      transition: color 0.2s ease;
+    }
+    a.hero-headline:hover { color: #1B5E3B; }
+    .hero-badge {
       font-family: 'DM Mono', monospace;
-      font-size: 11px; color: #bbb; letter-spacing: 0.5px; margin-bottom: 6px;
+      font-size: 8px; font-weight: 500; letter-spacing: 0.5px;
+      color: #fff; background: #1B5E3B;
+      padding: 2px 5px; border-radius: 2px;
+      flex-shrink: 0;
     }
-    .blog-preview-title { font-size: 16px; font-weight: 600; letter-spacing: -0.3px; margin-bottom: 4px; }
-    .blog-preview-summary { font-size: 14px; color: #888; line-height: 1.7; }
-    .blog-more {
-      display: inline-block; margin-top: 20px;
-      font-family: 'DM Mono', monospace; font-size: 11px;
-      color: #bbb; letter-spacing: 1px; border-bottom: 1px solid #ddd; padding-bottom: 2px;
-      transition: color 0.25s ease, border-color 0.25s ease;
+    .hero-headline-title {
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    .blog-more:hover { color: #1B5E3B; border-color: #1B5E3B; }
 
     /* ── Careers ── */
     .careers-empty { text-align: center; padding: 80px 0; }
@@ -417,7 +425,12 @@
       .hero-inner { padding: 0 20px; grid-template-columns: 1fr; }
       .hero h1 { font-size: 32px; letter-spacing: -1px; }
       .hero-sub { font-size: 15px; }
-      .hero-visual { height: 280px; margin-top: -20px; }
+      .hero-visual { height: auto; min-height: 280px; margin-top: -20px; padding-bottom: 20px; }
+      .hero-headlines {
+        position: relative;
+        bottom: auto; left: auto; transform: none;
+        margin-top: 12px; min-width: auto; max-width: 100%;
+      }
       .blob-wrap { width: 260px; height: 260px; }
       .blob-ring { width: 220px; height: 220px; }
       .blob-ring-2 { width: 150px; height: 150px; }
@@ -480,6 +493,7 @@
         <div class="blob-ring"></div>
         <div class="blob-ring blob-ring-2"></div>
       </div>
+      <div class="hero-headlines" id="heroHeadlines"></div>
     </div>
     </div>
     <div class="scroll-hint">
@@ -572,13 +586,6 @@
     </div>
   </section>
 
-  <section class="section" id="blog">
-    <div class="section-line"></div>
-    <p class="section-label">BLOG</p>
-    <div id="blog-preview"></div>
-    <a href="blog/" class="blog-more">ALL POSTS →</a>
-  </section>
-
   <section class="section" id="news">
     <div class="section-line"></div>
     <p class="section-label">NEWS</p>
@@ -612,24 +619,24 @@
 
   <script>
     (function () {
-      fetch('../data/blog-ko.json')
-        .then(function (r) { return r.json(); })
-        .then(function (data) {
-          var posts = (data.posts || []).slice(0, 2);
-          if (posts.length === 0) return;
-          var container = document.getElementById('blog-preview');
-          var html = '<div class="blog-preview-list">';
-          posts.forEach(function (post) {
-            html += '<a class="blog-preview-item" href="blog/post.html?id=' + post.id + '">';
-            html += '<p class="blog-preview-date">' + post.date + '</p>';
-            html += '<p class="blog-preview-title">' + post.title + '</p>';
-            html += '<p class="blog-preview-summary">' + post.summary + '</p>';
-            html += '</a>';
-          });
-          html += '</div>';
-          container.innerHTML = html;
-        })
-        .catch(function () {});
+      var container = document.getElementById('heroHeadlines');
+      var items = [];
+      Promise.all([
+        fetch('../data/news.json').then(function (r) { return r.json(); }).catch(function () { return { news: [] }; }),
+        fetch('../data/blog-ko.json').then(function (r) { return r.json(); }).catch(function () { return { posts: [] }; })
+      ]).then(function (results) {
+        var news = (results[0].news || []).slice(0, 2);
+        var posts = (results[1].posts || []).slice(0, 2);
+        news.forEach(function (n) {
+          var href = n.link ? n.link : '#news';
+          var target = n.link ? ' target="_blank"' : '';
+          items.push('<a class="hero-headline" href="' + href + '"' + target + '><span class="hero-badge">NEW</span><span class="hero-headline-title">' + n.title + '</span></a>');
+        });
+        posts.forEach(function (p) {
+          items.push('<a class="hero-headline" href="blog/post.html?id=' + p.id + '"><span class="hero-badge">BLOG</span><span class="hero-headline-title">' + p.title + '</span></a>');
+        });
+        if (items.length > 0) container.innerHTML = items.join('');
+      });
     })();
   </script>
   <script>
