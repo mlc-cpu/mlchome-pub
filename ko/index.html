@@ -341,6 +341,14 @@
     }
     .hero-headline-title {
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      min-width: 0;
+    }
+    .hero-new-dot {
+      font-family: 'DM Mono', monospace;
+      font-size: 7px; font-weight: 500;
+      color: #e74c3c; letter-spacing: 0.3px;
+      margin-left: 4px; flex-shrink: 0;
+      align-self: flex-start; margin-top: 3px;
     }
 
     /* ── Careers ── */
@@ -430,6 +438,7 @@
         bottom: auto; left: auto; transform: none;
         margin-top: 12px; min-width: auto; max-width: 100%;
       }
+      .hero-headline-title { white-space: normal; overflow: visible; }
       .blob-wrap { width: 260px; height: 260px; }
       .blob-ring { width: 220px; height: 220px; }
       .blob-ring-2 { width: 150px; height: 150px; }
@@ -457,7 +466,7 @@
         <a href="#about">회사소개</a>
         <a href="#brand">브랜드</a>
         <a href="blog/">블로그</a>
-        <a href="#news">뉴스</a>
+        <a href="news/">뉴스</a>
         <a href="#careers">채용</a>
       </nav>
       <a href="../en/" class="lang">EN</a>
@@ -469,7 +478,7 @@
     <a href="#about" onclick="toggleMenu()">회사소개</a>
     <a href="#brand" onclick="toggleMenu()">브랜드</a>
     <a href="blog/">블로그</a>
-    <a href="#news" onclick="toggleMenu()">뉴스</a>
+    <a href="news/" onclick="toggleMenu()">뉴스</a>
     <a href="#careers" onclick="toggleMenu()">채용</a>
     <a href="../en/" class="lang">EN</a>
   </div>
@@ -585,14 +594,6 @@
     </div>
   </section>
 
-  <section class="section" id="news">
-    <div class="section-line"></div>
-    <p class="section-label">NEWS</p>
-    <div id="news-container">
-      <div class="news-empty"><p>소식을 준비하고 있습니다.</p></div>
-    </div>
-  </section>
-
   <section class="section" id="careers">
     <div class="section-line"></div>
     <p class="section-label">CAREERS</p>
@@ -620,6 +621,12 @@
     (function () {
       var container = document.getElementById('heroHeadlines');
       var items = [];
+      function isNew(dateStr) {
+        var parts = dateStr.split('.');
+        var d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+        var diff = new Date() - d;
+        return diff >= 0 && diff < 7 * 24 * 60 * 60 * 1000;
+      }
       Promise.all([
         fetch('../data/news.json').then(function (r) { return r.json(); }).catch(function () { return { news: [] }; }),
         fetch('../data/blog-ko.json').then(function (r) { return r.json(); }).catch(function () { return { posts: [] }; })
@@ -627,39 +634,17 @@
         var news = (results[0].news || []).slice(0, 2);
         var posts = (results[1].posts || []).slice(0, 2);
         news.forEach(function (n) {
-          var href = n.link ? n.link : '#news';
+          var href = n.link ? n.link : 'news/';
           var target = n.link ? ' target="_blank"' : '';
-          items.push('<a class="hero-headline" href="' + href + '"' + target + '><span class="hero-badge">NEW</span><span class="hero-headline-title">' + n.title + '</span></a>');
+          var newDot = isNew(n.date) ? '<span class="hero-new-dot">NEW</span>' : '';
+          items.push('<a class="hero-headline" href="' + href + '"' + target + '><span class="hero-badge">NEWS</span><span class="hero-headline-title">' + n.title + '</span>' + newDot + '</a>');
         });
         posts.forEach(function (p) {
-          items.push('<a class="hero-headline" href="blog/post.html?id=' + p.id + '"><span class="hero-badge">BLOG</span><span class="hero-headline-title">' + p.title + '</span></a>');
+          var newDot = isNew(p.date) ? '<span class="hero-new-dot">NEW</span>' : '';
+          items.push('<a class="hero-headline" href="blog/post.html?id=' + p.id + '"><span class="hero-badge">BLOG</span><span class="hero-headline-title">' + p.title + '</span>' + newDot + '</a>');
         });
         if (items.length > 0) container.innerHTML = items.join('');
       });
-    })();
-  </script>
-  <script>
-    (function () {
-      fetch('../data/news.json')
-        .then(function (r) { return r.json(); })
-        .then(function (data) {
-          var news = data.news || [];
-          if (news.length === 0) return;
-          var container = document.getElementById('news-container');
-          var html = '<div class="news-list">';
-          news.forEach(function (item) {
-            var tag = item.link ? 'a' : 'div';
-            var href = item.link ? ' href="' + item.link + '" target="_blank"' : '';
-            html += '<' + tag + ' class="news-item"' + href + '>';
-            html += '<p class="news-date">' + item.date + '</p>';
-            html += '<p class="news-title">' + item.title + '</p>';
-            if (item.body) html += '<p class="news-body">' + item.body + '</p>';
-            html += '</' + tag + '>';
-          });
-          html += '</div>';
-          container.innerHTML = html;
-        })
-        .catch(function () {});
     })();
   </script>
   <script>
