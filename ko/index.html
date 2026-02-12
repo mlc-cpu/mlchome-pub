@@ -314,6 +314,28 @@
     .news-empty { text-align: center; padding: 80px 0; }
     .news-empty p { font-size: 15px; color: #bbb; letter-spacing: -0.3px; }
 
+    /* ── Blog preview ── */
+    .blog-preview-list { display: flex; flex-direction: column; }
+    .blog-preview-item {
+      display: block; padding: 24px 0; border-bottom: 1px solid #f0f0f0;
+      transition: opacity 0.2s ease;
+    }
+    .blog-preview-item:first-child { border-top: 1px solid #f0f0f0; }
+    .blog-preview-item:hover { opacity: 0.7; }
+    .blog-preview-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; color: #bbb; letter-spacing: 0.5px; margin-bottom: 6px;
+    }
+    .blog-preview-title { font-size: 16px; font-weight: 600; letter-spacing: -0.3px; margin-bottom: 4px; }
+    .blog-preview-summary { font-size: 14px; color: #888; line-height: 1.7; }
+    .blog-more {
+      display: inline-block; margin-top: 20px;
+      font-family: 'DM Mono', monospace; font-size: 11px;
+      color: #bbb; letter-spacing: 1px; border-bottom: 1px solid #ddd; padding-bottom: 2px;
+      transition: color 0.25s ease, border-color 0.25s ease;
+    }
+    .blog-more:hover { color: #1B5E3B; border-color: #1B5E3B; }
+
     /* ── Careers ── */
     .careers-empty { text-align: center; padding: 80px 0; }
     .careers-empty p { font-size: 15px; color: #bbb; letter-spacing: -0.3px; margin-bottom: 12px; }
@@ -550,6 +572,13 @@
     </div>
   </section>
 
+  <section class="section" id="blog">
+    <div class="section-line"></div>
+    <p class="section-label">BLOG</p>
+    <div id="blog-preview"></div>
+    <a href="blog/" class="blog-more">ALL POSTS →</a>
+  </section>
+
   <section class="section" id="news">
     <div class="section-line"></div>
     <p class="section-label">NEWS</p>
@@ -581,6 +610,28 @@
     </div>
   </footer>
 
+  <script>
+    (function () {
+      fetch('../data/blog-ko.json')
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          var posts = (data.posts || []).slice(0, 2);
+          if (posts.length === 0) return;
+          var container = document.getElementById('blog-preview');
+          var html = '<div class="blog-preview-list">';
+          posts.forEach(function (post) {
+            html += '<a class="blog-preview-item" href="blog/post.html?id=' + post.id + '">';
+            html += '<p class="blog-preview-date">' + post.date + '</p>';
+            html += '<p class="blog-preview-title">' + post.title + '</p>';
+            html += '<p class="blog-preview-summary">' + post.summary + '</p>';
+            html += '</a>';
+          });
+          html += '</div>';
+          container.innerHTML = html;
+        })
+        .catch(function () {});
+    })();
+  </script>
   <script>
     (function () {
       fetch('../data/news.json')
