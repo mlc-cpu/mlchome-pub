@@ -128,34 +128,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* ==========================================================================
-     5. Contact Form Handling
-     ========================================================================== */
-
-  var contactForm = document.querySelector('.contact-form form');
-
-  if (contactForm) {
-    contactForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      // Attempt to show an inline success message if a container exists,
-      // otherwise fall back to a simple alert.
-      var successMsg = contactForm.querySelector('.form-success');
-
-      if (successMsg) {
-        successMsg.style.display = 'block';
-        successMsg.textContent = contactForm.dataset.successMessage ||
-          'Thank you! Your message has been sent.';
-      } else {
-        alert(
-          contactForm.dataset.successMessage ||
-          'Thank you! Your message has been sent.'
-        );
-      }
-
-      contactForm.reset();
-    });
-  }
 
   /* ==========================================================================
      6. Counter Animation for Stats

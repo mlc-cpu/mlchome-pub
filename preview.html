@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mullae Company — Where Wellness Blooms into Beauty</title>
+  <title>문래컴퍼니 — 건강에서 피어나는 아름다움</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -115,24 +115,33 @@
     .blob-2 {
       background: radial-gradient(circle, rgba(90,125,98,0.35) 0%, rgba(90,125,98,0.03) 70%);
       animation-delay: -4s;
-      width: 85%; height: 85%; top: 10%; left: 15%;
+      width: 85%;
+      height: 85%;
+      top: 10%;
+      left: 15%;
     }
     .blob-3 {
       background: radial-gradient(circle, rgba(180,210,190,0.4) 0%, rgba(200,230,210,0.02) 70%);
       animation-delay: -8s;
-      width: 70%; height: 70%; top: 20%; left: 5%;
+      width: 70%;
+      height: 70%;
+      top: 20%;
+      left: 5%;
     }
     .blob-ring {
       position: absolute;
-      width: 320px; height: 320px;
-      top: 50%; left: 50%;
+      width: 320px;
+      height: 320px;
+      top: 50%;
+      left: 50%;
       transform: translate(-50%, -50%);
       border: 1px solid rgba(27,94,59,0.12);
       border-radius: 50%;
       animation: ringPulse 6s ease-in-out infinite;
     }
     .blob-ring-2 {
-      width: 220px; height: 220px;
+      width: 220px;
+      height: 220px;
       border-color: rgba(27,94,59,0.08);
       animation-delay: -2s;
     }
@@ -149,16 +158,22 @@
     }
     .hero-label {
       font-family: 'DM Mono', monospace;
-      font-size: 11px; font-weight: 500;
-      letter-spacing: 3px; color: #1B5E3B;
-      margin-bottom: 40px; opacity: 0.7;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      color: #1B5E3B;
+      margin-bottom: 40px;
+      opacity: 0.7;
     }
     .hero h1 {
       font-family: 'Noto Serif KR', serif;
       font-size: clamp(36px, 5.5vw, 58px);
-      font-weight: 900; line-height: 1.3;
-      letter-spacing: -1.5px; margin-bottom: 28px;
-      color: #111; word-break: keep-all;
+      font-weight: 900;
+      line-height: 1.3;
+      letter-spacing: -1.5px;
+      margin-bottom: 28px;
+      color: #111;
+      word-break: keep-all;
     }
     .hero h1 em {
       font-style: normal;
@@ -166,22 +181,95 @@
       padding-bottom: 2px;
     }
     .hero-sub {
-      font-size: 17px; font-weight: 500;
-      color: #444; letter-spacing: -0.3px;
+      font-size: 17px;
+      font-weight: 500;
+      color: #444;
+      margin-bottom: 20px;
+      letter-spacing: -0.3px;
     }
+    .hero-desc {
+      font-size: 15px;
+      color: #888;
+      max-width: 460px;
+      line-height: 1.85;
+      margin-bottom: 48px;
+    }
+
+    /* ── Trust indicators ── */
+    .trust-row {
+      display: flex;
+      gap: 32px;
+      margin-bottom: 56px;
+      flex-wrap: wrap;
+    }
+    .trust-item {
+      font-size: 12px;
+      font-weight: 600;
+      color: #555;
+      letter-spacing: -0.2px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .trust-dot {
+      width: 5px;
+      height: 5px;
+      background: #1B5E3B;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── CTA ── */
+    .hero-cta {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: #1B5E3B;
+      color: #fff;
+      padding: 15px 36px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      border: none;
+      cursor: pointer;
+      letter-spacing: -0.2px;
+      transition: background 0.3s ease;
+    }
+    .btn-primary:hover { background: #164d31; }
+    .btn-line {
+      display: inline-block;
+      color: #1a1a1a;
+      padding: 15px 0;
+      font-size: 14px;
+      font-weight: 500;
+      border-bottom: 1px solid #1a1a1a;
+      transition: all 0.25s ease;
+    }
+    .btn-line:hover { color: #1B5E3B; border-color: #1B5E3B; }
 
     /* ── Scroll hint ── */
     .scroll-hint {
-      position: absolute; bottom: 36px; left: 50%;
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
       transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
     }
     .scroll-hint span {
       font-family: 'DM Mono', monospace;
-      font-size: 9px; letter-spacing: 2px; color: #bbb;
+      font-size: 9px;
+      letter-spacing: 2px;
+      color: #bbb;
     }
     .scroll-line {
-      width: 1px; height: 28px;
+      width: 1px;
+      height: 28px;
       background: linear-gradient(to bottom, #ccc, transparent);
       animation: scrollPulse 2s ease-in-out infinite;
     }
@@ -193,64 +281,216 @@
     /* ── About ── */
     .about {
       padding: 140px 32px;
-      max-width: 1100px; margin: 0 auto;
+      max-width: 1100px;
+      margin: 0 auto;
     }
     .section-line {
-      width: 100%; height: 1px;
-      background: #eee; margin-bottom: 140px;
+      width: 100%;
+      height: 1px;
+      background: #eee;
+      margin-bottom: 140px;
     }
     .about-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 100px; align-items: start;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: start;
     }
     .about-label {
       font-family: 'DM Mono', monospace;
-      font-size: 11px; font-weight: 500;
-      letter-spacing: 3px; color: #bbb; margin-bottom: 28px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      color: #bbb;
+      margin-bottom: 28px;
     }
     .about h2 {
       font-family: 'Noto Serif KR', serif;
-      font-size: 30px; font-weight: 700;
-      line-height: 1.45; letter-spacing: -0.5px; margin-bottom: 20px;
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1.45;
+      letter-spacing: -0.5px;
+      margin-bottom: 20px;
     }
     .about-accent {
-      width: 28px; height: 2px;
-      background: #1B5E3B; margin-bottom: 28px;
+      width: 28px;
+      height: 2px;
+      background: #1B5E3B;
+      margin-bottom: 28px;
     }
     .about p {
-      font-size: 15px; color: #666;
-      margin-bottom: 18px; line-height: 1.85;
+      font-size: 15px;
+      color: #666;
+      margin-bottom: 18px;
+      line-height: 1.85;
     }
     .about p strong { color: #1a1a1a; font-weight: 600; }
 
     /* ── Values ── */
-    .values { display: flex; flex-direction: column; gap: 48px; padding-top: 8px; }
+    .values {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+      padding-top: 8px;
+    }
     .value-item {
       padding-left: 20px;
       border-left: 1px solid #e0e0e0;
       transition: border-color 0.3s ease;
     }
     .value-item:hover { border-color: #1B5E3B; }
-    .value-item h4 { font-size: 16px; font-weight: 700; margin-bottom: 2px; letter-spacing: -0.3px; }
+    .value-item h4 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 2px;
+      letter-spacing: -0.3px;
+    }
     .value-item .en {
       font-family: 'DM Mono', monospace;
-      font-size: 10px; letter-spacing: 2px; color: #c0c0c0; margin-bottom: 10px;
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: #c0c0c0;
+      margin-bottom: 10px;
     }
-    .value-item p { font-size: 13px; color: #999; line-height: 1.75; margin-bottom: 0; }
+    .value-item p {
+      font-size: 13px;
+      color: #999;
+      line-height: 1.75;
+      margin-bottom: 0;
+    }
 
     /* ── Section common ── */
-    .section { padding: 140px 32px; max-width: 1100px; margin: 0 auto; }
+    .section {
+      padding: 140px 32px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
     .section-label {
       font-family: 'DM Mono', monospace;
-      font-size: 11px; font-weight: 500;
-      letter-spacing: 3px; color: #bbb; margin-bottom: 28px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      color: #bbb;
+      margin-bottom: 28px;
     }
-    .section-accent { width: 28px; height: 2px; background: #1B5E3B; margin-bottom: 48px; }
+    .section h2 {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1.45;
+      letter-spacing: -0.5px;
+      margin-bottom: 20px;
+    }
+    .section-accent {
+      width: 28px;
+      height: 2px;
+      background: #1B5E3B;
+      margin-bottom: 48px;
+    }
+
+    /* ── Products ── */
+    .products-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+    .product-card {
+      border: 1px solid #eee;
+      padding: 48px 36px;
+      transition: border-color 0.3s ease;
+    }
+    .product-card:hover { border-color: #1B5E3B; }
+    .product-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+    .product-card h3 {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    .product-card .product-en {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      color: #c0c0c0;
+      margin-bottom: 20px;
+    }
+    .product-card p {
+      font-size: 14px;
+      color: #888;
+      line-height: 1.85;
+      margin-bottom: 12px;
+    }
+    .product-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+    .product-tag {
+      font-size: 11px;
+      font-weight: 500;
+      color: #1B5E3B;
+      background: rgba(27,94,59,0.06);
+      padding: 5px 12px;
+      letter-spacing: -0.2px;
+    }
+
+    /* ── Brand ── */
+    .brand-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: start;
+    }
+    .brand-text p {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.85;
+      margin-bottom: 18px;
+    }
+    .brand-text p strong { color: #1a1a1a; font-weight: 600; }
+    .brand-principles {
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+      padding-top: 8px;
+    }
+    .principle {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .principle-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      color: #1B5E3B;
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+    .principle p {
+      font-size: 14px;
+      color: #777;
+      line-height: 1.75;
+    }
+    .principle strong {
+      color: #1a1a1a;
+      font-weight: 600;
+    }
 
     /* ── Brand ── */
     .brand-split {
-      display: grid; grid-template-columns: 1fr 1px 1fr;
-      gap: 0; align-items: start;
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr;
+      gap: 0;
+      align-items: start;
     }
     .brand-col { padding: 0 48px; }
     .brand-col:first-child { padding-left: 0; }
@@ -259,22 +499,38 @@
     .brand-name {
       font-family: 'Noto Serif KR', serif;
       font-size: clamp(36px, 6vw, 56px);
-      font-weight: 900; letter-spacing: -2px;
-      color: #1a1a1a; margin-bottom: 8px;
+      font-weight: 900;
+      letter-spacing: -2px;
+      color: #1a1a1a;
+      margin-bottom: 8px;
     }
     .brand-name-en {
       font-family: 'DM Mono', monospace;
-      font-size: 11px; letter-spacing: 3px;
-      color: #c0c0c0; margin-bottom: 24px;
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: #c0c0c0;
+      margin-bottom: 24px;
     }
-    .brand-links { display: flex; gap: 24px; margin-top: 36px; }
+    .brand-links {
+      display: flex;
+      gap: 24px;
+      margin-top: 36px;
+    }
     .brand-link {
-      font-size: 13px; font-weight: 500; color: #888;
-      border-bottom: 1px solid #ddd; padding-bottom: 2px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #888;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 2px;
       transition: all 0.25s ease;
     }
     .brand-link:hover { color: #1B5E3B; border-color: #1B5E3B; }
-    .brand-meaning { font-size: 15px; color: #666; line-height: 1.85; margin-bottom: 24px; }
+    .brand-meaning {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.85;
+      margin-bottom: 24px;
+    }
     .brand-meaning strong { color: #1a1a1a; font-weight: 600; }
     .brand-coming .brand-name { color: #ccc; filter: blur(6px); }
     .brand-coming .brand-name-en { color: #ddd; }
@@ -297,27 +553,58 @@
     /* ── News ── */
     .news-list { display: flex; flex-direction: column; }
     .news-item {
-      padding: 28px 0; border-bottom: 1px solid #f0f0f0;
-      display: block; transition: opacity 0.2s ease;
+      padding: 28px 0;
+      border-bottom: 1px solid #f0f0f0;
+      display: block;
+      transition: opacity 0.2s ease;
     }
     .news-item:first-child { padding-top: 0; }
     .news-item:last-child { border-bottom: none; }
     a.news-item:hover { opacity: 0.7; }
     .news-date {
       font-family: 'DM Mono', monospace;
-      font-size: 11px; color: #bbb; letter-spacing: 0.5px; margin-bottom: 6px;
+      font-size: 11px;
+      color: #bbb;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
     }
-    .news-title { font-size: 16px; font-weight: 600; letter-spacing: -0.3px; margin-bottom: 4px; }
-    .news-body { font-size: 14px; color: #888; line-height: 1.7; }
-    .news-empty { text-align: center; padding: 80px 0; }
-    .news-empty p { font-size: 15px; color: #bbb; letter-spacing: -0.3px; }
+    .news-title {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      margin-bottom: 4px;
+    }
+    .news-body {
+      font-size: 14px;
+      color: #888;
+      line-height: 1.7;
+    }
+    .news-empty {
+      text-align: center;
+      padding: 80px 0;
+    }
+    .news-empty p {
+      font-size: 15px;
+      color: #bbb;
+      letter-spacing: -0.3px;
+    }
 
     /* ── Careers ── */
-    .careers-empty { text-align: center; padding: 80px 0; }
-    .careers-empty p { font-size: 15px; color: #bbb; letter-spacing: -0.3px; margin-bottom: 12px; }
+    .careers-empty {
+      text-align: center;
+      padding: 80px 0;
+    }
+    .careers-empty p {
+      font-size: 15px;
+      color: #bbb;
+      letter-spacing: -0.3px;
+      margin-bottom: 12px;
+    }
     .careers-empty a {
-      font-size: 13px; color: #888;
-      border-bottom: 1px solid #ddd; padding-bottom: 2px;
+      font-size: 13px;
+      color: #888;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 2px;
       transition: all 0.25s ease;
     }
     .careers-empty a:hover { color: #1B5E3B; border-color: #1B5E3B; }
@@ -326,33 +613,48 @@
     footer {
       border-top: 1px solid #eee;
       padding: 28px 32px 32px;
-      max-width: 1100px; margin: 0 auto;
+      max-width: 1100px;
+      margin: 0 auto;
     }
     .footer-top {
-      display: flex; justify-content: space-between;
-      align-items: flex-start; margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
     }
     .footer-logo {
       font-family: 'Pretendard Variable', sans-serif;
-      font-size: 15px; letter-spacing: -0.3px;
+      font-size: 15px;
+      letter-spacing: -0.3px;
     }
     .footer-logo b { font-weight: 900; color: #1B5E3B; }
     .footer-logo span { font-weight: 400; color: #5A7D62; }
-    .footer-info { font-size: 11px; color: #bbb; line-height: 1.9; }
-    .footer-info span { margin-right: 16px; }
-    .footer-bottom {
-      margin-top: 24px; padding-top: 20px;
-      border-top: 1px solid #f0f0f0;
-      font-family: 'DM Mono', monospace;
-      font-size: 10px; color: #ccc; letter-spacing: 0.5px;
-      display: flex; justify-content: space-between; align-items: center;
+    .footer-contact {
+      text-align: right;
     }
-    .footer-bottom a {
-      font-family: inherit; font-size: 11px; color: #aaa;
-      border-bottom: 1px solid #ddd; padding-bottom: 1px;
+    .footer-contact a {
+      font-size: 13px;
+      color: #888;
       transition: color 0.25s ease;
     }
-    .footer-bottom a:hover { color: #1B5E3B; border-color: #1B5E3B; }
+    .footer-contact a:hover { color: #1B5E3B; }
+    .footer-info {
+      font-size: 11px;
+      color: #bbb;
+      line-height: 1.9;
+    }
+    .footer-info span {
+      margin-right: 16px;
+    }
+    .footer-bottom {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid #f0f0f0;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: #ccc;
+      letter-spacing: 0.5px;
+    }
 
     /* ── Mobile ── */
     @media (max-width: 768px) {
@@ -365,17 +667,23 @@
       .blob-wrap { width: 260px; height: 260px; }
       .blob-ring { width: 220px; height: 220px; }
       .blob-ring-2 { width: 150px; height: 150px; }
+      .hero-cta { flex-direction: column; align-items: flex-start; }
+      .btn-primary { width: 100%; text-align: center; }
       .scroll-hint { display: none; }
       .about { padding: 80px 20px; }
       .section-line { margin-bottom: 80px; }
       .about-grid { grid-template-columns: 1fr; gap: 56px; }
       .values { gap: 36px; }
       .section { padding: 80px 20px; }
+      .products-grid { grid-template-columns: 1fr; gap: 24px; }
+      .product-card { padding: 32px 24px; }
+      .brand-grid { grid-template-columns: 1fr; gap: 56px; }
       .brand-split { grid-template-columns: 1fr; gap: 48px; }
       .brand-divider { height: 1px; align-self: auto; }
       .brand-col { padding: 0; }
       footer { padding: 36px 20px 32px; }
       .footer-top { flex-direction: column; gap: 16px; }
+      .footer-contact { text-align: left; }
       .footer-info span { display: block; margin-right: 0; }
     }
   </style>
@@ -384,14 +692,14 @@
 
   <header>
     <div class="header-inner">
-      <a href="../en/" class="logo"><b>mullae</b><span>company</span></a>
+      <a href="#" class="logo"><b>mullae</b><span>company</span></a>
       <nav>
-        <a href="#about">About</a>
-        <a href="#brand">Brand</a>
-        <a href="#news">News</a>
-        <a href="#careers">Careers</a>
+        <a href="#about">회사소개</a>
+        <a href="#brand">브랜드</a>
+        <a href="#news">뉴스</a>
+        <a href="#careers">채용</a>
       </nav>
-      <a href="../ko/" class="lang">KO</a>
+      <a href="#" class="lang">EN</a>
     </div>
   </header>
 
@@ -400,10 +708,10 @@
     <div class="hero-text">
       <p class="hero-label">LIVE WELL. AGE BEAUTIFULLY.</p>
       <h1>
-        Where Wellness<br>
-        <em>Blooms into Beauty</em>
+        건강에서&nbsp;피어나는<br>
+        <em>아름다움</em>
       </h1>
-      <p class="hero-sub">Supplements &amp; skincare, made by pharmacists</p>
+      <p class="hero-sub">약사가 만드는 건강기능식품과 화장품</p>
     </div>
     <div class="hero-visual">
       <div class="blob-wrap">
@@ -426,40 +734,82 @@
     <div class="about-grid">
       <div>
         <p class="about-label">ABOUT US</p>
-        <h2>We look at ingredients<br>the way we used to<br>look at medicine</h2>
+        <h2>약을 검증하던 눈으로<br>원료부터 다시 봅니다</h2>
         <div class="about-accent"></div>
         <p>
-          Our founders spent their careers in pharma —
-          <strong>R&amp;D, clinical validation, quality analysis, and global operations</strong>.
-          They started <strong>Mullae Company</strong> in Seoul
-          to do things differently.
+          약이 세상에 나오는 전 과정 —
+          <strong>개발, 검증, 분석, 글로벌 사업</strong> —을
+          직접 이끌어 온 약사와 한약사가
+          서울 문래동에서 <strong>문래컴퍼니</strong>를 세웠습니다.
         </p>
         <p>
-          We formulate our own <strong>supplements and skincare</strong> from scratch.
-          Every ingredient meets pharmaceutical-grade standards,
-          and we share the data openly — because you deserve to know what's inside.
+          <strong>건강기능식품과 화장품</strong>을 직접 기획하고 만듭니다.
+          원료 하나하나에 의약품을 다루던 기준을 그대로 적용하고,
+          검증한 모든 정보를 소비자에게 투명하게 공개합니다.
         </p>
       </div>
       <div class="values">
         <div class="value-item">
-          <h4>Ground</h4>
+          <h4>터</h4>
           <p class="en">GROUND</p>
-          <p>Rooted in science.</p>
+          <p>과학 위에 담았습니다.</p>
         </div>
         <div class="value-item">
-          <h4>True</h4>
+          <h4>참</h4>
           <p class="en">TRUE</p>
-          <p>Made right.</p>
+          <p>바르게 만듭니다.</p>
         </div>
         <div class="value-item">
-          <h4>Warm</h4>
+          <h4>품</h4>
           <p class="en">WARM</p>
-          <p>For your health and beauty — today and every day.</p>
+          <p>오늘도 건강하고 아름답기를.</p>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Products (제품 출시 전까지 숨김)
+  <section class="section" id="products">
+    <div class="section-line"></div>
+    <p class="section-label">PRODUCTS</p>
+    <h2>성분을 밝히는 제품</h2>
+    <div class="section-accent"></div>
+    <div class="products-grid">
+      <div class="product-card">
+        <p class="product-num">01</p>
+        <h3>튼튼베리</h3>
+        <p class="product-en">TUNTUN BERRY</p>
+        <p>
+          이탈리아 Iprona의 ElderCraft® 15%와
+          프랑스 Naturex 빌베리 25%를 함께 담았습니다.
+          두 원료 모두 안토시아닌 함량을 보증합니다.
+        </p>
+        <div class="product-tags">
+          <span class="product-tag">어린이 면역</span>
+          <span class="product-tag">이중 안토시아닌 보증</span>
+          <span class="product-tag">액상스틱</span>
+        </div>
+      </div>
+      <div class="product-card">
+        <p class="product-num">02</p>
+        <h3>신선한 오메가3</h3>
+        <p class="product-en">FRESH OMEGA-3</p>
+        <p>
+          독일 KD Pharma rTG 오메가3, IFOS 5-Star 인증.
+          소량 생산하여 제조 후 30일 이내에 출고합니다.
+          배치별 산패도(TOTOX) 수치를 공개합니다.
+        </p>
+        <div class="product-tags">
+          <span class="product-tag">소량 생산</span>
+          <span class="product-tag">IFOS 5-Star</span>
+          <span class="product-tag">Alu-Alu 포장</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  -->
+
+  <!-- Brand -->
   <section class="section" id="brand">
     <div class="section-line"></div>
     <p class="section-label">BRAND</p>
@@ -469,25 +819,19 @@
         <p class="brand-name-en">ONLON™</p>
         <div class="section-accent"></div>
         <p class="brand-meaning">
-          Starting <strong>today</strong>, whole, warm wellness finds its way to you.<br>
-          Our health supplement brand.
+          <strong>오늘</strong>부터, 온전한 건강이 따뜻하게 찾아옵니다.<br>
+          문래컴퍼니의 건강기능식품 브랜드입니다.
         </p>
         <p class="brand-meaning">
-          In Korean, <strong>온 (on)</strong> holds three meanings at once:<br>
-          to arrive, to be whole, to be warm.
+          <strong>온</strong> — 오다, 온전하다, 따뜻하다.<br>
+          세 가지 뜻을 하나의 이름에 담았습니다.
         </p>
         <p class="brand-meaning">
-          In English, <strong>on</strong> is the quiet click of beginning —<br>
-          a light turning on, a life switching on.<br>
-          Four meanings woven into a single syllable.<br>
-          Today:On — turn on your wellness.
-        </p>
-        <p class="brand-meaning">
-          We're preparing our very first product.<br>
-          When the lily of the valley blooms this May, so will we.
+          첫번째 제품을 준비하고 있습니다.<br>
+          은방울꽃 피어나는 5월이면 만나보실 수 있습니다.
         </p>
         <div class="brand-links">
-          <a href="https://smartstore.naver.com/onlon" target="_blank" class="brand-link">Smart Store</a>
+          <a href="https://smartstore.naver.com/onlon" target="_blank" class="brand-link">스마트스토어</a>
           <a href="https://instagram.com/oneul_pharmacy" target="_blank" class="brand-link">Instagram</a>
         </div>
       </div>
@@ -496,7 +840,9 @@
         <p class="brand-name">피부미학</p>
         <p class="brand-name-en">DERMA SCIENCE</p>
         <div class="section-accent"></div>
-        <p class="brand-meaning">Spring is coming for your skin, too.</p>
+        <p class="brand-meaning">
+          곧, 피부 위에도 봄이 옵니다.
+        </p>
       </div>
     </div>
   </section>
@@ -506,24 +852,28 @@
     <div class="section-line"></div>
     <p class="section-label">OUR PARTNERS</p>
     <div class="partners">
-      <span class="partner">NPK Solutions</span>
-      <span class="partner">Daewoodang Healthcare</span>
+      <span class="partner">NPK솔루션즈</span>
+      <span class="partner">대우당헬스케어</span>
     </div>
   </section>
 
+  <!-- News -->
   <section class="section" id="news">
     <div class="section-line"></div>
     <p class="section-label">NEWS</p>
     <div id="news-container">
-      <div class="news-empty"><p>Stay tuned — news is on its way.</p></div>
+      <div class="news-empty">
+        <p>소식을 준비하고 있습니다.</p>
+      </div>
     </div>
   </section>
 
+  <!-- Careers -->
   <section class="section" id="careers">
     <div class="section-line"></div>
     <p class="section-label">CAREERS</p>
     <div class="careers-empty">
-      <p>No openings yet — but we'd love to hear from you.</p>
+      <p>채용 공고를 준비하고 있습니다.</p>
       <a href="mailto:bd@mlc.co.kr">bd@mlc.co.kr</a>
     </div>
   </section>
@@ -533,18 +883,18 @@
       <div class="footer-logo"><b>mullae</b><span>company</span></div>
     </div>
     <div class="footer-info">
-      <span>MullaeCompany Co.,Ltd.</span>
-      <span>Yeongdeungpo-gu, Seoul</span>
+      <span>(주)문래컴퍼니</span>
+      <span>서울특별시 영등포구</span>
     </div>
-    <div class="footer-bottom">
+    <div class="footer-bottom" style="display:flex; justify-content:space-between; align-items:center;">
       <span>&copy; 2025 MULLAE COMPANY. ALL RIGHTS RESERVED.</span>
-      <a href="mailto:bd@mlc.co.kr">Get in Touch</a>
+      <a href="mailto:bd@mlc.co.kr" style="font-family:inherit; font-size:11px; color:#aaa; border-bottom:1px solid #ddd; padding-bottom:1px; transition:color 0.25s ease;">문의하기</a>
     </div>
   </footer>
 
   <script>
     (function () {
-      fetch('../data/news-en.json')
+      fetch('./data/news.json')
         .then(function (r) { return r.json(); })
         .then(function (data) {
           var news = data.news || [];
