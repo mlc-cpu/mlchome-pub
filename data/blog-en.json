@@ -1,0 +1,12 @@
+{
+  "posts": [
+    {
+      "id": "european-ingredients",
+      "date": "2025.02.13",
+      "title": "Why we insist on European ingredients",
+      "summary": "We choose raw materials with the same rigor we once applied to pharmaceuticals. Here's why MullaeCompany sources from Europe.",
+      "content": "<p>The supplement market is flooded with ingredients. Even the same compound can vary wildly in quality depending on <strong>origin, extraction method, and purity</strong>.</p><p>At MullaeCompany, we apply the same standards we used in pharma. For every single ingredient, we review <strong>clinical data, stability test results, and manufacturing certifications</strong>.</p><p>We chose European ingredients for a simple reason: Europe has the strictest raw material regulations in the world, and ingredients that pass those standards are ones we can stand behind.</p><p>Going forward, we'll use this blog to openly share the sourcing and verification data for every ingredient we use.</p>",
+      "tags": ["ingredients", "quality"]
+    }
+  ]
+}
