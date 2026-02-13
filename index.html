@@ -122,21 +122,9 @@
 
   <script>
     (function () {
-      var userInteracted = false;
-
-      function markInteraction() { userInteracted = true; }
-      document.addEventListener('click', markInteraction, { once: true });
-      document.addEventListener('touchstart', markInteraction, { once: true });
-      document.addEventListener('keydown', markInteraction, { once: true });
-
       var lang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
       var isKo = lang.startsWith('ko');
-      var target = isKo ? './ko/' : './en/';
-
-      // Highlight detected language
       document.getElementById(isKo ? 'btn-ko' : 'btn-en').classList.add('lang-btn--active');
-
-      window.location.href = target;
     })();
   </script>
 </body>
