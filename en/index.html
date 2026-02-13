@@ -440,7 +440,7 @@
       .hero-headlines {
         position: relative;
         bottom: auto; left: auto; transform: none;
-        margin-top: -20px; width: 100%;
+        margin-top: -50px; width: 100%;
       }
       .hero-headline-title { white-space: normal; overflow: visible; }
       .blob-wrap { width: 200px; height: 200px; }
@@ -641,6 +641,7 @@
           combined.push({ type: 'BLOG', date: p.date, title: p.title, link: null, id: p.id });
         });
         combined.sort(function (a, b) { return parseDate(b.date) - parseDate(a.date); });
+        combined = combined.slice(0, 5);
         var html = '';
         combined.forEach(function (item) {
           var newDot = isNew(item.date) ? '<span class="hero-new-dot">NEW</span>' : '';
