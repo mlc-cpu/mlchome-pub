@@ -262,8 +262,11 @@
     .brand-name {
       font-family: 'Noto Serif KR', serif;
       font-size: clamp(36px, 6vw, 56px);
-      font-weight: 900; letter-spacing: -2px;
+      font-weight: 700; letter-spacing: -2px;
       color: #1a1a1a; margin-bottom: 8px;
+    }
+    .brand-name .tm, .brand-name-en .tm {
+      font-size: 0.4em; vertical-align: super; font-weight: 400;
     }
     .brand-name-en {
       font-family: 'DM Mono', monospace;
@@ -552,8 +555,8 @@
     <p class="section-label">BRAND</p>
     <div class="brand-split">
       <div class="brand-col">
-        <p class="brand-name">오늘:온™</p>
-        <p class="brand-name-en">ONLON™</p>
+        <p class="brand-name">오늘:온<span class="tm">TM</span></p>
+        <p class="brand-name-en">ONLON<span class="tm">TM</span></p>
         <div class="section-accent"></div>
         <p class="brand-meaning">
           <strong>오늘</strong>부터, 온전한 건강이 따뜻하게 찾아옵니다.<br>
