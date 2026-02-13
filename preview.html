@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Serif+KR:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Gowun+Batang:wght@400;700&family=Noto+Serif+KR:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior:smooth; }
@@ -622,13 +622,11 @@
       align-items: flex-start;
       margin-bottom: 12px;
     }
-    .footer-logo {
-      font-family: 'Pretendard Variable', sans-serif;
-      font-size: 15px;
-      letter-spacing: -0.3px;
-    }
-    .footer-logo b { font-weight: 900; color: #1B5E3B; }
-    .footer-logo span { font-weight: 400; color: #5A7D62; }
+    .footer-logo { margin-bottom: 0; }
+    .footer-corp { font-family: 'Gowun Batang', serif; font-size: 10px; font-weight: 400; color: #aaa; letter-spacing: 3px; margin-bottom: -2px; }
+    .footer-name { font-family: 'Gowun Batang', serif; font-size: 18px; font-weight: 700; letter-spacing: 2px; margin-top: 0; }
+    .footer-name b { font-weight: 700; color: #1a1a1a; }
+    .footer-name span { font-weight: 700; color: #5A7D62; }
     .footer-contact {
       text-align: right;
     }
@@ -880,14 +878,16 @@
 
   <footer>
     <div class="footer-top">
-      <div class="footer-logo"><b>mullae</b><span>company</span></div>
+      <div class="footer-logo">
+          <div class="footer-corp">주식회사</div>
+          <div class="footer-name"><b>문래</b><span>컴퍼니</span></div>
+        </div>
     </div>
     <div class="footer-info">
-      <span>(주)문래컴퍼니</span>
-      <span>서울특별시 영등포구</span>
+      <span>서울특별시 영등포구 문래동</span>
     </div>
     <div class="footer-bottom" style="display:flex; justify-content:space-between; align-items:center;">
-      <span>&copy; 2025 MULLAECOMPANY. ALL RIGHTS RESERVED.</span>
+      <span>&copy; 2025 MULLAECOMPANY CO.,LTD. ALL RIGHTS RESERVED.</span>
       <a href="mailto:bd@mlc.co.kr" style="font-family:inherit; font-size:11px; color:#aaa; border-bottom:1px solid #ddd; padding-bottom:1px; transition:color 0.25s ease;">문의하기</a>
     </div>
   </footer>
