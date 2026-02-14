@@ -74,6 +74,24 @@
     }
     .careers-empty a:hover { color: #1B5E3B; border-color: #1B5E3B; }
 
+    .position-list { display: flex; flex-direction: column; gap: 24px; }
+    .position-item {
+      border: 1px solid #eee; padding: 28px 32px;
+      border-radius: 4px; transition: all 0.25s ease;
+    }
+    .position-item:hover { border-color: #1B5E3B; }
+    .position-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px; }
+    .position-title { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
+    .position-type {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; color: #1B5E3B; letter-spacing: 0.5px;
+      border: 1px solid #1B5E3B; padding: 4px 12px; border-radius: 2px;
+    }
+    .position-dept {
+      font-size: 14px; color: #888; margin-bottom: 8px;
+    }
+    .position-desc { font-size: 14px; color: #666; line-height: 1.7; }
+
     /* ── Footer ── */
     footer {
       border-top: 1px solid #eee; padding: 28px 32px 32px;
@@ -161,9 +179,11 @@
     <a href="../" class="back-link">← HOME</a>
     <p class="page-label">CAREERS</p>
     <h1 class="page-title">채용</h1>
-    <div class="careers-empty">
-      <p>채용 공고를 준비하고 있습니다.</p>
-      <a href="mailto:bd@mlc.co.kr">bd@mlc.co.kr</a>
+    <div id="careers-container">
+      <div class="careers-empty">
+        <p>채용 공고를 준비하고 있습니다.</p>
+        <a href="mailto:bd@mlc.co.kr">bd@mlc.co.kr</a>
+      </div>
     </div>
   </div>
 
@@ -185,6 +205,46 @@
       document.getElementById('mobileNav').classList.toggle('open');
       document.querySelector('.menu-btn').classList.toggle('active');
     }
+
+    // Load careers data
+    (function () {
+      fetch('../../data/careers.json')
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          var positions = data.positions || [];
+          var container = document.getElementById('careers-container');
+
+          if (positions.length === 0) {
+            // Show empty message (already in HTML)
+            return;
+          }
+
+          // Build position list
+          var html = '<div class="position-list">';
+          positions.forEach(function (pos) {
+            html += '<div class="position-item">';
+            html += '  <div class="position-header">';
+            html += '    <div class="position-title">' + pos.title + '</div>';
+            if (pos.type) {
+              html += '    <div class="position-type">' + pos.type + '</div>';
+            }
+            html += '  </div>';
+            if (pos.department) {
+              html += '  <div class="position-dept">' + pos.department + '</div>';
+            }
+            if (pos.description) {
+              html += '  <div class="position-desc">' + pos.description + '</div>';
+            }
+            html += '</div>';
+          });
+          html += '</div>';
+
+          container.innerHTML = html;
+        })
+        .catch(function () {
+          // Keep empty message on error
+        });
+    })();
   </script>
 </body>
 </html>
