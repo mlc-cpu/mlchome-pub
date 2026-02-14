@@ -488,9 +488,9 @@
       <nav>
         <a href="#about">회사소개</a>
         <a href="#brand">브랜드</a>
-        <a href="blog/">블로그</a>
-        <a href="news/">뉴스</a>
-        <a href="careers/">채용</a>
+        <a href="ko/blog/">블로그</a>
+        <a href="ko/news/">뉴스</a>
+        <a href="ko/careers/">채용</a>
       </nav>
       <a href="/en/" class="lang">EN</a>
       <button class="menu-btn" onclick="toggleMenu()"><span></span><span></span><span></span></button>
@@ -500,9 +500,9 @@
   <div class="mobile-nav" id="mobileNav">
     <a href="#about" onclick="toggleMenu()">회사소개</a>
     <a href="#brand" onclick="toggleMenu()">브랜드</a>
-    <a href="blog/">블로그</a>
-    <a href="news/" onclick="toggleMenu()">뉴스</a>
-    <a href="careers/" onclick="toggleMenu()">채용</a>
+    <a href="ko/blog/">블로그</a>
+    <a href="ko/news/" onclick="toggleMenu()">뉴스</a>
+    <a href="ko/careers/" onclick="toggleMenu()">채용</a>
     <a href="/en/" class="lang">EN</a>
   </div>
 
@@ -673,10 +673,10 @@
           var newDot = isNew(item.date) ? '<span class="hero-new-dot">NEW</span>' : '';
           var href, target = '';
           if (item.type === 'NEWS') {
-            href = item.link ? item.link : 'news/';
+            href = item.link ? item.link : 'ko/news/';
             target = item.link ? ' target="_blank"' : '';
           } else {
-            href = 'blog/post.html?id=' + item.id;
+            href = 'ko/blog/post.html?id=' + item.id;
           }
           html += '<a class="hero-headline" href="' + href + '"' + target + '><span class="hero-badge">' + item.type + '</span><span class="hero-headline-title">' + item.title + '</span>' + newDot + '</a>';
         });
