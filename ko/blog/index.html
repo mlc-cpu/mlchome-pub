@@ -104,6 +104,28 @@
       color: #bbb;
     }
 
+    /* ── Pagination ── */
+    .pagination {
+      display: flex; justify-content: center; align-items: center;
+      gap: 8px; margin-top: 48px; padding-top: 32px;
+      border-top: 1px solid #f0f0f0;
+    }
+    .pagination button {
+      padding: 8px 12px; font-size: 13px; font-weight: 500;
+      font-family: 'DM Mono', monospace;
+      border: 1px solid #e0e0e0; background: #fff;
+      color: #666; cursor: pointer; transition: all 0.2s ease;
+    }
+    .pagination button:hover:not(:disabled) {
+      border-color: #1B5E3B; color: #1B5E3B;
+    }
+    .pagination button.active {
+      background: #1B5E3B; color: #fff; border-color: #1B5E3B;
+    }
+    .pagination button:disabled {
+      opacity: 0.3; cursor: not-allowed;
+    }
+
     /* ── Footer ── */
     footer {
       border-top: 1px solid #eee; padding: 28px 32px 32px;
@@ -215,46 +237,57 @@
   <script>
     (function () {
       var allPosts = [];
+      var filteredPosts = [];
+      var currentPage = 1;
+      var itemsPerPage = 5;
 
       fetch('../../data/blog-ko.json')
         .then(function (r) { return r.json(); })
         .then(function (data) {
           allPosts = data.posts || [];
+          filteredPosts = allPosts;
           if (allPosts.length === 0) return;
-          renderPosts(allPosts);
+          renderPage();
 
           // 검색 기능
           document.getElementById('searchInput').addEventListener('input', function (e) {
             var query = e.target.value.toLowerCase().trim();
+            currentPage = 1;
+
             if (!query) {
-              renderPosts(allPosts);
-              return;
+              filteredPosts = allPosts;
+            } else {
+              filteredPosts = allPosts.filter(function (post) {
+                var titleMatch = post.title.toLowerCase().indexOf(query) !== -1;
+                var summaryMatch = post.summary && post.summary.toLowerCase().indexOf(query) !== -1;
+                var contentMatch = post.content && post.content.toLowerCase().indexOf(query) !== -1;
+                var tagMatch = post.tags && post.tags.some(function (tag) {
+                  return tag.toLowerCase().indexOf(query) !== -1;
+                });
+                return titleMatch || summaryMatch || contentMatch || tagMatch;
+              });
             }
 
-            var filtered = allPosts.filter(function (post) {
-              var titleMatch = post.title.toLowerCase().indexOf(query) !== -1;
-              var summaryMatch = post.summary && post.summary.toLowerCase().indexOf(query) !== -1;
-              var contentMatch = post.content && post.content.toLowerCase().indexOf(query) !== -1;
-              var tagMatch = post.tags && post.tags.some(function (tag) {
-                return tag.toLowerCase().indexOf(query) !== -1;
-              });
-              return titleMatch || summaryMatch || contentMatch || tagMatch;
-            });
-
-            renderPosts(filtered);
+            renderPage();
           });
         })
         .catch(function () {});
 
-      function renderPosts(posts) {
+      function renderPage() {
         var container = document.getElementById('post-list');
-        if (posts.length === 0) {
+
+        if (filteredPosts.length === 0) {
           container.innerHTML = '<p class="empty">검색 결과가 없습니다.</p>';
           return;
         }
 
+        var totalPages = Math.ceil(filteredPosts.length / itemsPerPage);
+        var startIndex = (currentPage - 1) * itemsPerPage;
+        var endIndex = Math.min(startIndex + itemsPerPage, filteredPosts.length);
+        var postsToShow = filteredPosts.slice(startIndex, endIndex);
+
         var html = '<div class="post-list">';
-        posts.forEach(function (post) {
+        postsToShow.forEach(function (post) {
           html += '<a class="post-item" href="post.html?id=' + post.id + '">';
           html += '<p class="post-date">' + post.date + '</p>';
           html += '<p class="post-title">' + post.title + '</p>';
@@ -267,8 +300,30 @@
           html += '</a>';
         });
         html += '</div>';
+
+        // 페이지네이션
+        if (totalPages > 1) {
+          html += '<div class="pagination">';
+          html += '<button onclick="goToPage(' + (currentPage - 1) + ')" ' + (currentPage === 1 ? 'disabled' : '') + '>이전</button>';
+
+          for (var i = 1; i <= totalPages; i++) {
+            html += '<button onclick="goToPage(' + i + ')" ' + (i === currentPage ? 'class="active"' : '') + '>' + i + '</button>';
+          }
+
+          html += '<button onclick="goToPage(' + (currentPage + 1) + ')" ' + (currentPage === totalPages ? 'disabled' : '') + '>다음</button>';
+          html += '</div>';
+        }
+
         container.innerHTML = html;
       }
+
+      window.goToPage = function(page) {
+        var totalPages = Math.ceil(filteredPosts.length / itemsPerPage);
+        if (page < 1 || page > totalPages) return;
+        currentPage = page;
+        renderPage();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
     })();
   </script>
   <script>
