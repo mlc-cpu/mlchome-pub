@@ -87,6 +87,23 @@
     }
     .empty { text-align: center; padding: 80px 0; font-size: 15px; color: #bbb; }
 
+    /* ── Search ── */
+    .search-box {
+      margin-bottom: 32px; position: relative;
+    }
+    .search-input {
+      width: 100%; padding: 12px 16px; font-size: 14px;
+      border: 1px solid #e0e0e0; border-radius: 4px;
+      font-family: 'Pretendard Variable', 'Pretendard', -apple-system, sans-serif;
+      transition: border-color 0.2s ease;
+    }
+    .search-input:focus {
+      outline: none; border-color: #1B5E3B;
+    }
+    .search-input::placeholder {
+      color: #bbb;
+    }
+
     /* ── Footer ── */
     footer {
       border-top: 1px solid #eee; padding: 28px 32px 32px;
@@ -154,7 +171,6 @@
         <a href="./" class="active">블로그</a>
         <a href="../news/">뉴스</a>
         <a href="../careers/">채용</a>
-        <a href="mailto:connect@mlc.co.kr">문의하기</a>
       </nav>
       <a href="../../en/blog/" class="lang">EN</a>
       <button class="menu-btn" onclick="toggleMenu()"><span></span><span></span><span></span></button>
@@ -168,7 +184,6 @@
     <a href="./" onclick="toggleMenu()">블로그</a>
     <a href="../news/" onclick="toggleMenu()">뉴스</a>
     <a href="../careers/" onclick="toggleMenu()">채용</a>
-    <a href="mailto:connect@mlc.co.kr" onclick="toggleMenu()">문의하기</a>
     <a href="../../en/blog/" class="lang">EN</a>
   </div>
 
@@ -176,6 +191,9 @@
     <a href="../" class="back-link">← HOME</a>
     <p class="page-label">BLOG</p>
     <h1 class="page-title">오늘:온<span class="tm">TM</span> 이야기</h1>
+    <div class="search-box">
+      <input type="text" id="searchInput" class="search-input" placeholder="제목, 내용, 태그로 검색...">
+    </div>
     <div id="post-list">
       <p class="empty">글을 준비하고 있습니다.</p>
     </div>
@@ -196,29 +214,61 @@
 
   <script>
     (function () {
+      var allPosts = [];
+
       fetch('../../data/blog-ko.json')
         .then(function (r) { return r.json(); })
         .then(function (data) {
-          var posts = data.posts || [];
-          if (posts.length === 0) return;
-          var container = document.getElementById('post-list');
-          var html = '<div class="post-list">';
-          posts.forEach(function (post) {
-            html += '<a class="post-item" href="post.html?id=' + post.id + '">';
-            html += '<p class="post-date">' + post.date + '</p>';
-            html += '<p class="post-title">' + post.title + '</p>';
-            html += '<p class="post-summary">' + post.summary + '</p>';
-            if (post.tags && post.tags.length) {
-              html += '<div class="post-tags">';
-              post.tags.forEach(function (t) { html += '<span class="post-tag">' + t + '</span>'; });
-              html += '</div>';
+          allPosts = data.posts || [];
+          if (allPosts.length === 0) return;
+          renderPosts(allPosts);
+
+          // 검색 기능
+          document.getElementById('searchInput').addEventListener('input', function (e) {
+            var query = e.target.value.toLowerCase().trim();
+            if (!query) {
+              renderPosts(allPosts);
+              return;
             }
-            html += '</a>';
+
+            var filtered = allPosts.filter(function (post) {
+              var titleMatch = post.title.toLowerCase().indexOf(query) !== -1;
+              var summaryMatch = post.summary && post.summary.toLowerCase().indexOf(query) !== -1;
+              var contentMatch = post.content && post.content.toLowerCase().indexOf(query) !== -1;
+              var tagMatch = post.tags && post.tags.some(function (tag) {
+                return tag.toLowerCase().indexOf(query) !== -1;
+              });
+              return titleMatch || summaryMatch || contentMatch || tagMatch;
+            });
+
+            renderPosts(filtered);
           });
-          html += '</div>';
-          container.innerHTML = html;
         })
         .catch(function () {});
+
+      function renderPosts(posts) {
+        var container = document.getElementById('post-list');
+        if (posts.length === 0) {
+          container.innerHTML = '<p class="empty">검색 결과가 없습니다.</p>';
+          return;
+        }
+
+        var html = '<div class="post-list">';
+        posts.forEach(function (post) {
+          html += '<a class="post-item" href="post.html?id=' + post.id + '">';
+          html += '<p class="post-date">' + post.date + '</p>';
+          html += '<p class="post-title">' + post.title + '</p>';
+          html += '<p class="post-summary">' + post.summary + '</p>';
+          if (post.tags && post.tags.length) {
+            html += '<div class="post-tags">';
+            post.tags.forEach(function (t) { html += '<span class="post-tag">' + t + '</span>'; });
+            html += '</div>';
+          }
+          html += '</a>';
+        });
+        html += '</div>';
+        container.innerHTML = html;
+      }
     })();
   </script>
   <script>
