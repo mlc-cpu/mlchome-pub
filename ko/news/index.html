@@ -80,45 +80,6 @@
     .news-body { font-size: 14px; color: #888; line-height: 1.7; }
     .empty { text-align: center; padding: 80px 0; font-size: 15px; color: #bbb; }
 
-    /* ── Search ── */
-    .search-box {
-      margin-bottom: 32px; position: relative;
-    }
-    .search-input {
-      width: 100%; padding: 12px 16px; font-size: 14px;
-      border: 1px solid #e0e0e0; border-radius: 4px;
-      font-family: 'Pretendard Variable', 'Pretendard', -apple-system, sans-serif;
-      transition: border-color 0.2s ease;
-    }
-    .search-input:focus {
-      outline: none; border-color: #1B5E3B;
-    }
-    .search-input::placeholder {
-      color: #bbb;
-    }
-
-    /* ── Pagination ── */
-    .pagination {
-      display: flex; justify-content: center; align-items: center;
-      gap: 8px; margin-top: 48px; padding-top: 32px;
-      border-top: 1px solid #f0f0f0;
-    }
-    .pagination button {
-      padding: 8px 12px; font-size: 13px; font-weight: 500;
-      font-family: 'DM Mono', monospace;
-      border: 1px solid #e0e0e0; background: #fff;
-      color: #666; cursor: pointer; transition: all 0.2s ease;
-    }
-    .pagination button:hover:not(:disabled) {
-      border-color: #1B5E3B; color: #1B5E3B;
-    }
-    .pagination button.active {
-      background: #1B5E3B; color: #fff; border-color: #1B5E3B;
-    }
-    .pagination button:disabled {
-      opacity: 0.3; cursor: not-allowed;
-    }
-
     /* ── Footer ── */
     footer {
       border-top: 1px solid #eee; padding: 28px 32px 32px;
@@ -206,9 +167,6 @@
     <a href="../" class="back-link">← HOME</a>
     <p class="page-label">NEWS</p>
     <h1 class="page-title">소식</h1>
-    <div class="search-box">
-      <input type="text" id="searchInput" class="search-input" placeholder="제목, 내용으로 검색...">
-    </div>
     <div id="news-list">
       <p class="empty">소식을 준비하고 있습니다.</p>
     </div>
@@ -229,87 +187,26 @@
 
   <script>
     (function () {
-      var allNews = [];
-      var filteredNews = [];
-      var currentPage = 1;
-      var itemsPerPage = 5;
-
       fetch('../../data/news.json')
         .then(function (r) { return r.json(); })
         .then(function (data) {
-          allNews = data.news || [];
-          filteredNews = allNews;
-          if (allNews.length === 0) return;
-          renderPage();
-
-          // 검색 기능
-          document.getElementById('searchInput').addEventListener('input', function (e) {
-            var query = e.target.value.toLowerCase().trim();
-            currentPage = 1;
-
-            if (!query) {
-              filteredNews = allNews;
-            } else {
-              filteredNews = allNews.filter(function (item) {
-                var titleMatch = item.title.toLowerCase().indexOf(query) !== -1;
-                var bodyMatch = item.body && item.body.toLowerCase().indexOf(query) !== -1;
-                return titleMatch || bodyMatch;
-              });
-            }
-
-            renderPage();
+          var news = data.news || [];
+          if (news.length === 0) return;
+          var container = document.getElementById('news-list');
+          var html = '<div class="news-list">';
+          news.forEach(function (item) {
+            var tag = item.link ? 'a' : 'div';
+            var href = item.link ? ' href="' + item.link + '" target="_blank"' : '';
+            html += '<' + tag + ' class="news-item"' + href + '>';
+            html += '<p class="news-date">' + item.date + '</p>';
+            html += '<p class="news-title">' + item.title + '</p>';
+            if (item.body) html += '<p class="news-body">' + item.body + '</p>';
+            html += '</' + tag + '>';
           });
+          html += '</div>';
+          container.innerHTML = html;
         })
         .catch(function () {});
-
-      function renderPage() {
-        var container = document.getElementById('news-list');
-
-        if (filteredNews.length === 0) {
-          container.innerHTML = '<p class="empty">검색 결과가 없습니다.</p>';
-          return;
-        }
-
-        var totalPages = Math.ceil(filteredNews.length / itemsPerPage);
-        var startIndex = (currentPage - 1) * itemsPerPage;
-        var endIndex = Math.min(startIndex + itemsPerPage, filteredNews.length);
-        var newsToShow = filteredNews.slice(startIndex, endIndex);
-
-        var html = '<div class="news-list">';
-        newsToShow.forEach(function (item) {
-          var tag = item.link ? 'a' : 'div';
-          var href = item.link ? ' href="' + item.link + '" target="_blank"' : '';
-          html += '<' + tag + ' class="news-item"' + href + '>';
-          html += '<p class="news-date">' + item.date + '</p>';
-          html += '<p class="news-title">' + item.title + '</p>';
-          if (item.body) html += '<p class="news-body">' + item.body + '</p>';
-          html += '</' + tag + '>';
-        });
-        html += '</div>';
-
-        // 페이지네이션
-        if (totalPages > 1) {
-          html += '<div class="pagination">';
-          html += '<button onclick="goToPage(' + (currentPage - 1) + ')" ' + (currentPage === 1 ? 'disabled' : '') + '>이전</button>';
-
-          for (var i = 1; i <= totalPages; i++) {
-            html += '<button onclick="goToPage(' + i + ')" ' + (i === currentPage ? 'class="active"' : '') + '>' + i + '</button>';
-          }
-
-          html += '<button onclick="goToPage(' + (currentPage + 1) + ')" ' + (currentPage === totalPages ? 'disabled' : '') + '>다음</button>';
-          html += '</div>';
-        }
-
-        container.innerHTML = html;
-      }
-
-      window.goToPage = function(page) {
-        var totalPages = Math.ceil(filteredNews.length / itemsPerPage);
-        if (page < 1 || page > totalPages) return;
-        currentPage = page;
-        renderPage();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      };
     })();
   </script>
   <script>
@@ -318,5 +215,6 @@
       document.querySelector('.menu-btn').classList.toggle('active');
     }
   </script>
+  <script data-goatcounter="https://mlc.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

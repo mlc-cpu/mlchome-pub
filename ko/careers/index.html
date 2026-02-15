@@ -74,38 +74,6 @@
     }
     .careers-empty a:hover { color: #1B5E3B; border-color: #1B5E3B; }
 
-    /* ── Position list ── */
-    .position-list { display: flex; flex-direction: column; }
-    .position-item {
-      display: block; padding: 32px; border: 1px solid #f0f0f0;
-      margin-bottom: 16px; transition: all 0.2s ease;
-    }
-    .position-item:hover { border-color: #1B5E3B; }
-    .position-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-    .position-type { font-size: 13px; color: #888; margin-bottom: 12px; }
-    .position-desc { font-size: 14px; color: #666; line-height: 1.7; }
-
-    /* ── Pagination ── */
-    .pagination {
-      display: flex; justify-content: center; align-items: center;
-      gap: 8px; margin-top: 32px;
-    }
-    .pagination button {
-      padding: 8px 12px; font-size: 13px; font-weight: 500;
-      font-family: 'DM Mono', monospace;
-      border: 1px solid #e0e0e0; background: #fff;
-      color: #666; cursor: pointer; transition: all 0.2s ease;
-    }
-    .pagination button:hover:not(:disabled) {
-      border-color: #1B5E3B; color: #1B5E3B;
-    }
-    .pagination button.active {
-      background: #1B5E3B; color: #fff; border-color: #1B5E3B;
-    }
-    .pagination button:disabled {
-      opacity: 0.3; cursor: not-allowed;
-    }
-
     /* ── Footer ── */
     footer {
       border-top: 1px solid #eee; padding: 28px 32px 32px;
@@ -193,11 +161,9 @@
     <a href="../" class="back-link">← HOME</a>
     <p class="page-label">CAREERS</p>
     <h1 class="page-title">채용</h1>
-    <div id="careers-list">
-      <div class="careers-empty">
-        <p>채용 공고를 준비하고 있습니다.</p>
-        <a href="mailto:hr@mlc.co.kr">hr@mlc.co.kr</a>
-      </div>
+    <div class="careers-empty">
+      <p>채용 공고를 준비하고 있습니다.</p>
+      <a href="mailto:bd@mlc.co.kr">bd@mlc.co.kr</a>
     </div>
   </div>
 
@@ -215,72 +181,11 @@
   </footer>
 
   <script>
-    (function () {
-      var allPositions = [];
-      var currentPage = 1;
-      var itemsPerPage = 5;
-
-      fetch('../../data/careers.json')
-        .then(function (r) { return r.json(); })
-        .then(function (data) {
-          allPositions = data.positions || [];
-          renderPage();
-        })
-        .catch(function () {});
-
-      function renderPage() {
-        var container = document.getElementById('careers-list');
-
-        if (allPositions.length === 0) {
-          container.innerHTML = '<div class="careers-empty"><p>채용 공고를 준비하고 있습니다.</p><a href="mailto:hr@mlc.co.kr">hr@mlc.co.kr</a></div>';
-          return;
-        }
-
-        var totalPages = Math.ceil(allPositions.length / itemsPerPage);
-        var startIndex = (currentPage - 1) * itemsPerPage;
-        var endIndex = Math.min(startIndex + itemsPerPage, allPositions.length);
-        var positionsToShow = allPositions.slice(startIndex, endIndex);
-
-        var html = '<div class="position-list">';
-        positionsToShow.forEach(function (position) {
-          html += '<div class="position-item">';
-          html += '<p class="position-title">' + position.title + '</p>';
-          html += '<p class="position-type">' + position.type + '</p>';
-          if (position.description) html += '<p class="position-desc">' + position.description + '</p>';
-          html += '</div>';
-        });
-        html += '</div>';
-
-        // 페이지네이션
-        if (totalPages > 1) {
-          html += '<div class="pagination">';
-          html += '<button onclick="goToPage(' + (currentPage - 1) + ')" ' + (currentPage === 1 ? 'disabled' : '') + '>이전</button>';
-
-          for (var i = 1; i <= totalPages; i++) {
-            html += '<button onclick="goToPage(' + i + ')" ' + (i === currentPage ? 'class="active"' : '') + '>' + i + '</button>';
-          }
-
-          html += '<button onclick="goToPage(' + (currentPage + 1) + ')" ' + (currentPage === totalPages ? 'disabled' : '') + '>다음</button>';
-          html += '</div>';
-        }
-
-        container.innerHTML = html;
-      }
-
-      window.goToPage = function(page) {
-        var totalPages = Math.ceil(allPositions.length / itemsPerPage);
-        if (page < 1 || page > totalPages) return;
-        currentPage = page;
-        renderPage();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      };
-    })();
-  </script>
-  <script>
     function toggleMenu() {
       document.getElementById('mobileNav').classList.toggle('open');
       document.querySelector('.menu-btn').classList.toggle('active');
     }
   </script>
+  <script data-goatcounter="https://mlc.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

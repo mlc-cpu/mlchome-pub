@@ -411,6 +411,10 @@
       transition: color 0.25s ease;
     }
     .footer-bottom a:hover { color: #1B5E3B; border-color: #1B5E3B; }
+    .footer-stats {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; color: #ccc; letter-spacing: 1px; margin-top: 12px;
+    }
 
     /* ── Hamburger ── */
     .menu-btn {
@@ -639,6 +643,9 @@
     <div class="footer-info">
       <span>서울특별시 영등포구 문래동</span>
     </div>
+    <div class="footer-stats">
+      TODAY <span id="todayCount">–</span> · TOTAL <span id="totalCount">–</span>
+    </div>
     <div class="footer-bottom">
       <span>&copy; 2025 MULLAECOMPANY CO.,LTD. ALL RIGHTS RESERVED.</span>
       <a href="mailto:bd@mlc.co.kr">문의하기</a>
@@ -684,6 +691,28 @@
         if (html) container.innerHTML = html;
       });
     })();
+  </script>
+  <script data-goatcounter="https://mlc.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <script>
+  (function() {
+    var gc = 'https://mlc.goatcounter.com/counter/';
+    function f(p) {
+      return fetch(gc + encodeURIComponent(p) + '.json')
+        .then(function(r) { return r.ok ? r.json() : {count:'0'}; })
+        .then(function(d) { return parseInt(String(d.count||'0').replace(/\D/g,'')) || 0; })
+        .catch(function() { return 0; });
+    }
+    Promise.all([f('/'), f('/ko/'), f('/en/')]).then(function(c) {
+      var total = c[0] + c[1] + c[2];
+      var el = document.getElementById('totalCount');
+      if (el) el.textContent = total.toLocaleString();
+      var today = new Date().toISOString().split('T')[0];
+      var s; try { s = JSON.parse(localStorage.getItem('mlc_vc')); } catch(e) { s = null; }
+      if (!s || s.d !== today) { s = { d: today, b: total }; try { localStorage.setItem('mlc_vc', JSON.stringify(s)); } catch(e) {} }
+      var te = document.getElementById('todayCount');
+      if (te) te.textContent = Math.max(0, total - s.b).toLocaleString();
+    });
+  })();
   </script>
   <script>
     function toggleMenu() {

@@ -178,7 +178,6 @@
         <a href="./" class="active">Blog</a>
         <a href="../news/">News</a>
         <a href="../careers/">Careers</a>
-        <a href="mailto:connect@mlc.co.kr">Contact</a>
       </nav>
       <a href="../../ko/blog/" class="lang">KO</a>
       <button class="menu-btn" onclick="toggleMenu()"><span></span><span></span><span></span></button>
@@ -192,7 +191,6 @@
     <a href="./" onclick="toggleMenu()">Blog</a>
     <a href="../news/" onclick="toggleMenu()">News</a>
     <a href="../careers/" onclick="toggleMenu()">Careers</a>
-    <a href="mailto:connect@mlc.co.kr" onclick="toggleMenu()">Contact</a>
     <a href="../../ko/blog/" class="lang">KO</a>
   </div>
 
@@ -242,7 +240,7 @@
           document.title = post.title + ' — MullaeCompany';
 
           var html = '';
-          html += '<p class="article-date">' + post.date + '</p>';
+          html += '<p class="article-date">' + post.date + ' · <span id="viewCount"></span></p>';
           html += '<h1 class="article-title">' + post.title + '</h1>';
           if (post.tags && post.tags.length) {
             html += '<div class="article-tags">';
@@ -260,6 +258,19 @@
         })
         .catch(function () { window.location.href = './'; });
     })();
+  </script>
+  <script data-goatcounter="https://mlc.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <script>
+  (function() {
+    var path = window.location.pathname + window.location.search;
+    fetch('https://mlc.goatcounter.com/counter/' + encodeURIComponent(path) + '.json')
+      .then(function(r) { return r.ok ? r.json() : {count:'0'}; })
+      .then(function(d) {
+        var el = document.getElementById('viewCount');
+        if (el) el.textContent = (d.count || '0') + ' views';
+      })
+      .catch(function() {});
+  })();
   </script>
 </body>
 </html>
