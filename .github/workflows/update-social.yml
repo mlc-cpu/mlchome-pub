@@ -1,0 +1,117 @@
+name: Update Instagram follower count
+
+on:
+  schedule:
+    - cron: '17 23 * * *'  # 매일 08:17 KST — 정시 회피
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Random delay (0~15min)
+        run: sleep $((RANDOM % 900))
+
+      - name: Fetch Instagram follower count
+        run: |
+          # UA를 매번 랜덤 선택
+          UA_LIST=(
+            "Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Mobile Safari/537.36"
+            "Mozilla/5.0 (iPhone; CPU iPhone OS 17_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2 Mobile/15E148 Safari/604.1"
+            "Mozilla/5.0 (Linux; Android 13; SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36"
+            "Instagram 317.0.0.34.109 Android (33/13; 420dpi; 1080x2340; samsung; SM-S918B; dm3q; qcom; en_US; 556929381)"
+            "Instagram 312.0.0.27.111 Android (34/14; 420dpi; 1080x2400; Google; Pixel 8; shiba; tensor; en_US; 553687816)"
+          )
+          UA=${UA_LIST[$((RANDOM % ${#UA_LIST[@]}))]}
+
+          # 시도 1: Instagram private API
+          COUNT=$(curl -sL --max-time 15 \
+            -H "User-Agent: $UA" \
+            -H "X-IG-App-ID: 936619743392459" \
+            "https://i.instagram.com/api/v1/users/web_profile_info/?username=oneul_pharmacy" \
+            | python3 -c "
+          import sys,json
+          try:
+              d=json.load(sys.stdin)
+              print(d['data']['user']['edge_followed_by']['count'])
+          except:
+              print('')
+          " 2>/dev/null)
+
+          # 시도 2: 실패 시 웹 프로필 HTML에서 추출
+          if [ -z "$COUNT" ] || [ "$COUNT" = "0" ]; then
+            echo "API failed, trying web scrape..."
+            sleep $((RANDOM % 10 + 3))
+            COUNT=$(curl -sL --max-time 15 \
+              -H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36" \
+              "https://www.instagram.com/oneul_pharmacy/" \
+              | python3 -c "
+          import sys, re
+          html = sys.stdin.read()
+          # meta description: '15.2K Followers'
+          m = re.search(r'([\d,.]+[KkMm]?)\s*[Ff]ollowers', html)
+          if m:
+              raw = m.group(1).replace(',','')
+              if raw[-1].upper() == 'K':
+                  print(int(float(raw[:-1]) * 1000))
+              elif raw[-1].upper() == 'M':
+                  print(int(float(raw[:-1]) * 1000000))
+              else:
+                  print(int(raw))
+          else:
+              print('')
+          " 2>/dev/null)
+          fi
+
+          # 두 방법 모두 실패 시 종료 (기존 값 유지)
+          if [ -z "$COUNT" ] || [ "$COUNT" = "0" ]; then
+            echo "All methods failed, keeping existing value"
+            exit 0
+          fi
+
+          echo "Follower count: $COUNT"
+
+          python3 -c "
+          count = $COUNT
+          if count >= 10000:
+              ko = '{:.1f}'.format(count / 10000).rstrip('0').rstrip('.') + '만'
+          elif count >= 1000:
+              ko = '{:,}'.format(count)
+          else:
+              ko = str(count)
+
+          if count >= 1000000:
+              en = '{:.1f}M'.format(count / 1000000).replace('.0M', 'M')
+          elif count >= 1000:
+              en = '{:.1f}K'.format(count / 1000).replace('.0K', 'K')
+          else:
+              en = str(count)
+
+          import json, datetime
+          data = {
+              'instagram': {
+                  'handle': '@oneul_pharmacy',
+                  'followers': ko,
+                  'followers_en': en,
+                  'followers_raw': count,
+                  'updated': datetime.date.today().isoformat()
+              }
+          }
+          with open('data/social.json', 'w') as f:
+              json.dump(data, f, indent=2, ensure_ascii=False)
+              f.write('\n')
+          print(f'Updated: {ko} / {en} ({count})')
+          "
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/social.json
+          git diff --cached --quiet && echo "No changes" && exit 0
+          git commit -m "Update Instagram followers: $(python3 -c 'import json; d=json.load(open("data/social.json")); print(d["instagram"]["followers"])')"
+          git push
