@@ -340,10 +340,9 @@
 
     /* ── Hero headlines ── */
     .hero-headlines {
-      position: absolute;
-      bottom: 48px; left: 0; right: 0;
-      z-index: 3;
-      padding: 0;
+      margin-top: 48px;
+      display: flex;
+      flex-direction: column;
       gap: 10px;
     }
     .hero-headline {
@@ -452,9 +451,7 @@
       .hero-sub { font-size: 15px; }
       .hero-visual { height: auto; min-height: auto; margin-top: -30px; padding-bottom: 0; flex-direction: column; }
       .hero-headlines {
-        position: relative;
-        bottom: auto; left: auto; transform: none;
-        margin-top: -50px; width: 100%;
+        margin-top: 24px;
       }
       .hero-headline { line-height: 1.6; }
       .hero-badge { margin-top: 3px; }
@@ -526,6 +523,7 @@
         <em>Blooms into Beauty</em>
       </h1>
       <p class="hero-sub">Supplements &amp; skincare, made by pharmacists</p>
+      <div class="hero-headlines" id="heroHeadlines"></div>
     </div>
     <div class="hero-visual">
       <div class="blob-wrap">
@@ -535,7 +533,6 @@
         <div class="blob-ring"></div>
         <div class="blob-ring blob-ring-2"></div>
       </div>
-      <div class="hero-headlines" id="heroHeadlines"></div>
     </div>
     </div>
     <div class="scroll-hint">
