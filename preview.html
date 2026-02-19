@@ -659,7 +659,8 @@
     /* ── Mobile ── */
     @media (max-width: 768px) {
       .header-inner { padding: 0 20px; height: 60px; }
-      nav { display: none; }
+      nav { gap: 16px; }
+      nav a { font-size: 11px; }
       .hero-inner { padding: 0 20px; grid-template-columns: 1fr; }
       .hero h1 { font-size: 32px; letter-spacing: -1px; }
       .hero-sub { font-size: 15px; }
@@ -685,6 +686,11 @@
       .footer-top { flex-direction: column; gap: 16px; }
       .footer-contact { text-align: left; }
       .footer-info span { display: block; margin-right: 0; }
+    }
+    @media (max-width: 480px) {
+      nav { display: none; }
+      .header-inner > .lang { margin-left: auto; margin-right: 12px; }
+      .menu-btn { display: block; }
     }
   </style>
 </head>
@@ -816,7 +822,7 @@
     <div class="brand-split">
       <div class="brand-col">
         <p class="brand-name">오늘:온™</p>
-        <p class="brand-name-en">ONLON™</p>
+        <p class="brand-name-en">onl:on™</p>
         <div class="section-accent"></div>
         <p class="brand-meaning">
           <strong>오늘</strong>부터, 온전한 건강이 따뜻하게 찾아옵니다.<br>
