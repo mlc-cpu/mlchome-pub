@@ -1,6 +1,17 @@
 {
   "posts": [
     {
+      "id": "bcaa",
+      "date": "2026.02.17",
+      "title": "What Is BCAA? The Amino Acid Story Behind Every Athlete's Gym Bag",
+      "summary": "BCAA (Branched-Chain Amino Acids) — leucine, isoleucine, and valine — are essential amino acids metabolized directly in muscles. Research reports reductions in muscle damage markers and fatigue, with benefits for both young athletes and elderly adults.",
+      "tags": [
+        "Ingredient Deep Dive",
+        "Amino Acids",
+        "BCAA"
+      ]
+    },
+    {
       "id": "arginine",
       "date": "2026.02.17",
       "title": "Arginine: Can More Be Less?",
