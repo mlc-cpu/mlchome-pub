@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+  <title>Careers — MullaeCompany</title>
+  <meta name="description" content="Career opportunities at MullaeCompany — Join our team">
+  <link rel="canonical" href="https://mlc.co.kr/en/careers/">
+  <link rel="alternate" hreflang="ko" href="https://mlc.co.kr/ko/careers/">
+  <link rel="alternate" hreflang="en" href="https://mlc.co.kr/en/careers/">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Gowun+Batang:wght@400;700&family=Noto+Serif+KR:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family: 'Pretendard Variable', 'Pretendard', -apple-system, sans-serif;
+      background: #fff; color: #1a1a1a; line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; transition: color 0.25s ease; }
+
+    /* ── Header ── */
+    header {
+      position: fixed; top:0; left:0; right:0; z-index:100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .header-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 32px;
+      height: 72px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { font-size: 19px; letter-spacing: -0.5px; }
+    .logo b { font-weight: 900; color: #1B5E3B; }
+    .logo span { font-weight: 400; color: #5A7D62; }
+    nav { display: flex; gap: 36px; }
+    nav a { font-size: 13px; font-weight: 500; color: #999; letter-spacing: 0.2px; }
+    nav a:hover { color: #1a1a1a; }
+    nav a.active { color: #1B5E3B; }
+    .lang {
+      font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
+      color: #aaa; border: 1px solid #ddd; padding: 5px 12px; letter-spacing: 1px;
+    }
+    .lang:hover { border-color: #1B5E3B; color: #1B5E3B; }
+
+    /* ── Back link ── */
+    .back-link {
+      font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 1px;
+      color: #bbb; margin-bottom: 40px; display: inline-block;
+    }
+    .back-link:hover { color: #1B5E3B; }
+
+    /* ── Content ── */
+    .content { max-width: 780px; margin: 0 auto; padding: 140px 32px 80px; }
+    .page-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; font-weight: 500; letter-spacing: 3px; color: #bbb; margin-bottom: 16px;
+    }
+    .page-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 48px;
+    }
+
+    /* ── Careers ── */
+    .careers-empty { text-align: center; padding: 80px 0; }
+    .careers-empty p { font-size: 15px; color: #bbb; letter-spacing: -0.3px; margin-bottom: 12px; }
+    .careers-empty a {
+      font-size: 13px; color: #888;
+      border-bottom: 1px solid #ddd; padding-bottom: 2px;
+      transition: all 0.25s ease;
+    }
+    .careers-empty a:hover { color: #1B5E3B; border-color: #1B5E3B; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid #eee;
+      padding: 10px 32px 12px;
+      background: #fff; max-width: 1100px; width: 100%; margin: 0 auto;
+    }
+    .footer-logo { margin-bottom: 0; display: flex; align-items: baseline; gap: 6px; }
+    .footer-corp { font-family: 'Gowun Batang', serif; font-size: 11px; font-weight: 400; color: #aaa; letter-spacing: 2px; margin-bottom: 0; }
+    .footer-name { font-family: 'Gowun Batang', serif; font-size: 18px; font-weight: 700; letter-spacing: 2px; margin-top: 0; }
+    .footer-name b { font-weight: 700; color: #1a1a1a; }
+    .footer-name span { font-weight: 700; color: #5A7D62; }
+    .footer-info { font-size: 11px; color: #bbb; line-height: 1.9; }
+    .footer-bottom {
+      margin-top: 10px; padding-top: 10px; border-top: 1px solid #f0f0f0;
+      font-family: 'DM Mono', monospace; font-size: 10px; color: #ccc; letter-spacing: 0.5px;
+    }
+
+    /* ── Hamburger ── */
+    .menu-btn {
+      display: none; background: none; border: none; cursor: pointer;
+      width: 28px; height: 20px; position: relative; z-index: 200;
+    }
+    .menu-btn span {
+      display: block; width: 100%; height: 1.5px; background: #1a1a1a;
+      position: absolute; left: 0; transition: all 0.3s ease;
+    }
+    .menu-btn span:nth-child(1) { top: 0; }
+    .menu-btn span:nth-child(2) { top: 9px; }
+    .menu-btn span:nth-child(3) { top: 18px; }
+    .menu-btn.active span:nth-child(1) { top: 9px; transform: rotate(45deg); }
+    .menu-btn.active span:nth-child(2) { opacity: 0; }
+    .menu-btn.active span:nth-child(3) { top: 9px; transform: rotate(-45deg); }
+    .mobile-nav {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.98); z-index: 150;
+      flex-direction: column; align-items: center; justify-content: center; gap: 32px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { font-size: 18px; font-weight: 600; color: #1a1a1a; }
+    .mobile-nav a:hover { color: #1B5E3B; }
+    .mobile-nav .lang {
+      font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500;
+      color: #aaa; border: 1px solid #ddd; padding: 6px 16px; letter-spacing: 1px;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      .header-inner { padding: 0 20px; height: 60px; }
+      nav { display: none; }
+      .header-inner > .lang { margin-left: auto; margin-right: 12px; }
+      .menu-btn { display: block; }
+      .content { padding: 100px 20px 60px; }
+      .page-title { font-size: 22px; }
+      footer { padding: 10px 16px 12px; position: static; left: auto; transform: none; width: auto; max-width: none; }
+      .footer-logo { display: flex; align-items: baseline; gap: 5px; margin-bottom: 0; }
+      .footer-corp { font-size: 10px; letter-spacing: 1.5px; margin-bottom: 0; }
+      .footer-name { font-size: 15px; letter-spacing: 1px; }
+      .footer-info { font-size: 10px; line-height: 1.5; margin-top: 1px; }
+      .footer-info span { display: inline; margin-right: 0; }
+      .content { padding-bottom: 40px; }
+      .footer-bottom { margin-top: 6px; padding-top: 6px; font-size: 9px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="../" class="logo"><b>mullae</b><span>company</span></a>
+      <nav>
+        <a href="../#about">About</a>
+        <a href="../#brand">Brand</a>
+        <a href="../blog/">Blog</a>
+        <a href="../news/">News</a>
+        <a href="./" class="active">Careers</a>
+        <a href="mailto:connect@mlc.co.kr">Connect</a>
+      </nav>
+      <a href="../../ko/careers/" class="lang">KO</a>
+      <button class="menu-btn" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav">
+    <a href="../" onclick="toggleMenu()">Home</a>
+    <a href="../#about" onclick="toggleMenu()">About</a>
+    <a href="../#brand" onclick="toggleMenu()">Brand</a>
+    <a href="../blog/" onclick="toggleMenu()">Blog</a>
+    <a href="../news/" onclick="toggleMenu()">News</a>
+    <a href="./" onclick="toggleMenu()">Careers</a>
+    <a href="mailto:connect@mlc.co.kr" onclick="toggleMenu()">Connect</a>
+    <a href="../../ko/careers/" class="lang">KO</a>
+  </div>
+
+  <div class="content">
+    <a href="../" class="back-link">← HOME</a>
+    <p class="page-label">CAREERS</p>
+    <h1 class="page-title">Careers</h1>
+    <div class="careers-empty">
+      <p>No openings yet — but we'd love to hear from you.</p>
+      <a href="mailto:hr@mlc.co.kr">hr@mlc.co.kr</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">
+          <div class="footer-corp">주식회사</div>
+          <div class="footer-name"><b>문래</b><span>컴퍼니</span></div>
+        </div>
+    <div class="footer-info">
+      Mullae-dong, Yeongdeungpo-gu, Seoul
+    </div>
+    <div class="footer-bottom" style="display:flex;justify-content:space-between;align-items:center;">
+      <span>&copy; 2025 MULLAECOMPANY CO.,LTD. ALL RIGHTS RESERVED.</span>
+      <span style="font-size:10px;color:#ccc;letter-spacing:1px;">TODAY <span id="todayCount">–</span> · TOTAL <span id="totalCount">–</span></span>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('mobileNav').classList.toggle('open');
+      document.querySelector('.menu-btn').classList.toggle('active');
+    }
+  </script>
+  <script data-goatcounter="https://mlc.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <script>
+    fetch('https://mlc.goatcounter.com/counter/' + encodeURIComponent(window.location.pathname || '/') + '.json')
+      .then(function(r){return r.json()})
+      .then(function(d){
+        var t=document.getElementById('totalCount');
+        if(t&&d.count) t.textContent=d.count;
+      }).catch(function(){});
+  </script>
+</body>
+</html>

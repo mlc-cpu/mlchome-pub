@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+  <title>onl:on Journal — MullaeCompany</title>
+  <meta name="description" content="MullaeCompany onl:on Journal — Trends and insights in health supplement & cosmetics ingredients">
+  <link rel="canonical" href="https://mlc.co.kr/en/blog/">
+  <link rel="alternate" hreflang="ko" href="https://mlc.co.kr/ko/blog/">
+  <link rel="alternate" hreflang="en" href="https://mlc.co.kr/en/blog/">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Gowun+Batang:wght@400;700&family=Noto+Serif+KR:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family: 'Pretendard Variable', 'Pretendard', -apple-system, sans-serif;
+      background: #fff; color: #1a1a1a; line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; transition: color 0.25s ease; }
+
+    /* ── Header ── */
+    header {
+      position: fixed; top:0; left:0; right:0; z-index:100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .header-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 32px;
+      height: 72px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { font-size: 19px; letter-spacing: -0.5px; }
+    .logo b { font-weight: 900; color: #1B5E3B; }
+    .logo span { font-weight: 400; color: #5A7D62; }
+    nav { display: flex; gap: 36px; }
+    nav a { font-size: 13px; font-weight: 500; color: #999; letter-spacing: 0.2px; }
+    nav a:hover { color: #1a1a1a; }
+    nav a.active { color: #1B5E3B; }
+    .lang {
+      font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
+      color: #aaa; border: 1px solid #ddd; padding: 5px 12px; letter-spacing: 1px;
+    }
+    .lang:hover { border-color: #1B5E3B; color: #1B5E3B; }
+
+    /* ── Back link ── */
+    .back-link {
+      font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 1px;
+      color: #bbb; margin-bottom: 40px; display: inline-block;
+    }
+    .back-link:hover { color: #1B5E3B; }
+
+    /* ── Content ── */
+    .content { max-width: 780px; margin: 0 auto; padding: 140px 32px 80px; }
+    .page-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; font-weight: 500; letter-spacing: 3px; color: #bbb; margin-bottom: 16px;
+    }
+    .page-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 48px;
+    }
+    .tm { font-size: 0.3em; vertical-align: super; font-weight: 400; position: relative; top: -0.5em; }
+
+    /* ── Post list ── */
+    .post-list { }
+    .post-item {
+      display: block; padding: 32px 0; border-bottom: 1px solid #f0f0f0;
+      transition: opacity 0.2s ease;
+    }
+    .post-item:first-child { border-top: 1px solid #f0f0f0; }
+    .post-item:hover { opacity: 0.7; }
+    .post-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; color: #bbb; letter-spacing: 0.5px; margin-bottom: 8px;
+    }
+    .post-title { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 8px; }
+    .post-summary { font-size: 14px; color: #888; line-height: 1.7; }
+    .post-tags { margin-top: 10px; display: flex; gap: 8px; }
+    .post-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; color: #aaa; letter-spacing: 0.5px;
+      border: 1px solid #eee; padding: 2px 10px;
+    }
+    .empty { text-align: center; padding: 80px 0; font-size: 15px; color: #bbb; }
+    .post-views { font-family: 'DM Mono', monospace; font-size: 11px; color: #bbb; margin-left: 12px; }
+    .pagination { display: flex; justify-content: center; gap: 8px; margin-top: 48px; }
+    .pagination a, .pagination span {
+      font-family: 'DM Mono', monospace; font-size: 12px; padding: 6px 14px;
+      border: 1px solid #eee; color: #999; transition: all 0.2s;
+    }
+    .pagination a:hover { border-color: #1B5E3B; color: #1B5E3B; }
+    .pagination .current { background: #1B5E3B; color: #fff; border-color: #1B5E3B; }
+    .search-box {
+      margin-bottom: 32px;
+    }
+    .search-input {
+      width: 100%; padding: 12px 16px;
+      font-family: 'Pretendard Variable', sans-serif;
+      font-size: 14px; color: #1a1a1a;
+      border: 1px solid #e0e0e0; border-radius: 0;
+      outline: none; transition: border-color 0.2s;
+      background: #fafafa;
+    }
+    .search-input:focus { border-color: #1B5E3B; background: #fff; }
+    .search-input::placeholder { color: #ccc; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid #eee;
+      padding: 10px 32px 12px;
+      background: #fff; max-width: 1100px; width: 100%; margin: 0 auto;
+    }
+    .footer-logo { margin-bottom: 0; display: flex; align-items: baseline; gap: 6px; }
+    .footer-corp { font-family: 'Gowun Batang', serif; font-size: 11px; font-weight: 400; color: #aaa; letter-spacing: 2px; margin-bottom: 0; }
+    .footer-name { font-family: 'Gowun Batang', serif; font-size: 18px; font-weight: 700; letter-spacing: 2px; margin-top: 0; }
+    .footer-name b { font-weight: 700; color: #1a1a1a; }
+    .footer-name span { font-weight: 700; color: #5A7D62; }
+    .footer-info { font-size: 11px; color: #bbb; line-height: 1.9; }
+    .footer-bottom {
+      margin-top: 10px; padding-top: 10px; border-top: 1px solid #f0f0f0;
+      font-family: 'DM Mono', monospace; font-size: 10px; color: #ccc; letter-spacing: 0.5px;
+    }
+
+    /* ── Hamburger ── */
+    .menu-btn {
+      display: none; background: none; border: none; cursor: pointer;
+      width: 28px; height: 20px; position: relative; z-index: 200;
+    }
+    .menu-btn span {
+      display: block; width: 100%; height: 1.5px; background: #1a1a1a;
+      position: absolute; left: 0; transition: all 0.3s ease;
+    }
+    .menu-btn span:nth-child(1) { top: 0; }
+    .menu-btn span:nth-child(2) { top: 9px; }
+    .menu-btn span:nth-child(3) { top: 18px; }
+    .menu-btn.active span:nth-child(1) { top: 9px; transform: rotate(45deg); }
+    .menu-btn.active span:nth-child(2) { opacity: 0; }
+    .menu-btn.active span:nth-child(3) { top: 9px; transform: rotate(-45deg); }
+    .mobile-nav {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.98); z-index: 150;
+      flex-direction: column; align-items: center; justify-content: center; gap: 32px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { font-size: 18px; font-weight: 600; color: #1a1a1a; }
+    .mobile-nav a:hover { color: #1B5E3B; }
+    .mobile-nav .lang {
+      font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500;
+      color: #aaa; border: 1px solid #ddd; padding: 6px 16px; letter-spacing: 1px;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      .header-inner { padding: 0 20px; height: 60px; }
+      nav { gap: 16px; }
+      nav a { font-size: 11px; }
+      .content { padding: 100px 20px 60px; }
+      .page-title { font-size: 22px; }
+      footer { padding: 10px 16px 12px; position: static; left: auto; transform: none; width: auto; max-width: none; }
+      .footer-logo { display: flex; align-items: baseline; gap: 5px; margin-bottom: 0; }
+      .footer-corp { font-size: 10px; letter-spacing: 1.5px; margin-bottom: 0; }
+      .footer-name { font-size: 15px; letter-spacing: 1px; }
+      .footer-info { font-size: 10px; line-height: 1.5; margin-top: 1px; }
+      .footer-info span { display: inline; margin-right: 0; }
+      .content { padding-bottom: 40px; }
+      .footer-bottom { margin-top: 6px; padding-top: 6px; font-size: 9px; }
+    }
+    @media (max-width: 480px) {
+      nav { display: none; }
+      .header-inner > .lang { margin-left: auto; margin-right: 12px; }
+      .menu-btn { display: block; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="../" class="logo"><b>mullae</b><span>company</span></a>
+      <nav>
+        <a href="../#about">About</a>
+        <a href="../#brand">Brand</a>
+        <a href="./" class="active">Blog</a>
+        <a href="../news/">News</a>
+        <a href="../careers/">Careers</a>
+        <a href="mailto:connect@mlc.co.kr">Connect</a>
+      </nav>
+      <a href="../../ko/blog/" class="lang">KO</a>
+      <button class="menu-btn" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav">
+    <a href="../" onclick="toggleMenu()">Home</a>
+    <a href="../#about" onclick="toggleMenu()">About</a>
+    <a href="../#brand" onclick="toggleMenu()">Brand</a>
+    <a href="./" onclick="toggleMenu()">Blog</a>
+    <a href="../news/" onclick="toggleMenu()">News</a>
+    <a href="../careers/" onclick="toggleMenu()">Careers</a>
+    <a href="mailto:connect@mlc.co.kr" onclick="toggleMenu()">Connect</a>
+    <a href="../../ko/blog/" class="lang">KO</a>
+  </div>
+
+  <div class="content">
+    <a href="../" class="back-link">← HOME</a>
+    <p class="page-label">BLOG</p>
+    <h1 class="page-title">onl:on<span class="tm">TM</span> Journal</h1>
+    <div class="search-box"><input type="text" class="search-input" id="searchInput" placeholder="Search by title or content..." oninput="handleSearch()"></div>
+    <div id="post-list">
+      <p class="empty">Posts are on the way.</p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">
+          <div class="footer-corp">주식회사</div>
+          <div class="footer-name"><b>문래</b><span>컴퍼니</span></div>
+        </div>
+    <div class="footer-info">
+      Mullae-dong, Yeongdeungpo-gu, Seoul
+    </div>
+    <div class="footer-bottom" style="display:flex;justify-content:space-between;align-items:center;">
+      <span>&copy; 2025 MULLAECOMPANY CO.,LTD. ALL RIGHTS RESERVED.</span>
+      <span style="font-size:10px;color:#ccc;letter-spacing:1px;">TODAY <span id="todayCount">–</span> · TOTAL <span id="totalCount">–</span></span>
+    </div>
+  </footer>
+
+  <script>
+    var allPosts = [];
+    var PER_PAGE = 5;
+
+    function getPage() {
+      return parseInt(new URLSearchParams(window.location.search).get('page')) || 1;
+    }
+
+    function renderPosts(posts, page) {
+      var container = document.getElementById('post-list');
+      if (posts.length === 0) {
+        container.innerHTML = '<p class="empty">No results found.</p>';
+        return;
+      }
+      var totalPages = Math.ceil(posts.length / PER_PAGE);
+      if (page > totalPages) page = totalPages;
+      var start = (page - 1) * PER_PAGE;
+      var pagePosts = posts.slice(start, start + PER_PAGE);
+
+      var html = '<div class="post-list">';
+      pagePosts.forEach(function (post) {
+        html += '<a class="post-item" href="post.html?id=' + post.id + '">';
+        html += '<p class="post-date">' + post.date + '<span class="post-views" id="views-' + post.id + '"></span></p>';
+        html += '<p class="post-title">' + post.title + '</p>';
+        html += '<p class="post-summary">' + post.summary + '</p>';
+        if (post.tags && post.tags.length) {
+          html += '<div class="post-tags">';
+          post.tags.forEach(function (t) { html += '<span class="post-tag">' + t + '</span>'; });
+          html += '</div>';
+        }
+        html += '</a>';
+      });
+      html += '</div>';
+
+      if (totalPages > 1) {
+        html += '<div class="pagination">';
+        if (page > 1) html += '<a href="?page=' + (page - 1) + '">&laquo;</a>';
+        for (var i = 1; i <= totalPages; i++) {
+          if (i === page) html += '<span class="current">' + i + '</span>';
+          else html += '<a href="?page=' + i + '">' + i + '</a>';
+        }
+        if (page < totalPages) html += '<a href="?page=' + (page + 1) + '">&raquo;</a>';
+        html += '</div>';
+      }
+      container.innerHTML = html;
+
+      pagePosts.forEach(function (post) {
+        var path = '/en/blog/post.html?id=' + post.id;
+        fetch('https://mlc.goatcounter.com/counter/' + encodeURIComponent(path) + '.json')
+          .then(function (r) { return r.json(); })
+          .then(function (d) {
+            var el = document.getElementById('views-' + post.id);
+            if (el && d.count) el.textContent = 'VIEW ' + d.count;
+          }).catch(function () {});
+      });
+    }
+
+    function handleSearch() {
+      var query = document.getElementById('searchInput').value.toLowerCase().trim();
+      if (!query) {
+        renderPosts(allPosts, getPage());
+        return;
+      }
+      var filtered = allPosts.filter(function (p) {
+        return (p.title && p.title.toLowerCase().indexOf(query) >= 0) ||
+               (p.summary && p.summary.toLowerCase().indexOf(query) >= 0) ||
+               (p.tags && p.tags.join(' ').toLowerCase().indexOf(query) >= 0);
+      });
+      renderPosts(filtered, 1);
+    }
+
+    fetch('../../data/blog/index-en.json')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        allPosts = data.posts || [];
+        renderPosts(allPosts, getPage());
+      })
+      .catch(function () {});
+  </script>
+  <script>
+    function toggleMenu() {
+      document.getElementById('mobileNav').classList.toggle('open');
+      document.querySelector('.menu-btn').classList.toggle('active');
+    }
+  </script>
+  <script data-goatcounter="https://mlc.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <script>
+    fetch('https://mlc.goatcounter.com/counter/' + encodeURIComponent(window.location.pathname || '/') + '.json')
+      .then(function(r){return r.json()})
+      .then(function(d){
+        var t=document.getElementById('totalCount');
+        if(t&&d.count) t.textContent=d.count;
+      }).catch(function(){});
+  </script>
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+  <title>Blog — MullaeCompany</title>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Gowun+Batang:wght@400;700&family=Noto+Serif+KR:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family: 'Pretendard Variable', 'Pretendard', -apple-system, sans-serif;
+      background: #fff; color: #1a1a1a; line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; transition: color 0.25s ease; }
+
+    /* ── Header ── */
+    header {
+      position: fixed; top:0; left:0; right:0; z-index:100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .header-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 32px;
+      height: 72px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { font-size: 19px; letter-spacing: -0.5px; }
+    .logo b { font-weight: 900; color: #1B5E3B; }
+    .logo span { font-weight: 400; color: #5A7D62; }
+    nav { display: flex; gap: 36px; }
+    nav a { font-size: 13px; font-weight: 500; color: #999; letter-spacing: 0.2px; }
+    nav a:hover { color: #1a1a1a; }
+    nav a.active { color: #1B5E3B; }
+    .lang {
+      font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
+      color: #aaa; border: 1px solid #ddd; padding: 5px 12px; letter-spacing: 1px;
+    }
+    .lang:hover { border-color: #1B5E3B; color: #1B5E3B; }
+
+    /* ── Article ── */
+    .article { max-width: 680px; margin: 0 auto; padding: 140px 32px 150px; }
+    .back-link {
+      font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 1px;
+      color: #bbb; margin-bottom: 40px; display: inline-block;
+    }
+    .back-link:hover { color: #1B5E3B; }
+    .article-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; color: #bbb; letter-spacing: 0.5px; margin-bottom: 12px;
+    }
+    .article-views { color: #ccc; margin-left: 8px; }
+    .article-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 28px; font-weight: 700; letter-spacing: -0.5px;
+      line-height: 1.45; margin-bottom: 16px;
+    }
+    .article-tags { display: flex; gap: 8px; margin-bottom: 48px; }
+    .article-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; color: #aaa; letter-spacing: 0.5px;
+      border: 1px solid #eee; padding: 2px 10px;
+    }
+    .article-body { font-size: 16px; color: #444; line-height: 2; }
+    .article-body p { margin-bottom: 24px; }
+    .article-body strong { color: #1a1a1a; font-weight: 600; }
+    .article-body h2 {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 20px; font-weight: 700; letter-spacing: -0.3px;
+      margin: 48px 0 16px; color: #1a1a1a;
+    }
+    .article-body h2:first-child { margin-top: 0; }
+    .article-body h3 {
+      font-size: 17px; font-weight: 700; letter-spacing: -0.2px;
+      margin: 32px 0 12px; color: #1a1a1a;
+    }
+    .article-body blockquote {
+      border-left: 3px solid #1B5E3B; padding: 16px 20px; margin: 24px 0;
+      background: #f9faf9; color: #555;
+    }
+    .article-body blockquote p { margin-bottom: 0; }
+    .article-body em { font-style: italic; }
+    .article-body table {
+      width: 100%; border-collapse: collapse; margin: 24px 0;
+      font-size: 14px; line-height: 1.7;
+    }
+    .article-body th {
+      background: #f8f8f8; font-weight: 600; text-align: left;
+      padding: 10px 12px; border-bottom: 2px solid #eee; color: #1a1a1a;
+    }
+    .article-body td {
+      padding: 10px 12px; border-bottom: 1px solid #f0f0f0; color: #555;
+    }
+    .article-body ul, .article-body ol {
+      margin: 16px 0 24px 20px; color: #444;
+    }
+    .article-body li { margin-bottom: 8px; line-height: 1.8; }
+    .article-divider {
+      width: 28px; height: 2px; background: #1B5E3B;
+      margin: 48px 0;
+    }
+    .article-nav {
+      display: flex; justify-content: space-between; padding-top: 32px;
+      border-top: 1px solid #f0f0f0;
+    }
+    .article-nav a {
+      font-size: 13px; font-weight: 500; color: #888;
+      border-bottom: 1px solid #ddd; padding-bottom: 2px;
+    }
+    .article-nav a:hover { color: #1B5E3B; border-color: #1B5E3B; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid #eee;
+      padding: 10px 32px 12px;
+      background: #fff; max-width: 1100px; width: 100%; margin: 0 auto;
+    }
+    .footer-logo { margin-bottom: 0; display: flex; align-items: baseline; gap: 6px; }
+    .footer-corp { font-family: 'Gowun Batang', serif; font-size: 11px; font-weight: 400; color: #aaa; letter-spacing: 2px; margin-bottom: 0; }
+    .footer-name { font-family: 'Gowun Batang', serif; font-size: 18px; font-weight: 700; letter-spacing: 2px; margin-top: 0; }
+    .footer-name b { font-weight: 700; color: #1a1a1a; }
+    .footer-name span { font-weight: 700; color: #5A7D62; }
+    .footer-info { font-size: 11px; color: #bbb; line-height: 1.9; }
+    .footer-bottom {
+      margin-top: 10px; padding-top: 10px; border-top: 1px solid #f0f0f0;
+      font-family: 'DM Mono', monospace; font-size: 10px; color: #ccc; letter-spacing: 0.5px;
+    }
+
+    /* ── Hamburger ── */
+    .menu-btn {
+      display: none; background: none; border: none; cursor: pointer;
+      width: 28px; height: 20px; position: relative; z-index: 200;
+    }
+    .menu-btn span {
+      display: block; width: 100%; height: 1.5px; background: #1a1a1a;
+      position: absolute; left: 0; transition: all 0.3s ease;
+    }
+    .menu-btn span:nth-child(1) { top: 0; }
+    .menu-btn span:nth-child(2) { top: 9px; }
+    .menu-btn span:nth-child(3) { top: 18px; }
+    .menu-btn.active span:nth-child(1) { top: 9px; transform: rotate(45deg); }
+    .menu-btn.active span:nth-child(2) { opacity: 0; }
+    .menu-btn.active span:nth-child(3) { top: 9px; transform: rotate(-45deg); }
+    .mobile-nav {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.98); z-index: 150;
+      flex-direction: column; align-items: center; justify-content: center; gap: 32px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { font-size: 18px; font-weight: 600; color: #1a1a1a; }
+    .mobile-nav a:hover { color: #1B5E3B; }
+    .mobile-nav .lang {
+      font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500;
+      color: #aaa; border: 1px solid #ddd; padding: 6px 16px; letter-spacing: 1px;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      .header-inner { padding: 0 20px; height: 60px; }
+      nav { gap: 16px; }
+      nav a { font-size: 11px; }
+      .article { padding: 100px 20px 60px; }
+      .article-title { font-size: 22px; }
+      footer { padding: 10px 16px 12px; position: static; left: auto; transform: none; width: auto; max-width: none; }
+      .footer-logo { display: flex; align-items: baseline; gap: 5px; margin-bottom: 0; }
+      .footer-corp { font-size: 10px; letter-spacing: 1.5px; margin-bottom: 0; }
+      .footer-name { font-size: 15px; letter-spacing: 1px; }
+      .footer-info { font-size: 10px; line-height: 1.5; margin-top: 1px; }
+      .footer-info span { display: inline; margin-right: 0; }
+      .content { padding-bottom: 40px; }
+      .footer-bottom { margin-top: 6px; padding-top: 6px; font-size: 9px; }
+    }
+    @media (max-width: 480px) {
+      nav { display: none; }
+      .header-inner > .lang { margin-left: auto; margin-right: 12px; }
+      .menu-btn { display: block; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="../" class="logo"><b>mullae</b><span>company</span></a>
+      <nav>
+        <a href="../#about">About</a>
+        <a href="../#brand">Brand</a>
+        <a href="./" class="active">Blog</a>
+        <a href="../news/">News</a>
+        <a href="../careers/">Careers</a>
+        <a href="mailto:connect@mlc.co.kr">Connect</a>
+      </nav>
+      <a href="../../ko/blog/" class="lang">KO</a>
+      <button class="menu-btn" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav">
+    <a href="../" onclick="toggleMenu()">Home</a>
+    <a href="../#about" onclick="toggleMenu()">About</a>
+    <a href="../#brand" onclick="toggleMenu()">Brand</a>
+    <a href="./" onclick="toggleMenu()">Blog</a>
+    <a href="../news/" onclick="toggleMenu()">News</a>
+    <a href="../careers/" onclick="toggleMenu()">Careers</a>
+    <a href="mailto:connect@mlc.co.kr" onclick="toggleMenu()">Connect</a>
+    <a href="../../ko/blog/" class="lang">KO</a>
+  </div>
+
+  <div class="article">
+    <a href="./" class="back-link">← BLOG</a>
+    <div id="article-content">
+      <p style="text-align:center; padding:80px 0; color:#bbb;">Loading...</p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">
+          <div class="footer-corp">주식회사</div>
+          <div class="footer-name"><b>문래</b><span>컴퍼니</span></div>
+        </div>
+    <div class="footer-info">
+      Mullae-dong, Yeongdeungpo-gu, Seoul
+    </div>
+    <div class="footer-bottom" style="display:flex;justify-content:space-between;align-items:center;">
+      <span>&copy; 2025 MULLAECOMPANY CO.,LTD. ALL RIGHTS RESERVED.</span>
+      <span style="font-size:10px;color:#ccc;letter-spacing:1px;">TODAY <span id="todayCount">–</span> · TOTAL <span id="totalCount">–</span></span>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('mobileNav').classList.toggle('open');
+      document.querySelector('.menu-btn').classList.toggle('active');
+    }
+  </script>
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var postId = params.get('id');
+      if (!postId) { window.location.href = './'; return; }
+
+      Promise.all([
+        fetch('../../data/blog/posts/' + postId + '.json').then(function (r) {
+          if (!r.ok) throw new Error('Not found');
+          return r.json();
+        }),
+        fetch('../../data/blog/index-en.json').then(function (r) { return r.json(); })
+      ]).then(function (results) {
+        var postData = results[0];
+        var indexData = results[1];
+        var posts = indexData.posts || [];
+        var post = postData.en || {};
+        post.date = postData.date;
+
+        var container = document.getElementById('article-content');
+        var html = '';
+        html += '<p class="article-date">' + (post.date || '') + '<span class="article-views" id="postViews"></span></p>';
+        html += '<h1 class="article-title">' + (post.title || '') + '</h1>';
+        if (post.tags && post.tags.length) {
+          html += '<div class="article-tags">';
+          post.tags.forEach(function (t) { html += '<span class="article-tag">' + t + '</span>'; });
+          html += '</div>';
+        }
+        html += '<div class="article-body">' + (post.content || '') + '</div>';
+
+        var idx = -1;
+        for (var i = 0; i < posts.length; i++) {
+          if (posts[i].id === postId) { idx = i; break; }
+        }
+        if (idx >= 0) {
+          html += '<div class="post-nav">';
+          if (idx > 0) html += '<a href="post.html?id=' + posts[idx - 1].id + '" class="post-nav-link prev"><span class="post-nav-label">Previous</span><span class="post-nav-title">' + posts[idx - 1].title + '</span></a>';
+          if (idx < posts.length - 1) html += '<a href="post.html?id=' + posts[idx + 1].id + '" class="post-nav-link next"><span class="post-nav-label">Next</span><span class="post-nav-title">' + posts[idx + 1].title + '</span></a>';
+          html += '</div>';
+        }
+
+        container.innerHTML = html;
+        document.title = (post.title || 'Blog') + ' — MullaeCompany';
+
+        // Post view count
+        var postPath = '/en/blog/post.html?id=' + postId;
+        fetch('https://mlc.goatcounter.com/counter/' + encodeURIComponent(postPath) + '.json')
+          .then(function(r){return r.json()})
+          .then(function(d){
+            var el = document.getElementById('postViews');
+            if(el && d.count) el.textContent = ' · VIEW ' + d.count;
+          }).catch(function(){});
+      }).catch(function () {
+        document.getElementById('article-content').innerHTML = '<p style="text-align:center;padding:80px 0;color:#bbb;">Post not found.</p>';
+      });
+    })();
+  </script>
+  <script data-goatcounter="https://mlc.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <script>
+    fetch('https://mlc.goatcounter.com/counter/' + encodeURIComponent(window.location.pathname || '/') + '.json')
+      .then(function(r){return r.json()})
+      .then(function(d){
+        var t=document.getElementById('totalCount');
+        if(t&&d.count) t.textContent=d.count;
+      }).catch(function(){});
+  </script>
+</body>
+</html>

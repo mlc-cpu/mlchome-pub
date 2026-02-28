@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <title>(주)문래컴퍼니 — 건강에서 피어나는 아름다움</title>
+  <meta property="og:title" content="(주)문래컴퍼니">
+  <meta property="og:description" content="건강에서 피어나는 아름다움 — 검증된 원료, 과학적 배합">
+  <meta property="og:url" content="https://mlc.co.kr/ko/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta name="description" content="건강에서 피어나는 아름다움 — 검증된 원료, 과학적 배합 | (주)문래컴퍼니">
+  <link rel="canonical" href="https://mlc.co.kr/ko/">
+  <link rel="alternate" hreflang="ko" href="https://mlc.co.kr/ko/">
+  <link rel="alternate" hreflang="en" href="https://mlc.co.kr/en/">
+  <link rel="alternate" hreflang="x-default" href="https://mlc.co.kr/">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Gowun+Batang:wght@400;700&family=Noto+Serif+KR:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family: 'Pretendard Variable', 'Pretendard', -apple-system, sans-serif;
+      background: #fff;
+      color: #1a1a1a;
+      line-height: 1.8;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; transition: color 0.25s ease; }
+
+    /* ── Header ── */
+    header {
+      position: fixed; top:0; left:0; right:0; z-index:100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-family: 'Pretendard Variable', sans-serif;
+      font-size: 19px;
+      letter-spacing: -0.5px;
+    }
+    .logo b { font-weight: 900; color: #1B5E3B; }
+    .logo span { font-weight: 400; color: #5A7D62; }
+    nav { display: flex; gap: 36px; }
+    nav a {
+      font-size: 13px;
+      font-weight: 500;
+      color: #999;
+      letter-spacing: 0.2px;
+      transition: color 0.25s ease;
+    }
+    nav a:hover { color: #1a1a1a; }
+    .lang {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      color: #aaa;
+      border: 1px solid #ddd;
+      padding: 5px 12px;
+      letter-spacing: 1px;
+      transition: all 0.25s ease;
+    }
+    .lang:hover { border-color: #1B5E3B; color: #1B5E3B; }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh; padding-bottom: 120px;
+      display: flex;
+      align-items: center;
+      padding-top: 72px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 32px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      align-items: center;
+      gap: 40px;
+    }
+    .hero-text { z-index: 2; }
+    .hero-visual {
+      position: relative;
+      width: 100%;
+      height: 480px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .blob-wrap {
+      position: relative;
+      width: 400px;
+      height: 400px;
+    }
+    .blob {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity: 0.6;
+      animation: blobMorph 12s ease-in-out infinite;
+    }
+    .blob-1 {
+      background: radial-gradient(circle, rgba(27,94,59,0.4) 0%, rgba(27,94,59,0.05) 70%);
+      animation-delay: 0s;
+    }
+    .blob-2 {
+      background: radial-gradient(circle, rgba(90,125,98,0.35) 0%, rgba(90,125,98,0.03) 70%);
+      animation-delay: -4s;
+      width: 85%; height: 85%; top: 10%; left: 15%;
+    }
+    .blob-3 {
+      background: radial-gradient(circle, rgba(180,210,190,0.4) 0%, rgba(200,230,210,0.02) 70%);
+      animation-delay: -8s;
+      width: 70%; height: 70%; top: 20%; left: 5%;
+    }
+    .blob-ring {
+      position: absolute;
+      width: 320px; height: 320px;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(27,94,59,0.12);
+      border-radius: 50%;
+      animation: ringPulse 6s ease-in-out infinite;
+    }
+    .blob-ring-2 {
+      width: 220px; height: 220px;
+      border-color: rgba(27,94,59,0.08);
+      animation-delay: -2s;
+    }
+    @keyframes blobMorph {
+      0%   { border-radius: 50% 40% 60% 50%; transform: translate(0, 0) scale(1); }
+      25%  { border-radius: 40% 60% 50% 45%; transform: translate(15px, -20px) scale(1.05); }
+      50%  { border-radius: 55% 45% 40% 60%; transform: translate(-10px, 15px) scale(0.95); }
+      75%  { border-radius: 45% 55% 55% 40%; transform: translate(10px, 10px) scale(1.02); }
+      100% { border-radius: 50% 40% 60% 50%; transform: translate(0, 0) scale(1); }
+    }
+    @keyframes ringPulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+      50% { transform: translate(-50%, -50%) scale(1.08); opacity: 0.2; }
+    }
+    .hero-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 3px; color: #1B5E3B;
+      margin-bottom: 40px; opacity: 0.7;
+    }
+    .hero h1 {
+      font-family: 'Noto Serif KR', serif;
+      font-size: clamp(36px, 5.5vw, 58px);
+      font-weight: 700; line-height: 1.3;
+      letter-spacing: -1.5px; margin-bottom: 36px;
+      color: #111; word-break: keep-all;
+    }
+    .hero h1 em {
+      font-style: normal;
+      background-image: linear-gradient(transparent 60%, rgba(27,94,59,0.12) 60%);
+      padding-bottom: 2px;
+    }
+    .hero-sub {
+      font-size: 17px; font-weight: 500;
+      color: #444; letter-spacing: -0.3px;
+    }
+
+    /* ── Scroll hint ── */
+    .scroll-hint {
+      position: absolute; bottom: 36px; left: 50%;
+      transform: translateX(-50%);
+      align-items: center; gap: 8px;
+    }
+    .scroll-hint span {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; letter-spacing: 2px; color: #bbb;
+    }
+    .scroll-line {
+      width: 1px; height: 28px;
+      background: linear-gradient(to bottom, #ccc, transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    /* ── About ── */
+    .about {
+      padding: 100px 32px;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .section-line {
+      width: 100%; height: 1px;
+      background: #eee; margin-bottom: 80px;
+    }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 100px; align-items: start;
+    }
+    .about-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 3px; color: #bbb; margin-bottom: 28px;
+    }
+    .about h2 {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 30px; font-weight: 700;
+      line-height: 1.45; letter-spacing: -0.5px; margin-bottom: 20px;
+    }
+    .about-accent {
+      width: 28px; height: 2px;
+      background: #1B5E3B; margin-bottom: 28px;
+    }
+    .about p {
+      font-size: 15px; color: #666;
+      margin-bottom: 18px; line-height: 1.85;
+    }
+    .about p strong { color: #1a1a1a; font-weight: 600; }
+
+    /* ── Values ── */
+    .values { gap: 48px; padding-top: 8px; }
+    .value-item {
+      padding-left: 20px;
+      border-left: 1px solid #e0e0e0;
+      transition: border-color 0.3s ease;
+    }
+    .value-item:hover { border-color: #1B5E3B; }
+    .value-item h4 { font-size: 16px; font-weight: 700; margin-bottom: 2px; letter-spacing: -0.3px; }
+    .value-item .en {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; letter-spacing: 2px; color: #b5b5b5; margin-bottom: 10px;
+    }
+    .value-item p { font-size: 14px; color: #888; line-height: 1.75; margin-bottom: 0; }
+
+    /* ── Section common ── */
+    .section { padding: 100px 32px; max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 3px; color: #bbb; margin-bottom: 28px;
+    }
+    .section-accent { width: 28px; height: 2px; background: #1B5E3B; margin-bottom: 48px; }
+
+    /* ── Brand ── */
+    .brand-split {
+      display: grid; grid-template-columns: 1fr 1px 1fr;
+      gap: 0; align-items: start;
+    }
+    .brand-col { padding: 0 48px; }
+    .brand-col:first-child { padding-left: 0; }
+    .brand-col:last-child { padding-right: 0; }
+    .brand-divider { background: #eee; align-self: stretch; }
+    .brand-name {
+      font-family: 'Noto Serif KR', serif;
+      font-size: clamp(36px, 6vw, 56px);
+      font-weight: 700; letter-spacing: -2px;
+      color: #1a1a1a; margin-bottom: 8px;
+    }
+    .brand-name .tm {
+      font-size: 0.25em; font-weight: 400;
+      position: relative; top: -2.2em;
+    }
+    .brand-name-en .tm {
+      font-size: 0.6em; font-weight: 400;
+      vertical-align: super;
+    }
+    .brand-name-en {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; letter-spacing: 3px;
+      color: #b5b5b5; margin-bottom: 24px;
+    }
+    .brand-links { display: flex; gap: 24px; margin-top: 36px; }
+    .brand-link {
+      font-size: 13px; font-weight: 500; color: #888;
+      border-bottom: 1px solid #ddd; padding-bottom: 2px;
+      transition: all 0.25s ease;
+    }
+    .brand-link:hover { color: #1B5E3B; border-color: #1B5E3B; }
+    .followers { font-size: 11px; color: #1B5E3B; font-weight: 600; }
+    .brand-meaning { font-size: 15px; color: #666; line-height: 1.85; margin-bottom: 24px; }
+    .brand-lily-row { display: flex; align-items: flex-end; gap: 16px; }
+    .brand-lily-row .brand-meaning { margin-bottom: 0; }
+    .lily-sketch { width: 44px; height: 66px; flex-shrink: 0; opacity: 0.85; }
+    .brand-meaning strong { color: #1a1a1a; font-weight: 600; }
+    .brand-coming .brand-name { color: #aaa; filter: blur(10px); user-select: none; }
+    .brand-coming .brand-name-en { color: #ddd; }
+    .brand-coming .section-accent { background: #ddd; }
+    .brand-coming .brand-meaning { color: #bbb; }
+
+    /* ── Partners ── */
+    .partners {
+      display: flex;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .partner {
+      font-size: 18px;
+      font-weight: 600;
+      color: #bbb;
+      letter-spacing: -0.3px;
+      transition: color 0.25s ease;
+    }
+    .partner:hover { color: #1B5E3B; }
+
+    /* ── News ── */
+    .news-list { }
+    .news-item {
+      padding: 28px 0; border-bottom: 1px solid #f0f0f0;
+      display: block; transition: opacity 0.2s ease;
+    }
+    .news-item:first-child { padding-top: 0; }
+    .news-item:last-child { border-bottom: none; }
+    a.news-item:hover { opacity: 0.7; }
+    .news-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; color: #ccc; letter-spacing: 0.5px; margin-bottom: 6px;
+    }
+    .news-title { font-size: 16px; font-weight: 600; letter-spacing: -0.3px; margin-bottom: 4px; }
+    .news-body { font-size: 14px; color: #888; line-height: 1.7; }
+    .news-empty { text-align: center; padding: 80px 0; }
+    .news-empty p { font-size: 15px; color: #bbb; letter-spacing: -0.3px; }
+
+    /* ── Hero headlines ── */
+    .hero-headlines {
+      margin-top: 48px;
+      padding-top: 28px;
+      border-top: 1px solid #eee;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .hero-headline {
+      display: flex; align-items: flex-start; gap: 8px;
+      font-size: 13px; color: #444; letter-spacing: -0.2px;
+      transition: color 0.2s ease;
+    }
+    a.hero-headline:hover { color: #1B5E3B; }
+    .hero-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px; font-weight: 500; letter-spacing: 0.5px;
+      color: #fff; background: #1B5E3B;
+      padding: 2px 5px; border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .hero-headline-title {
+      min-width: 0;
+    }
+    .hero-new-dot {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px; font-weight: 500;
+      color: #e74c3c; letter-spacing: 0.3px;
+      margin-left: 2px;
+      vertical-align: middle;
+    }
+
+    /* ── Careers ── */
+    .careers-empty { text-align: center; padding: 80px 0; }
+    .careers-empty p { font-size: 15px; color: #bbb; letter-spacing: -0.3px; margin-bottom: 12px; }
+    .careers-empty a {
+      font-size: 13px; color: #888;
+      border-bottom: 1px solid #ddd; padding-bottom: 2px;
+      transition: all 0.25s ease;
+    }
+    .careers-empty a:hover { color: #1B5E3B; border-color: #1B5E3B; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid #eee;
+      padding: 10px 32px 12px;
+      background: #fff; max-width: 1100px; width: 100%; margin: 0 auto;
+    }
+    .footer-top {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; margin-bottom: 12px;
+    }
+    .footer-logo { margin-bottom: 0; display: flex; align-items: baseline; gap: 6px; }
+    .footer-corp { font-family: 'Gowun Batang', serif; font-size: 11px; font-weight: 400; color: #aaa; letter-spacing: 2px; margin-bottom: 0; }
+    .footer-name { font-family: 'Gowun Batang', serif; font-size: 18px; font-weight: 700; letter-spacing: 2px; margin-top: 0; }
+    .footer-name b { font-weight: 700; color: #1a1a1a; }
+    .footer-name span { font-weight: 700; color: #5A7D62; }
+    .footer-info { font-size: 11px; color: #bbb; line-height: 1.9; }
+    .footer-info span { margin-right: 16px; }
+    .footer-bottom {
+      margin-top: 6px; padding-top: 6px;
+      border-top: 1px solid #f0f0f0;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; color: #ccc; letter-spacing: 0.5px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-bottom a {
+      font-family: inherit; font-size: 11px; color: #aaa;
+      border-bottom: 1px solid #ddd; padding-bottom: 1px;
+      transition: color 0.25s ease;
+    }
+    .footer-bottom a:hover { color: #1B5E3B; border-color: #1B5E3B; }
+
+    /* ── Hamburger ── */
+    .menu-btn {
+      display: none; background: none; border: none; cursor: pointer;
+      width: 28px; height: 20px; position: relative; z-index: 200;
+    }
+    .menu-btn span {
+      display: block; width: 100%; height: 1.5px; background: #1a1a1a;
+      position: absolute; left: 0; transition: all 0.3s ease;
+    }
+    .menu-btn span:nth-child(1) { top: 0; }
+    .menu-btn span:nth-child(2) { top: 9px; }
+    .menu-btn span:nth-child(3) { top: 18px; }
+    .menu-btn.active span:nth-child(1) { top: 9px; transform: rotate(45deg); }
+    .menu-btn.active span:nth-child(2) { opacity: 0; }
+    .menu-btn.active span:nth-child(3) { top: 9px; transform: rotate(-45deg); }
+    .mobile-nav {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.98); z-index: 150;
+      flex-direction: column; align-items: center; justify-content: center; gap: 32px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-size: 18px; font-weight: 600; color: #1a1a1a; letter-spacing: -0.3px;
+    }
+    .mobile-nav a:hover { color: #1B5E3B; }
+    .mobile-nav .lang {
+      font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500;
+      color: #aaa; border: 1px solid #ddd; padding: 6px 16px; letter-spacing: 1px;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      .header-inner { padding: 0 20px; height: 60px; }
+      nav { display: none; }
+      .header-inner > .lang { margin-left: auto; margin-right: 12px; }
+      .menu-btn { display: block; }
+      .hero { min-height: auto; align-items: flex-start; padding-top: 150px; }
+      .hero-inner { padding: 0 20px; grid-template-columns: 1fr; }
+      .hero-label { margin-bottom: 20px; }
+      .hero h1 { font-size: 32px; letter-spacing: -1px; margin-bottom: 20px; }
+      .hero-sub { font-size: 15px; }
+      .hero-visual { position: absolute; bottom: 0; right: 0; width: 220px; height: 220px; opacity: 0.35; pointer-events: none; flex-direction: column; margin-top: 0; }
+      .blob-wrap { width: 200px; height: 200px; }
+      .blob-ring { width: 170px; height: 170px; }
+      .blob-ring-2 { width: 120px; height: 120px; }
+      .hero-headlines {
+        margin-top: 40px;
+        padding-top: 20px;
+      }
+      .hero-headline { line-height: 1.6; }
+      .hero-badge { margin-top: 3px; }
+      .hero-new-dot { display: inline; vertical-align: top; margin-left: 2px; line-height: 1.6; }
+      .scroll-hint { display: none; }
+      .about { padding: 48px 20px; }
+      .section-line { margin-bottom: 36px; }
+      .about-grid { grid-template-columns: 1fr; gap: 56px; }
+      .values { gap: 36px; }
+      .section { padding: 48px 20px; }
+
+      .brand-split { grid-template-columns: 1fr; gap: 48px; }
+      .brand-divider { height: 1px; align-self: auto; }
+      .brand-col { padding: 0; }
+      footer { padding: 10px 16px 12px; width: auto; max-width: none; }
+      .footer-logo { display: flex; align-items: baseline; gap: 5px; margin-bottom: 0; }
+      .footer-corp { font-size: 10px; letter-spacing: 1.5px; margin-bottom: 0; }
+      .footer-name { font-size: 15px; letter-spacing: 1px; }
+      .footer-info { font-size: 10px; line-height: 1.5; margin-top: 1px; }
+      .footer-info span { display: inline; margin-right: 0; }
+      .hero { padding-bottom: 24px; }
+      .footer-bottom { margin-top: 6px; padding-top: 6px; font-size: 9px; }
+      .footer-top { flex-direction: column; gap: 16px; }
+      .footer-info span { display: block; margin-right: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="../ko/" class="logo"><b>mullae</b><span>company</span></a>
+      <nav>
+        <a href="#about">회사소개</a>
+        <a href="#brand">브랜드</a>
+        <a href="blog/">블로그</a>
+        <a href="news/">뉴스</a>
+        <a href="careers/">채용</a>
+        <a href="mailto:connect@mlc.co.kr">문의하기</a>
+      </nav>
+      <a href="../en/" class="lang">EN</a>
+      <button class="menu-btn" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#about" onclick="toggleMenu()">회사소개</a>
+    <a href="#brand" onclick="toggleMenu()">브랜드</a>
+    <a href="blog/">블로그</a>
+    <a href="news/" onclick="toggleMenu()">뉴스</a>
+    <a href="careers/" onclick="toggleMenu()">채용</a>
+    <a href="mailto:connect@mlc.co.kr" onclick="toggleMenu()">문의하기</a>
+    <a href="../en/" class="lang">EN</a>
+  </div>
+
+  <section class="hero">
+    <div class="hero-inner">
+    <div class="hero-text">
+      <p class="hero-label">LIVE WELL. AGE BEAUTIFULLY.</p>
+      <h1>
+        건강에서&nbsp;피어나는<br>
+        <em>아름다움</em>
+      </h1>
+      <p class="hero-sub">약사가 만드는 건강기능식품과 화장품</p>
+      <div class="hero-headlines" id="heroHeadlines"></div>
+    </div>
+    <div class="hero-visual">
+      <div class="blob-wrap">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="blob-ring"></div>
+        <div class="blob-ring blob-ring-2"></div>
+      </div>
+    </div>
+    </div>
+    <div class="scroll-hint">
+      <span>SCROLL</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="section-line"></div>
+    <div class="about-grid">
+      <div>
+        <p class="about-label">ABOUT US</p>
+        <h2>약을 검증하던 눈으로<br>원료부터 다시 봅니다</h2>
+        <div class="about-accent"></div>
+        <p>
+          약이 세상에 나오는 전&nbsp;과정<br>
+          <strong>개발, 검증, 분석, 마케팅, 글로벌&nbsp;사업</strong>을<br>
+          직접 이끌어 온 약사와 한약사가<br>
+          서울 문래동에 <strong>문래컴퍼니</strong>를 세웠습니다.
+        </p>
+        <p>
+          <strong>건강기능식품과 화장품</strong>을 직접 기획하고 만듭니다.<br>
+          원료 하나하나에 의약품을 다루던 기준을 그대로 적용하고,<br>
+          검증한 모든 정보를 소비자에게 투명하게 공개합니다.
+        </p>
+      </div>
+      <div class="values">
+        <div class="value-item">
+          <h4>터</h4>
+          <p class="en">GROUND</p>
+          <p>과학 위에 담았습니다.</p>
+        </div>
+        <div class="value-item">
+          <h4>참</h4>
+          <p class="en">TRUE</p>
+          <p>바르게 만듭니다.</p>
+        </div>
+        <div class="value-item">
+          <h4>품</h4>
+          <p class="en">WARM</p>
+          <p>오늘도 건강하고 아름답기를.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="brand">
+    <div class="section-line"></div>
+    <p class="section-label">BRAND</p>
+    <div class="brand-split">
+      <div class="brand-col">
+        <p class="brand-name">오늘:온<span class="tm">TM</span></p>
+        <p class="brand-name-en">onl:on<span class="tm">TM</span></p>
+        <div class="section-accent"></div>
+        <p class="brand-meaning">
+          <strong>오늘</strong>부터, 온전한 건강이 따뜻하게 찾아옵니다.<br>
+          문래컴퍼니의 건강기능식품 브랜드입니다.
+        </p>
+        <p class="brand-meaning">
+          <strong>온</strong> — 오다, 온전하다, 따뜻하다.<br>
+          세 가지 뜻을 하나의 이름에 담았습니다.
+        </p>
+        <div class="brand-lily-row">
+          <p class="brand-meaning">
+            첫번째 제품을 준비하고 있습니다.<br>
+            은방울꽃 피어나는 5월이면 만나보실 수 있습니다.
+          </p>
+          <svg class="lily-sketch" viewBox="0 0 60 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M30 88 C30 88 28 45 32 20 C34 8 30 2 30 2" stroke="#a8c0a0" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M32 20 C32 20 22 18 18 24 C15 28 18 32 22 30 C26 28 28 22 32 20Z" stroke="#a8c0a0" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+            <path d="M31 30 C31 30 21 29 17 35 C14 39 17 43 21 41 C25 39 27 33 31 30Z" stroke="#a8c0a0" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+            <path d="M30.5 42 C30.5 42 20 41 16 47 C13 51 16 55 20 53 C24 51 26.5 45 30.5 42Z" stroke="#a8c0a0" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+            <path d="M30 55 C30 55 22 55 19 60 C16 64 19 67 22 65 C25 63 27 58 30 55Z" stroke="#a8c0a0" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+            <path d="M30 68 C30 68 24 68 22 72 C20 75 22 77 24 76 C26 75 28 71 30 68Z" stroke="#a8c0a0" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+            <path d="M30 5 C30 5 42 15 48 40 C52 55 46 70 46 70" stroke="#a8c0a0" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+          </svg>
+        </div>
+        <div class="brand-links">
+          <a href="https://smartstore.naver.com/onlon" target="_blank" class="brand-link">스마트스토어</a>
+          <a href="https://instagram.com/oneul_pharmacy" target="_blank" class="brand-link">Instagram <span class="followers" id="igFollowers"></span></a>
+        </div>
+      </div>
+      <div class="brand-divider"></div>
+      <div class="brand-col brand-coming">
+        <p class="brand-name">피부미학</p>
+        <p class="brand-name-en">DERMA SCIENCE</p>
+        <div class="section-accent"></div>
+        <p class="brand-meaning">곧, 피부 위에도 봄이 옵니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partners -->
+  <section class="section" id="partners">
+    <div class="section-line"></div>
+    <p class="section-label">OUR PARTNERS</p>
+    <div class="partners">
+      <a href="https://npksolutions.kr/" target="_blank" class="partner">NPK솔루션즈</a>
+      <a href="https://www.dwdhealthcare.com/" target="_blank" class="partner">대우당헬스케어</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">
+          <div class="footer-corp">주식회사</div>
+          <div class="footer-name"><b>문래</b><span>컴퍼니</span></div>
+        </div>
+    <div class="footer-info">
+      <span>서울특별시 영등포구 문래동</span>
+    </div>
+    <div class="footer-bottom" style="display:flex;justify-content:space-between;align-items:center;">
+      <span>&copy; 2025 MULLAECOMPANY CO.,LTD. ALL RIGHTS RESERVED.</span>
+      <span style="font-size:10px;color:#ccc;letter-spacing:1px;">TODAY <span id="todayCount">–</span> · TOTAL <span id="totalCount">–</span></span>
+    </div>
+  </footer>
+
+  <script>
+    if (history.scrollRestoration) history.scrollRestoration = 'manual';
+  </script>
+  <script>
+    (function () {
+      var container = document.getElementById('heroHeadlines');
+      function parseDate(dateStr) {
+        var parts = dateStr.split('.');
+        return new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+      }
+      function isNew(dateStr) {
+        var diff = new Date() - parseDate(dateStr);
+        return diff >= 0 && diff < 7 * 24 * 60 * 60 * 1000;
+      }
+      Promise.all([
+        fetch('../data/news/index-ko.json').then(function (r) { return r.json(); }).then(function (d) { return d.news || []; }).catch(function () { return []; }),
+        fetch('../data/blog/index-ko.json').then(function (r) { return r.json(); }).then(function (d) { return d.posts || []; }).catch(function () { return []; })
+      ]).then(function (results) {
+        var combined = [];
+        (results[0] || []).forEach(function (n) {
+          combined.push({ type: 'NEWS', date: n.date, title: n.title, link: n.link, id: null });
+        });
+        (results[1] || []).forEach(function (p) {
+          combined.push({ type: 'BLOG', date: p.date, title: p.title, link: null, id: p.id });
+        });
+        combined.sort(function (a, b) { return parseDate(b.date) - parseDate(a.date); });
+        combined = combined.slice(0, 5);
+        var html = '';
+        combined.forEach(function (item) {
+          var newDot = isNew(item.date) ? '<span class="hero-new-dot">NEW</span>' : '';
+          var href, target = '';
+          if (item.type === 'NEWS') {
+            href = item.link ? item.link : 'news/';
+            target = item.link ? ' target="_blank"' : '';
+          } else {
+            href = 'blog/post.html?id=' + item.id;
+          }
+          html += '<a class="hero-headline" href="' + href + '"' + target + '><span class="hero-badge">' + item.type + '</span><span class="hero-headline-title">' + item.title + (newDot ? ' ' + newDot : '') + '</span></a>';
+        });
+        if (html) container.innerHTML = html;
+      });
+    })();
+  </script>
+  <script>
+    function toggleMenu() {
+      document.getElementById('mobileNav').classList.toggle('open');
+      document.querySelector('.menu-btn').classList.toggle('active');
+    }
+  </script>
+  <script data-goatcounter="https://mlc.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <script>
+    fetch('https://mlc.goatcounter.com/counter/' + encodeURIComponent(window.location.pathname || '/') + '.json')
+      .then(function(r){return r.json()})
+      .then(function(d){
+        var t=document.getElementById('totalCount');
+        if(t&&d.count) t.textContent=d.count;
+      }).catch(function(){});
+  </script>
+  <script>
+    fetch('../data/social.json').then(function(r){return r.json()}).then(function(d){
+      var el=document.getElementById('igFollowers');
+      if(el&&d.instagram) el.textContent=d.instagram.followers;
+    }).catch(function(){});
+  </script>
+</body>
+</html>

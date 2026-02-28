@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MLC Admin</title>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Pretendard Variable', sans-serif;
+      background: #fafafa;
+      color: #1a1a1a;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Layout ── */
+    .wrap { max-width: 640px; margin: 0 auto; padding: 48px 24px 80px; }
+    h1 { font-size: 20px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.5px; }
+    .desc { font-size: 13px; color: #999; margin-bottom: 40px; }
+
+    /* ── Login ── */
+    .login-box { margin-bottom: 40px; }
+    .login-box label { font-size: 12px; font-weight: 600; color: #888; display: block; margin-bottom: 6px; }
+    .login-row { display: flex; gap: 8px; }
+    .login-row input {
+      flex: 1; padding: 10px 14px; border: 1px solid #ddd; font-size: 13px;
+      font-family: monospace; background: #fff; outline: none;
+    }
+    .login-row input:focus { border-color: #1B5E3B; }
+    .status { font-size: 11px; margin-top: 6px; color: #999; }
+    .status.ok { color: #1B5E3B; }
+    .status.err { color: #c0392b; }
+
+    /* ── Buttons ── */
+    .btn {
+      padding: 9px 20px; font-size: 13px; font-weight: 600; font-family: inherit;
+      border: none; cursor: pointer; transition: all 0.2s ease; letter-spacing: -0.2px;
+    }
+    .btn-dark { background: #1a1a1a; color: #fff; }
+    .btn-dark:hover { background: #333; }
+    .btn-green { background: #1B5E3B; color: #fff; }
+    .btn-green:hover { background: #164d31; }
+    .btn-outline { background: #fff; color: #888; border: 1px solid #ddd; }
+    .btn-outline:hover { border-color: #1a1a1a; color: #1a1a1a; }
+    .btn-danger { background: #fff; color: #c0392b; border: 1px solid #e8d5d5; }
+    .btn-danger:hover { border-color: #c0392b; }
+
+    /* ── Section ── */
+    .section { margin-bottom: 48px; }
+    .section-title {
+      font-size: 13px; font-weight: 700; letter-spacing: -0.3px;
+      margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #eee;
+    }
+
+    /* ── News form ── */
+    .form-group { margin-bottom: 16px; }
+    .form-group label { font-size: 12px; font-weight: 600; color: #888; display: block; margin-bottom: 6px; }
+    .form-group input, .form-group textarea {
+      width: 100%; padding: 10px 14px; border: 1px solid #ddd; font-size: 14px;
+      font-family: inherit; background: #fff; outline: none; resize: vertical;
+    }
+    .form-group input:focus, .form-group textarea:focus { border-color: #1B5E3B; }
+    .form-actions { display: flex; gap: 8px; margin-top: 20px; }
+
+    /* ── News list ── */
+    .news-item {
+      padding: 16px 0; border-bottom: 1px solid #f0f0f0;
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;
+    }
+    .news-item:last-child { border-bottom: none; }
+    .news-meta { font-size: 11px; color: #bbb; margin-bottom: 4px; }
+    .news-title { font-size: 14px; font-weight: 600; letter-spacing: -0.3px; margin-bottom: 2px; }
+    .news-body { font-size: 13px; color: #888; }
+    .news-actions { flex-shrink: 0; display: flex; gap: 6px; }
+    .news-actions button { font-size: 11px; padding: 4px 10px; }
+
+    .empty { font-size: 13px; color: #ccc; padding: 24px 0; }
+    .hidden { display: none; }
+
+    /* ── Config ── */
+    .config-row { display: flex; gap: 8px; margin-bottom: 12px; }
+    .config-row label { font-size: 12px; font-weight: 600; color: #888; min-width: 60px; padding-top: 11px; }
+    .config-row input { flex: 1; padding: 10px 14px; border: 1px solid #ddd; font-size: 13px; font-family: monospace; outline: none; }
+    .config-row input:focus { border-color: #1B5E3B; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>MLC Admin</h1>
+    <p class="desc">뉴스 관리 — GitHub Pages 연동</p>
+
+    <!-- Config -->
+    <div class="section">
+      <p class="section-title">GitHub 설정</p>
+      <div class="config-row">
+        <label>Owner</label>
+        <input type="text" id="cfg-owner" placeholder="github-username">
+      </div>
+      <div class="config-row">
+        <label>Repo</label>
+        <input type="text" id="cfg-repo" placeholder="repository-name">
+      </div>
+      <div class="config-row">
+        <label>Branch</label>
+        <input type="text" id="cfg-branch" placeholder="main" value="main">
+      </div>
+      <div class="config-row">
+        <label>Path</label>
+        <input type="text" id="cfg-path" placeholder="data/news.json" value="data/news.json">
+      </div>
+      <div class="login-row" style="margin-top: 12px;">
+        <input type="password" id="gh-token" placeholder="GitHub Personal Access Token">
+        <button class="btn btn-dark" onclick="connect()">연결</button>
+      </div>
+      <p class="status" id="status"></p>
+    </div>
+
+    <!-- News list -->
+    <div class="section" id="sec-news">
+      <p class="section-title">뉴스 목록</p>
+      <div id="news-list"><p class="empty">GitHub에 연결하세요.</p></div>
+    </div>
+
+    <!-- Add/Edit form -->
+    <div class="section" id="sec-form">
+      <p class="section-title" id="form-title">뉴스 추가</p>
+      <div class="form-group">
+        <label>제목</label>
+        <input type="text" id="f-title" placeholder="뉴스 제목">
+      </div>
+      <div class="form-group">
+        <label>날짜</label>
+        <input type="date" id="f-date">
+      </div>
+      <div class="form-group">
+        <label>내용</label>
+        <textarea id="f-body" rows="3" placeholder="간단한 설명"></textarea>
+      </div>
+      <div class="form-group">
+        <label>링크 (선택)</label>
+        <input type="url" id="f-link" placeholder="https://...">
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-green" onclick="saveNews()">저장</button>
+        <button class="btn btn-outline" onclick="cancelEdit()">취소</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var config = JSON.parse(localStorage.getItem('mlc-admin-config') || '{}');
+    var token = localStorage.getItem('mlc-admin-token') || '';
+    var newsData = [];
+    var fileSha = null;
+    var editIndex = -1;
+
+    // Restore config
+    if (config.owner) document.getElementById('cfg-owner').value = config.owner;
+    if (config.repo) document.getElementById('cfg-repo').value = config.repo;
+    if (config.branch) document.getElementById('cfg-branch').value = config.branch;
+    if (config.path) document.getElementById('cfg-path').value = config.path;
+    if (token) { document.getElementById('gh-token').value = '••••••••'; }
+
+    // Set default date
+    document.getElementById('f-date').value = new Date().toISOString().split('T')[0];
+
+    function getConfig() {
+      return {
+        owner: document.getElementById('cfg-owner').value.trim(),
+        repo: document.getElementById('cfg-repo').value.trim(),
+        branch: document.getElementById('cfg-branch').value.trim() || 'main',
+        path: document.getElementById('cfg-path').value.trim() || 'data/news.json'
+      };
+    }
+
+    function setStatus(msg, type) {
+      var el = document.getElementById('status');
+      el.textContent = msg;
+      el.className = 'status ' + (type || '');
+    }
+
+    async function ghAPI(endpoint, opts) {
+      var cfg = getConfig();
+      var url = 'https://api.github.com/repos/' + cfg.owner + '/' + cfg.repo + endpoint;
+      var headers = { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github.v3+json' };
+      if (opts && opts.body) headers['Content-Type'] = 'application/json';
+      var resp = await fetch(url, Object.assign({ headers: headers }, opts || {}));
+      if (!resp.ok) throw new Error(resp.status + ' ' + resp.statusText);
+      return resp.json();
+    }
+
+    async function connect() {
+      var inputToken = document.getElementById('gh-token').value.trim();
+      if (inputToken && inputToken !== '••••••••') token = inputToken;
+      if (!token) { setStatus('토큰을 입력하세요.', 'err'); return; }
+
+      var cfg = getConfig();
+      if (!cfg.owner || !cfg.repo) { setStatus('Owner와 Repo를 입력하세요.', 'err'); return; }
+
+      setStatus('연결 중...');
+      try {
+        var data = await ghAPI('/contents/' + cfg.path + '?ref=' + cfg.branch);
+        fileSha = data.sha;
+        var content = JSON.parse(atob(data.content.replace(/\n/g, '')));
+        newsData = content.news || [];
+        localStorage.setItem('mlc-admin-token', token);
+        localStorage.setItem('mlc-admin-config', JSON.stringify(cfg));
+        setStatus('연결됨 — ' + newsData.length + '건', 'ok');
+        renderNews();
+      } catch (e) {
+        if (e.message.startsWith('404')) {
+          newsData = [];
+          fileSha = null;
+          localStorage.setItem('mlc-admin-token', token);
+          localStorage.setItem('mlc-admin-config', JSON.stringify(cfg));
+          setStatus('연결됨 — 새 파일 생성 예정', 'ok');
+          renderNews();
+        } else {
+          setStatus('연결 실패: ' + e.message, 'err');
+        }
+      }
+    }
+
+    function renderNews() {
+      var el = document.getElementById('news-list');
+      if (newsData.length === 0) {
+        el.innerHTML = '<p class="empty">등록된 뉴스가 없습니다.</p>';
+        return;
+      }
+      el.innerHTML = newsData.map(function (item, i) {
+        return '<div class="news-item">' +
+          '<div>' +
+            '<p class="news-meta">' + item.date + '</p>' +
+            '<p class="news-title">' + escHtml(item.title) + '</p>' +
+            (item.body ? '<p class="news-body">' + escHtml(item.body) + '</p>' : '') +
+          '</div>' +
+          '<div class="news-actions">' +
+            '<button class="btn btn-outline" onclick="editNews(' + i + ')">수정</button>' +
+            '<button class="btn btn-danger" onclick="deleteNews(' + i + ')">삭제</button>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    function escHtml(s) {
+      var d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    function editNews(i) {
+      editIndex = i;
+      var item = newsData[i];
+      document.getElementById('f-title').value = item.title;
+      document.getElementById('f-date').value = item.date;
+      document.getElementById('f-body').value = item.body || '';
+      document.getElementById('f-link').value = item.link || '';
+      document.getElementById('form-title').textContent = '뉴스 수정';
+      document.getElementById('sec-form').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function cancelEdit() {
+      editIndex = -1;
+      document.getElementById('f-title').value = '';
+      document.getElementById('f-date').value = new Date().toISOString().split('T')[0];
+      document.getElementById('f-body').value = '';
+      document.getElementById('f-link').value = '';
+      document.getElementById('form-title').textContent = '뉴스 추가';
+    }
+
+    async function saveNews() {
+      var title = document.getElementById('f-title').value.trim();
+      var date = document.getElementById('f-date').value;
+      var body = document.getElementById('f-body').value.trim();
+      var link = document.getElementById('f-link').value.trim();
+
+      if (!title) { alert('제목을 입력하세요.'); return; }
+      if (!date) { alert('날짜를 입력하세요.'); return; }
+
+      var item = { title: title, date: date };
+      if (body) item.body = body;
+      if (link) item.link = link;
+
+      if (editIndex >= 0) {
+        newsData[editIndex] = item;
+      } else {
+        newsData.unshift(item);
+      }
+
+      // Sort by date descending
+      newsData.sort(function (a, b) { return b.date.localeCompare(a.date); });
+
+      try {
+        await pushToGitHub();
+        renderNews();
+        cancelEdit();
+        setStatus('저장 완료 — ' + newsData.length + '건', 'ok');
+      } catch (e) {
+        setStatus('저장 실패: ' + e.message, 'err');
+      }
+    }
+
+    async function deleteNews(i) {
+      if (!confirm('"' + newsData[i].title + '" 삭제할까요?')) return;
+      newsData.splice(i, 1);
+      try {
+        await pushToGitHub();
+        renderNews();
+        setStatus('삭제 완료 — ' + newsData.length + '건', 'ok');
+      } catch (e) {
+        setStatus('삭제 실패: ' + e.message, 'err');
+      }
+    }
+
+    async function pushToGitHub() {
+      var cfg = getConfig();
+      var content = btoa(unescape(encodeURIComponent(JSON.stringify({ news: newsData }, null, 2) + '\n')));
+      var body = {
+        message: 'Update news (' + new Date().toISOString().split('T')[0] + ')',
+        content: content,
+        branch: cfg.branch
+      };
+      if (fileSha) body.sha = fileSha;
+      var resp = await ghAPI('/contents/' + cfg.path, { method: 'PUT', body: JSON.stringify(body) });
+      fileSha = resp.content.sha;
+    }
+
+    // Auto-connect if config exists
+    if (config.owner && config.repo && token) {
+      connect();
+    }
+  </script>
+</body>
+</html>

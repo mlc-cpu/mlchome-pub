@@ -1,0 +1,108 @@
+{
+  "posts": [
+    {
+      "id": "alcohol-butyric-acid",
+      "date": "2026.02.25",
+      "title": "How Alcohol Really Damages the Liver — The Role of Butyrate-Producing Gut Bacteria",
+      "summary": "Behind the common knowledge that \"drinking harms the liver\" lies the role of beneficial gut bacteria. Chronic alcohol consumption and Westernized diets reduce butyrate-producing bacteria, weaken the gut barrier, and ultimately drive liver inflammation.",
+      "tags": ["Ingredient Deep Dive", "C. butyricum", "Gut-Liver Axis"]
+    },
+    {
+      "id": "collagen-peptide",
+      "date": "2026.02.22",
+      "title": "Collagen: How Much Do You Actually Need for Real Results?",
+      "summary": "Does low-molecular collagen really make a difference? Is 10g the right dose? We break down three key questions around collagen supplements using clinical evidence.",
+      "tags": [
+        "Ingredient Deep Dive",
+        "Collagen",
+        "Skin"
+      ]
+    },
+    {
+      "id": "bcaa",
+      "date": "2026.02.17",
+      "title": "What Is BCAA? The Amino Acid Story Behind Every Athlete's Gym Bag",
+      "summary": "BCAA (Branched-Chain Amino Acids) — leucine, isoleucine, and valine — are essential amino acids metabolized directly in muscles. Research reports reductions in muscle damage markers and fatigue, with benefits for both young athletes and elderly adults.",
+      "tags": [
+        "Ingredient Deep Dive",
+        "Amino Acids",
+        "BCAA"
+      ]
+    },
+    {
+      "id": "arginine",
+      "date": "2026.02.17",
+      "title": "Arginine: Can More Be Less?",
+      "summary": "The arginine market is booming with dosages soaring to 10,000mg. But bioavailability actually decreases at higher doses. We examine the most efficient absorption range and why formulation design matters more than raw dosage.",
+      "tags": [
+        "Ingredient Deep Dive",
+        "Amino Acids",
+        "Arginine"
+      ]
+    },
+    {
+      "id": "k-butyric-acid-bacteria",
+      "date": "2026.02.15",
+      "title": "Clostridium butyricum — A 200-Year History and Why It Goes Beyond Probiotics",
+      "summary": "The European Food Safety Authority (EFSA) recently approved the safety of Clostridium butyricum for use as a food sup...",
+      "tags": [
+        "Ingredient Deep Dive",
+        "C. butyricum",
+        "Probiotics"
+      ]
+    },
+    {
+      "id": "microbiome",
+      "date": "2026.02.15",
+      "title": "Gut Microbiome: Redefining Health Beyond Digestion",
+      "summary": "The tens of trillions of microorganisms residing in the human gut do far more than aid digestion — they are increasin...",
+      "tags": [
+        "Trend"
+      ]
+    },
+    {
+      "id": "givaudan-naturex",
+      "date": "2026.02.15",
+      "title": "Why Givaudan Paid $1.6B for Naturex",
+      "summary": "In 2018, Givaudan, the world's leading flavor and fragrance company, acquired Naturex — a French botanical extraction specialist — for approximately $1.6 billion. Behind this deal was the growing value of transparent, traceable ingredients.",
+      "tags": [
+        "Ingredient Deep Dive",
+        "Botanical Extraction",
+        "M&A"
+      ]
+    },
+    {
+      "id": "retinol-fermentation",
+      "date": "2026.02.14",
+      "title": "Fermentation-Derived Retinol: A New Wave in Cosmetic Ingredients",
+      "summary": "Retinol, the gold standard anti-aging ingredient, can now be produced through yeast fermentation instead of petroleum-based chemical synthesis. While the molecular structure remains identical regardless of production method, fermentation offers sustainability and vegan certification advantages.",
+      "tags": [
+        "Ingredient Deep Dive",
+        "Skincare",
+        "Retinol"
+      ]
+    },
+    {
+      "id": "synthetic-biology",
+      "date": "2026.02.13",
+      "title": "Synthetic Biology: The Technology Where Microbes Make Our Medicine, Food, and Cosmetics",
+      "summary": "Synthetic biology is rapidly transforming the health supplement, food, and skincare industries, and AI is accelerating it even further",
+      "tags": [
+        "Synthetic Biology",
+        "Trends",
+        "Biotech"
+      ]
+    },
+    {
+      "id": "european-ingredient-companies",
+      "date": "2026.02.13",
+      "title": "Why Are the Best Supplement Ingredient Companies in Europe?",
+      "summary": "Exploring the history and quality edge of European nutrition ingredient makers through DSM-Firmenich's strategic pivot",
+      "tags": [
+        "Ingredients",
+        "Europe",
+        "Trends"
+      ]
+    }
+  ]
+}
