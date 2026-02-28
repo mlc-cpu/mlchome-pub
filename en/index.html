@@ -21,15 +21,30 @@
   <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=DM+Mono:wght@400;500&family=Gowun+Batang:wght@400;700&family=Noto+Serif+KR:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
+    /* ════════════════════════════════════════
+       DESIGN SYSTEM — MLC Corporate + Brand V2
+       Corporate: MLC Green #1B5E3B
+       Corporate Sec: #5A7D62
+       BG: #fff (White)
+       Text: #1a1a1a
+       Brand Accent: Dawn Orange #E89B7A (10% accent)
+
+       Typographic Scale (1.25 ratio):
+       12 / 15 / 19 / 24 / 30 / 37 / 47px
+       ════════════════════════════════════════ */
+
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
+    html { scroll-behavior:smooth; overflow-x: hidden; }
     body {
       font-family: 'Pretendard Variable', 'Pretendard', -apple-system, sans-serif;
       background: #fff;
       color: #1a1a1a;
       line-height: 1.8;
+      word-break: keep-all;
+      overflow-wrap: break-word;
       -webkit-font-smoothing: antialiased;
       min-height: 100vh;
+      overflow-x: hidden;
     }
     a { color: inherit; text-decoration: none; transition: color 0.25s ease; }
 
@@ -161,7 +176,7 @@
       font-size: clamp(30px, 5vw, 47px);
       font-weight: 700; line-height: 1.35;
       letter-spacing: -1.5px; margin-bottom: 24px;
-      color: #111;
+      color: #111; word-break: keep-all;
     }
     .hero h1 em {
       font-style: normal;
@@ -174,6 +189,33 @@
       line-height: 1.7;
       margin-bottom: 36px;
     }
+    .hero-cta {
+      display: inline-flex; gap: 16px;
+      margin-bottom: 0;
+    }
+    .btn-primary {
+      display: inline-block;
+      font-size: 14px; font-weight: 600;
+      color: #fff;
+      background: #1B5E3B;
+      padding: 14px 32px;
+      border-radius: 4px;
+      letter-spacing: -0.2px;
+      transition: all 0.25s ease;
+    }
+    .btn-primary:hover { background: #154a2f; color: #fff; }
+    .btn-secondary {
+      display: inline-block;
+      font-size: 14px; font-weight: 600;
+      color: #1B5E3B;
+      background: transparent;
+      border: 1px solid #1B5E3B;
+      padding: 13px 32px;
+      border-radius: 4px;
+      letter-spacing: -0.2px;
+      transition: all 0.25s ease;
+    }
+    .btn-secondary:hover { background: rgba(27,94,59,0.05); }
 
     /* ── Scroll hint ── */
     .scroll-hint {
@@ -233,6 +275,7 @@
     .about p strong { color: #1a1a1a; font-weight: 600; }
 
     /* ── Values ── */
+    .values { gap: 48px; padding-top: 8px; }
     .value-item {
       padding-left: 20px;
       border-left: 1px solid #e0e0e0;
@@ -242,7 +285,62 @@
     .value-item:last-child { margin-bottom: 0; }
     .value-item:hover { border-color: #1B5E3B; }
     .value-item h4 { font-size: 19px; font-weight: 700; margin-bottom: 2px; letter-spacing: -0.3px; color: #1a1a1a; }
+    .value-item .en {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; letter-spacing: 2px; color: #b5b5b5; margin-bottom: 10px;
+    }
     .value-item p { font-size: 14px; color: #888; line-height: 1.75; margin-bottom: 0; }
+
+    /* ── Founder ── */
+    .founder-section { padding: 100px 32px; max-width: 1100px; margin: 0 auto; }
+    .founder-grid {
+      display: grid; grid-template-columns: 2fr 3fr;
+      gap: 60px; align-items: center;
+    }
+    .founder-illust {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 0;
+    }
+    .founder-quote {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 24px;
+      font-weight: 300;
+      line-height: 1.6;
+      color: #111;
+      letter-spacing: -0.5px;
+      margin-bottom: 24px;
+    }
+    .founder-quote em {
+      font-style: normal;
+      color: #1B5E3B;
+    }
+    .founder-names {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    .founder-person {
+      display: flex;
+      flex-direction: column;
+    }
+    .founder-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 2px;
+    }
+    .founder-title {
+      font-size: 13px;
+      color: #999;
+    }
+    .founder-bio {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.85;
+    }
 
     /* ── Brand ── */
     .brand-split {
@@ -274,6 +372,9 @@
     }
     .brand-meaning { font-size: 15px; color: #666; line-height: 1.85; margin-bottom: 24px; }
     .brand-meaning strong { color: #1a1a1a; font-weight: 600; }
+    .brand-lily-row { display: flex; align-items: flex-end; gap: 16px; }
+    .brand-lily-row .brand-meaning { margin-bottom: 0; }
+    .lily-sketch { width: 44px; height: 66px; flex-shrink: 0; opacity: 0.7; }
     .brand-links { display: flex; gap: 24px; margin-top: 36px; }
     .brand-link {
       font-size: 13px; font-weight: 500; color: #888;
@@ -282,6 +383,9 @@
     }
     .brand-link:hover { color: #1B5E3B; border-color: #1B5E3B; }
     .followers { font-size: 11px; color: #1B5E3B; font-weight: 600; }
+    .brand-cta {
+      margin-top: 32px;
+    }
     .brand-coming .brand-name { color: #aaa; filter: blur(10px); user-select: none; }
     .brand-coming .brand-name-en { color: #ddd; }
     .brand-coming .section-accent { background: #ddd; }
@@ -327,6 +431,7 @@
       font-size: 24px;
     }
     .product-card h4 {
+      font-family: 'Noto Serif KR', serif;
       font-size: 19px;
       font-weight: 700;
       letter-spacing: -0.3px;
@@ -345,10 +450,115 @@
       color: #888;
       line-height: 1.7;
     }
+    .product-more {
+      text-align: center;
+      margin-top: 40px;
+    }
     .product-subline {
       font-size: 13px;
       color: #888;
       margin-bottom: 12px;
+    }
+
+    /* ── Trust ── */
+    .trust-section { padding: 80px 32px; max-width: 1100px; margin: 0 auto; }
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+    }
+    .trust-item {
+      text-align: center;
+      padding: 32px 16px;
+    }
+    .trust-icon {
+      width: 56px; height: 56px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      background: rgba(27,94,59,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+    .trust-item h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 6px;
+    }
+    .trust-item p {
+      font-size: 12px;
+      color: #888;
+      line-height: 1.6;
+    }
+
+    /* ── Blog Preview ── */
+    .blog-preview { padding: 100px 32px; max-width: 1100px; margin: 0 auto; }
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .blog-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.06);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: block;
+    }
+    .blog-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+    }
+    .blog-card-thumb {
+      height: 160px;
+      background: linear-gradient(135deg, rgba(27,94,59,0.04) 0%, rgba(90,125,98,0.03) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .blog-card-thumb .tag-icon {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: #1B5E3B;
+      letter-spacing: 1px;
+      background: rgba(27,94,59,0.08);
+      padding: 6px 14px;
+      border-radius: 20px;
+    }
+    .blog-card-body { padding: 24px; }
+    .blog-card-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; color: #ccc; letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .blog-card-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1a1a1a;
+      letter-spacing: -0.3px;
+      margin-bottom: 8px;
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .blog-card-summary {
+      font-size: 13px;
+      color: #888;
+      line-height: 1.7;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .blog-more {
+      text-align: center;
+      margin-top: 40px;
     }
 
     /* ── Partners ── */
@@ -396,12 +606,31 @@
       padding: 12px 32px 10px;
       max-width: 1100px; width: 100%; margin: 0 auto;
     }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
     .footer-logo { margin-bottom: 6px; display: flex; align-items: baseline; gap: 6px; }
     .footer-corp { font-family: 'Gowun Batang', serif; font-size: 11px; font-weight: 400; color: #aaa; letter-spacing: 2px; }
     .footer-name { font-family: 'Gowun Batang', serif; font-size: 18px; font-weight: 700; letter-spacing: 2px; }
     .footer-name b { font-weight: 700; color: #1a1a1a; }
     .footer-name span { font-weight: 700; color: #5A7D62; }
     .footer-info { font-size: 11px; color: #bbb; line-height: 1.9; }
+    .footer-info span { display: block; }
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      justify-content: flex-start;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: #888;
+      transition: color 0.25s ease;
+    }
+    .footer-links a:hover { color: #1B5E3B; }
     .footer-bottom {
       padding-top: 8px;
       border-top: 1px solid rgba(0,0,0,0.06);
@@ -462,19 +691,37 @@
       .first-light-ring { width: 170px; height: 170px; }
       .first-light-ring-2 { width: 120px; height: 120px; }
       .first-light-symbol svg { width: 80px; height: 80px; }
+      .hero-cta { flex-direction: column; gap: 10px; }
+      .btn-primary, .btn-secondary { width: 100%; text-align: center; }
       .hero-headlines { margin-top: 32px; padding-top: 20px; }
       .hero-badge { margin-top: 3px; }
       .scroll-hint { display: none; }
       .about { padding: 48px 20px; }
       .section-line { margin-bottom: 36px; }
       .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .about h2 { font-size: 24px; }
       .section { padding: 48px 20px; }
+      .founder-section { padding: 48px 20px; }
+      .founder-grid { grid-template-columns: 1fr; gap: 36px; }
+      .founder-photo { max-width: 200px; margin: 0 auto; }
+      .founder-quote { font-size: 20px; }
       .brand-split { grid-template-columns: 1fr; gap: 48px; }
       .brand-divider { height: 1px; align-self: auto; }
       .brand-col { padding: 0; }
+      .brand-name { font-size: 36px; }
       .product-preview { padding: 48px 20px; }
-      .product-grid { grid-template-columns: 1fr; }
+      .product-preview h2 { font-size: 24px !important; }
+      .product-grid { grid-template-columns: 1fr !important; max-width: none !important; }
+      .product-card { padding: 24px 20px; }
+      .trust-section { padding: 48px 20px; }
+      .trust-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .blog-preview { padding: 48px 20px; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .partners { gap: 24px; }
+      .partner { font-size: 16px; }
       footer { padding: 10px 20px 8px; max-width: none; }
+      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+      .footer-info span { display: block; }
       .footer-bottom { font-size: 9px; flex-direction: column; gap: 8px; align-items: flex-start; }
     }
   </style>
@@ -542,18 +789,17 @@
     <div class="about-grid">
       <div>
         <p class="about-label">ABOUT US</p>
-        <h2>We look at ingredients<br>the way we used to<br>look at medicine</h2>
+        <h2>We examine ingredients<br>with the same rigor<br>we once applied to medicine</h2>
         <div class="section-accent"></div>
         <p>
-          Our founders spent their careers in pharma —
-          <strong>R&amp;D, clinical validation, quality analysis, marketing, and global operations</strong>.
-          They started <strong>MullaeCompany</strong> in Seoul
-          to do things differently.
+          Two pharmacists who spent their careers across every stage of bringing medicine to the world
+          &mdash; <strong>R&amp;D, clinical validation, quality analysis, marketing, and global operations</strong>
+          &mdash; founded <strong>MullaeCompany</strong> in Seoul's Mullae-dong.
         </p>
         <p>
-          We formulate our own <strong>supplements and skincare</strong> from scratch.
-          Every ingredient is carefully chosen and backed by data.
-          Full transparency — because you deserve to know what's inside.
+          We formulate our own <strong>supplements and skincare</strong> from scratch.<br>
+          Built on science. Made with integrity.<br>
+          For a healthier, more beautiful today.
         </p>
         <div style="margin-top:32px;">
           <img src="../img/약사부부_그림_흰색배경_저용량.png" alt="Pharmacist founders illustration" style="width:100%; max-width:320px;">
@@ -562,7 +808,7 @@
       <div>
         <div class="value-item">
           <h4>Pharmacist-designed</h4>
-          <p>Every formula is personally decided by our pharmacist founders</p>
+          <p>From formulation ratios to excipient selection, every decision is made by our pharmacist founders</p>
         </div>
         <div class="value-item">
           <h4>Evidence-based ingredients</h4>
@@ -570,11 +816,11 @@
         </div>
         <div class="value-item">
           <h4>GMP-certified production</h4>
-          <p>Manufactured in government-certified facilities at pharmaceutical standards</p>
+          <p>Manufactured in government-certified facilities at pharmaceutical-grade standards</p>
         </div>
         <div class="value-item">
           <h4>Full transparency</h4>
-          <p>Origin, dosage, and test certificates — everything openly shared</p>
+          <p>Origin, dosage, and test certificates &mdash; everything openly shared</p>
         </div>
       </div>
     </div>
@@ -590,8 +836,8 @@
         <p class="brand-name-en">onl:on<span class="tm">TM</span></p>
         <div class="section-accent"></div>
         <p class="brand-meaning">
-          Starting <strong>today</strong>, whole, warm wellness finds its way to you.<br>
-          Our health supplement brand.
+          Starting <strong>today</strong>, whole and warm wellness finds its way to you.<br>
+          MullaeCompany's health supplement brand.
         </p>
         <p class="brand-meaning">
           In Korean, <strong>온 (on)</strong> holds three meanings at once:<br>
@@ -621,7 +867,7 @@
     <h2 style="font-family:'Noto Serif KR',serif; font-size:30px; font-weight:700; letter-spacing:-0.5px; margin-bottom:8px;">Start today, Stay healthy</h2>
     <p class="product-subline">Wellness designed by pharmacists.</p>
 
-    <div class="product-grid" style="grid-template-columns: repeat(3, 1fr); max-width: 900px;">
+    <div class="product-grid">
       <!-- KIDS -->
       <div class="product-card">
         <span class="product-badge" style="background:rgba(27,94,59,0.06); color:#1B5E3B;">KIDS</span>
@@ -689,6 +935,7 @@
     </div>
   </section>
 
+
   <!-- ════ PARTNERS ════ -->
   <section class="section" id="partners">
     <div class="section-line"></div>
@@ -712,13 +959,14 @@
       <span>&copy; 2025 MULLAECOMPANY CO.,LTD. ALL RIGHTS RESERVED.</span>
       <span style="display:flex;align-items:center;gap:16px;">
         <a href="../ko/privacy.html" style="font-size:11px;color:#aaa;">Privacy Policy</a>
-        <span style="font-size:10px;color:#ccc;letter-spacing:1px;">TODAY <span id="todayCount">–</span> · TOTAL <span id="totalCount">–</span></span>
+        <span style="font-size:10px;color:#ccc;letter-spacing:1px;">TODAY <span id="todayCount">&ndash;</span> &middot; TOTAL <span id="totalCount">&ndash;</span></span>
       </span>
     </div>
   </footer>
 
   <!-- ════ SCRIPTS ════ -->
   <script>
+    // Hero Headlines
     (function () {
       var container = document.getElementById('heroHeadlines');
       function parseDate(dateStr) {
@@ -758,6 +1006,7 @@
       });
     })();
   </script>
+
   <script>
     function toggleMenu() {
       document.getElementById('mobileNav').classList.toggle('open');
