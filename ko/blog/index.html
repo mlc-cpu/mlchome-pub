@@ -6,9 +6,9 @@
   <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
   <title>오늘:온 이야기 — (주)문래컴퍼니</title>
   <meta name="description" content="문래컴퍼니 오늘:온 이야기 — 건강기능식품·화장품 원료 트렌드와 인사이트">
-  <link rel="canonical" href="https://mlc.co.kr/ko/blog/">
-  <link rel="alternate" hreflang="ko" href="https://mlc.co.kr/ko/blog/">
-  <link rel="alternate" hreflang="en" href="https://mlc.co.kr/en/blog/">
+  <link rel="canonical" href="https://mullae.com/ko/blog/">
+  <link rel="alternate" hreflang="ko" href="https://mullae.com/ko/blog/">
+  <link rel="alternate" hreflang="en" href="https://mullae.com/en/blog/">
   <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Gowun+Batang:wght@400;700&family=Noto+Serif+KR:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
@@ -115,7 +115,7 @@
     footer {
       border-top: 1px solid #eee;
       padding: 10px 32px 12px;
-      background: #fff; max-width: 1100px; width: 100%; margin: 0 auto;
+      background: #fff;
     }
     .footer-logo { margin-bottom: 0; display: flex; align-items: baseline; gap: 6px; }
     .footer-corp { font-family: 'Gowun Batang', serif; font-size: 11px; font-weight: 400; color: #aaa; letter-spacing: 2px; margin-bottom: 0; }
@@ -157,13 +157,14 @@
     }
 
     /* ── Mobile ── */
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
       .header-inner { padding: 0 20px; height: 60px; }
-      nav { gap: 16px; }
-      nav a { font-size: 11px; }
+      nav { display: none; }
+      .header-inner > .lang { margin-left: auto; margin-right: 12px; }
+      .menu-btn { display: block; }
       .content { padding: 100px 20px 60px; }
       .page-title { font-size: 22px; }
-      footer { padding: 10px 16px 12px; position: static; left: auto; transform: none; width: auto; max-width: none; }
+      footer { padding: 10px 16px 12px; }
       .footer-logo { display: flex; align-items: baseline; gap: 5px; margin-bottom: 0; }
       .footer-corp { font-size: 10px; letter-spacing: 1.5px; margin-bottom: 0; }
       .footer-name { font-size: 15px; letter-spacing: 1px; }
@@ -171,11 +172,6 @@
       .footer-info span { display: inline; margin-right: 0; }
       .content { padding-bottom: 40px; }
       .footer-bottom { margin-top: 6px; padding-top: 6px; font-size: 9px; }
-    }
-    @media (max-width: 480px) {
-      nav { display: none; }
-      .header-inner > .lang { margin-left: auto; margin-right: 12px; }
-      .menu-btn { display: block; }
     }
   </style>
 </head>
@@ -190,7 +186,7 @@
         <a href="./" class="active">블로그</a>
         <a href="../news/">뉴스</a>
         <a href="../careers/">채용</a>
-        <a href="mailto:connect@mlc.co.kr">문의하기</a>
+        <a href="mailto:connect@mullae.com">문의하기</a>
       </nav>
       <a href="../../en/blog/" class="lang">EN</a>
       <button class="menu-btn" onclick="toggleMenu()"><span></span><span></span><span></span></button>
@@ -204,7 +200,7 @@
     <a href="./" onclick="toggleMenu()">블로그</a>
     <a href="../news/" onclick="toggleMenu()">뉴스</a>
     <a href="../careers/" onclick="toggleMenu()">채용</a>
-    <a href="mailto:connect@mlc.co.kr" onclick="toggleMenu()">문의하기</a>
+    <a href="mailto:connect@mullae.com" onclick="toggleMenu()">문의하기</a>
     <a href="../../en/blog/" class="lang">EN</a>
   </div>
 
