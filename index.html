@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>(주)문래컴퍼니 — 건강에서 피어나는 아름다움</title>
-  <meta property="og:title" content="(주)문래컴퍼니">
-  <meta property="og:description" content="건강에서 피어나는 아름다움 — 검증된 원료, 과학적 배합">
+  <meta property="og:title" content="(주)문래컴퍼니 — 건강에서 피어나는 아름다움">
+  <meta property="og:description" content="약사의 기준으로 만든 건강기능식품과 화장품 — 검증된 원료, 과학적 배합">
   <meta property="og:url" content="https://www.mullae.com/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ko_KR">
-  <meta name="description" content="건강에서 피어나는 아름다움 — 검증된 원료, 과학적 배합 | (주)문래컴퍼니">
+  <meta name="description" content="약사의 기준으로 만든 건강기능식품과 화장품 — 검증된 원료, 과학적 배합 | (주)문래컴퍼니">
   <link rel="canonical" href="https://www.mullae.com/">
   <link rel="alternate" hreflang="ko" href="https://www.mullae.com/">
   <link rel="alternate" hreflang="en" href="https://www.mullae.com/en/">
@@ -19,10 +19,22 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Gowun+Batang:wght@400;700&family=Noto+Serif+KR:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=DM+Mono:wght@400;500&family=Gowun+Batang:wght@400;700&family=Noto+Serif+KR:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
+    /* ════════════════════════════════════════
+       DESIGN SYSTEM — MLC Corporate + Brand V2
+       Corporate: MLC Green #1B5E3B
+       Corporate Sec: #5A7D62
+       BG: #fff (White)
+       Text: #1a1a1a
+       Brand Accent: Dawn Orange #E89B7A (10% accent)
+
+       Typographic Scale (1.25 ratio):
+       12 / 15 / 19 / 24 / 30 / 37 / 47px
+       ════════════════════════════════════════ */
+
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
+    html { scroll-behavior:smooth; overflow-x: hidden; }
     body {
       font-family: 'Pretendard Variable', 'Pretendard', -apple-system, sans-serif;
       background: #fff;
@@ -32,6 +44,7 @@
       overflow-wrap: break-word;
       -webkit-font-smoothing: antialiased;
       min-height: 100vh;
+      overflow-x: hidden;
     }
     a { color: inherit; text-decoration: none; transition: color 0.25s ease; }
 
@@ -82,7 +95,7 @@
 
     /* ── Hero ── */
     .hero {
-      min-height: 100vh; padding-bottom: 120px;
+      min-height: 100vh; padding-bottom: 80px;
       display: flex;
       align-items: center;
       padding-top: 72px;
@@ -108,59 +121,50 @@
       align-items: center;
       justify-content: center;
     }
-    .blob-wrap {
+
+    /* ── Hero Visual: First Light Symbol ── */
+    .first-light-wrap {
       position: relative;
-      width: 400px;
-      height: 400px;
+      width: 360px;
+      height: 360px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .blob {
+    .first-light-glow {
       position: absolute;
-      width: 100%;
-      height: 100%;
+      width: 300px; height: 300px;
       border-radius: 50%;
-      filter: blur(40px);
-      opacity: 0.6;
-      animation: blobMorph 12s ease-in-out infinite;
+      background: radial-gradient(circle, rgba(27,94,59,0.15) 0%, rgba(90,125,98,0.06) 50%, transparent 70%);
+      animation: glowPulse 8s ease-in-out infinite;
     }
-    .blob-1 {
-      background: radial-gradient(circle, rgba(27,94,59,0.4) 0%, rgba(27,94,59,0.05) 70%);
-      animation-delay: 0s;
-    }
-    .blob-2 {
-      background: radial-gradient(circle, rgba(90,125,98,0.35) 0%, rgba(90,125,98,0.03) 70%);
-      animation-delay: -4s;
-      width: 85%; height: 85%; top: 10%; left: 15%;
-    }
-    .blob-3 {
-      background: radial-gradient(circle, rgba(180,210,190,0.4) 0%, rgba(200,230,210,0.02) 70%);
-      animation-delay: -8s;
-      width: 70%; height: 70%; top: 20%; left: 5%;
-    }
-    .blob-ring {
+    .first-light-ring {
       position: absolute;
-      width: 320px; height: 320px;
+      width: 280px; height: 280px;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       border: 1px solid rgba(27,94,59,0.12);
       border-radius: 50%;
       animation: ringPulse 6s ease-in-out infinite;
     }
-    .blob-ring-2 {
-      width: 220px; height: 220px;
+    .first-light-ring-2 {
+      width: 200px; height: 200px;
       border-color: rgba(27,94,59,0.08);
       animation-delay: -2s;
     }
-    @keyframes blobMorph {
-      0%   { border-radius: 50% 40% 60% 50%; transform: translate(0, 0) scale(1); }
-      25%  { border-radius: 40% 60% 50% 45%; transform: translate(15px, -20px) scale(1.05); }
-      50%  { border-radius: 55% 45% 40% 60%; transform: translate(-10px, 15px) scale(0.95); }
-      75%  { border-radius: 45% 55% 55% 40%; transform: translate(10px, 10px) scale(1.02); }
-      100% { border-radius: 50% 40% 60% 50%; transform: translate(0, 0) scale(1); }
+    .first-light-symbol {
+      position: relative;
+      z-index: 2;
+    }
+    @keyframes glowPulse {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.1); opacity: 0.3; }
     }
     @keyframes ringPulse {
       0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
       50% { transform: translate(-50%, -50%) scale(1.08); opacity: 0.2; }
     }
+
     .hero-label {
       font-family: 'DM Mono', monospace;
       font-size: 11px; font-weight: 500;
@@ -169,9 +173,9 @@
     }
     .hero h1 {
       font-family: 'Noto Serif KR', serif;
-      font-size: clamp(36px, 5.5vw, 58px);
-      font-weight: 700; line-height: 1.3;
-      letter-spacing: -1.5px; margin-bottom: 36px;
+      font-size: clamp(30px, 5vw, 47px);
+      font-weight: 700; line-height: 1.35;
+      letter-spacing: -1.5px; margin-bottom: 24px;
       color: #111; word-break: keep-all;
     }
     .hero h1 em {
@@ -180,14 +184,44 @@
       padding-bottom: 2px;
     }
     .hero-sub {
-      font-size: 17px; font-weight: 500;
+      font-size: 15px; font-weight: 500;
       color: #444; letter-spacing: -0.3px;
+      line-height: 1.7;
+      margin-bottom: 36px;
     }
+    .hero-cta {
+      display: inline-flex; gap: 16px;
+      margin-bottom: 0;
+    }
+    .btn-primary {
+      display: inline-block;
+      font-size: 14px; font-weight: 600;
+      color: #fff;
+      background: #1B5E3B;
+      padding: 14px 32px;
+      border-radius: 4px;
+      letter-spacing: -0.2px;
+      transition: all 0.25s ease;
+    }
+    .btn-primary:hover { background: #154a2f; color: #fff; }
+    .btn-secondary {
+      display: inline-block;
+      font-size: 14px; font-weight: 600;
+      color: #1B5E3B;
+      background: transparent;
+      border: 1px solid #1B5E3B;
+      padding: 13px 32px;
+      border-radius: 4px;
+      letter-spacing: -0.2px;
+      transition: all 0.25s ease;
+    }
+    .btn-secondary:hover { background: rgba(27,94,59,0.05); }
 
     /* ── Scroll hint ── */
     .scroll-hint {
       position: absolute; bottom: 36px; left: 50%;
       transform: translateX(-50%);
+      display: flex; flex-direction: column;
       align-items: center; gap: 8px;
     }
     .scroll-hint span {
@@ -204,15 +238,21 @@
       50% { opacity: 1; }
     }
 
-    /* ── About ── */
-    .about {
-      padding: 100px 32px;
-      max-width: 1100px; margin: 0 auto;
-    }
+    /* ── Section common ── */
+    .section { padding: 100px 32px; max-width: 1100px; margin: 0 auto; }
     .section-line {
       width: 100%; height: 1px;
-      background: #eee; margin-bottom: 80px;
+      background: rgba(0,0,0,0.06); margin-bottom: 80px;
     }
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 3px; color: #bbb; margin-bottom: 28px;
+    }
+    .section-accent { width: 28px; height: 2px; background: #1B5E3B; margin-bottom: 28px; }
+
+    /* ── About ── */
+    .about { padding: 100px 32px; max-width: 1100px; margin: 0 auto; }
     .about-grid {
       display: grid; grid-template-columns: 1fr 1fr;
       gap: 100px; align-items: start;
@@ -226,10 +266,7 @@
       font-family: 'Noto Serif KR', serif;
       font-size: 30px; font-weight: 700;
       line-height: 1.45; letter-spacing: -0.5px; margin-bottom: 20px;
-    }
-    .about-accent {
-      width: 28px; height: 2px;
-      background: #1B5E3B; margin-bottom: 28px;
+      color: #111;
     }
     .about p {
       font-size: 15px; color: #666;
@@ -243,23 +280,67 @@
       padding-left: 20px;
       border-left: 1px solid #e0e0e0;
       transition: border-color 0.3s ease;
+      margin-bottom: 36px;
     }
+    .value-item:last-child { margin-bottom: 0; }
     .value-item:hover { border-color: #1B5E3B; }
-    .value-item h4 { font-size: 16px; font-weight: 700; margin-bottom: 2px; letter-spacing: -0.3px; }
+    .value-item h4 { font-family: 'Noto Serif KR', serif; font-size: 19px; font-weight: 700; margin-bottom: 2px; letter-spacing: -0.3px; color: #1a1a1a; }
     .value-item .en {
       font-family: 'DM Mono', monospace;
       font-size: 11px; letter-spacing: 2px; color: #b5b5b5; margin-bottom: 10px;
     }
     .value-item p { font-size: 14px; color: #888; line-height: 1.75; margin-bottom: 0; }
 
-    /* ── Section common ── */
-    .section { padding: 100px 32px; max-width: 1100px; margin: 0 auto; }
-    .section-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px; font-weight: 500;
-      letter-spacing: 3px; color: #bbb; margin-bottom: 28px;
+    /* ── Founder ── */
+    .founder-section { padding: 100px 32px; max-width: 1100px; margin: 0 auto; }
+    .founder-grid {
+      display: grid; grid-template-columns: 2fr 3fr;
+      gap: 60px; align-items: center;
     }
-    .section-accent { width: 28px; height: 2px; background: #1B5E3B; margin-bottom: 48px; }
+    .founder-illust {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 0;
+    }
+    .founder-quote {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 24px;
+      font-weight: 300;
+      line-height: 1.6;
+      color: #111;
+      letter-spacing: -0.5px;
+      margin-bottom: 24px;
+    }
+    .founder-quote em {
+      font-style: normal;
+      color: #1B5E3B;
+    }
+    .founder-names {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    .founder-person {
+      display: flex;
+      flex-direction: column;
+    }
+    .founder-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 2px;
+    }
+    .founder-title {
+      font-size: 13px;
+      color: #999;
+    }
+    .founder-bio {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.85;
+    }
 
     /* ── Brand ── */
     .brand-split {
@@ -269,10 +350,10 @@
     .brand-col { padding: 0 48px; }
     .brand-col:first-child { padding-left: 0; }
     .brand-col:last-child { padding-right: 0; }
-    .brand-divider { background: #eee; align-self: stretch; }
+    .brand-divider { background: rgba(0,0,0,0.06); align-self: stretch; }
     .brand-name {
       font-family: 'Noto Serif KR', serif;
-      font-size: clamp(36px, 6vw, 56px);
+      font-size: clamp(37px, 6vw, 47px);
       font-weight: 700; letter-spacing: -2px;
       color: #1a1a1a; margin-bottom: 8px;
     }
@@ -280,15 +361,20 @@
       font-size: 0.25em; font-weight: 400;
       position: relative; top: -2.2em;
     }
-    .brand-name-en .tm {
-      font-size: 0.6em; font-weight: 400;
-      vertical-align: super;
-    }
     .brand-name-en {
       font-family: 'DM Mono', monospace;
       font-size: 11px; letter-spacing: 3px;
       color: #b5b5b5; margin-bottom: 24px;
     }
+    .brand-name-en .tm {
+      font-size: 0.7em; font-weight: 400;
+      vertical-align: super;
+    }
+    .brand-meaning { font-size: 15px; color: #666; line-height: 1.85; margin-bottom: 24px; }
+    .brand-meaning strong { color: #1a1a1a; font-weight: 600; }
+    .brand-lily-row { display: flex; align-items: flex-end; gap: 16px; }
+    .brand-lily-row .brand-meaning { margin-bottom: 0; }
+    .lily-sketch { width: 44px; height: 66px; flex-shrink: 0; opacity: 0.7; }
     .brand-links { display: flex; gap: 24px; margin-top: 36px; }
     .brand-link {
       font-size: 13px; font-weight: 500; color: #888;
@@ -297,61 +383,205 @@
     }
     .brand-link:hover { color: #1B5E3B; border-color: #1B5E3B; }
     .followers { font-size: 11px; color: #1B5E3B; font-weight: 600; }
-    .brand-meaning { font-size: 15px; color: #666; line-height: 1.85; margin-bottom: 24px; }
-    .brand-lily-row { display: flex; align-items: flex-end; gap: 16px; }
-    .brand-lily-row .brand-meaning { margin-bottom: 0; }
-    .lily-sketch { width: 44px; height: 66px; flex-shrink: 0; opacity: 0.85; }
-    .brand-meaning strong { color: #1a1a1a; font-weight: 600; }
+    .brand-cta {
+      margin-top: 32px;
+    }
     .brand-coming .brand-name { color: #aaa; filter: blur(10px); user-select: none; }
     .brand-coming .brand-name-en { color: #ddd; }
     .brand-coming .section-accent { background: #ddd; }
     .brand-coming .brand-meaning { color: #bbb; }
 
-    /* ── Partners ── */
-    .partners {
-      display: flex;
-      gap: 48px;
-      flex-wrap: wrap;
+    /* ── Product Preview ── */
+    .product-preview { padding: 100px 32px; max-width: 1100px; margin: 0 auto; }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
     }
-    .partner {
-      font-size: 18px;
-      font-weight: 600;
-      color: #bbb;
+    .product-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 32px 24px;
+      text-align: center;
+      border: 1px solid rgba(0,0,0,0.06);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+    }
+    .product-badge {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .product-icon {
+      width: 64px; height: 64px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .product-card h4 {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 19px;
+      font-weight: 700;
       letter-spacing: -0.3px;
+      margin-bottom: 4px;
+      color: #1a1a1a;
+    }
+    .product-card .product-en {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #bbb;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+    .product-card p {
+      font-size: 13px;
+      color: #888;
+      line-height: 1.7;
+    }
+    .product-more {
+      text-align: center;
+      margin-top: 40px;
+    }
+    .product-subline {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 12px;
+    }
+
+    /* ── Trust ── */
+    .trust-section { padding: 80px 32px; max-width: 1100px; margin: 0 auto; }
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+    }
+    .trust-item {
+      text-align: center;
+      padding: 32px 16px;
+    }
+    .trust-icon {
+      width: 56px; height: 56px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      background: rgba(27,94,59,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+    .trust-item h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 6px;
+    }
+    .trust-item p {
+      font-size: 12px;
+      color: #888;
+      line-height: 1.6;
+    }
+
+    /* ── Blog Preview ── */
+    .blog-preview { padding: 100px 32px; max-width: 1100px; margin: 0 auto; }
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .blog-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.06);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: block;
+    }
+    .blog-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+    }
+    .blog-card-thumb {
+      height: 160px;
+      background: linear-gradient(135deg, rgba(27,94,59,0.04) 0%, rgba(90,125,98,0.03) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .blog-card-thumb .tag-icon {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: #1B5E3B;
+      letter-spacing: 1px;
+      background: rgba(27,94,59,0.08);
+      padding: 6px 14px;
+      border-radius: 20px;
+    }
+    .blog-card-body { padding: 24px; }
+    .blog-card-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; color: #ccc; letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .blog-card-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1a1a1a;
+      letter-spacing: -0.3px;
+      margin-bottom: 8px;
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .blog-card-summary {
+      font-size: 13px;
+      color: #888;
+      line-height: 1.7;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .blog-more {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    /* ── Partners ── */
+    .partners { display: flex; gap: 48px; flex-wrap: wrap; }
+    .partner {
+      font-size: 19px; font-weight: 600;
+      color: #bbb; letter-spacing: -0.3px;
       transition: color 0.25s ease;
     }
     .partner:hover { color: #1B5E3B; }
 
-    /* ── News ── */
-    .news-list { }
-    .news-item {
-      padding: 28px 0; border-bottom: 1px solid #f0f0f0;
-      display: block; transition: opacity 0.2s ease;
-    }
-    .news-item:first-child { padding-top: 0; }
-    .news-item:last-child { border-bottom: none; }
-    a.news-item:hover { opacity: 0.7; }
-    .news-date {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px; color: #ccc; letter-spacing: 0.5px; margin-bottom: 6px;
-    }
-    .news-title { font-size: 16px; font-weight: 600; letter-spacing: -0.3px; margin-bottom: 4px; }
-    .news-body { font-size: 14px; color: #888; line-height: 1.7; }
-    .news-empty { text-align: center; padding: 80px 0; }
-    .news-empty p { font-size: 15px; color: #bbb; letter-spacing: -0.3px; }
-
-    /* ── Hero headlines ── */
+    /* ── Hero Headlines ── */
     .hero-headlines {
       margin-top: 48px;
       padding-top: 28px;
-      border-top: 1px solid #eee;
+      border-top: 1px solid rgba(0,0,0,0.06);
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
     .hero-headline {
       display: flex; align-items: flex-start; gap: 8px;
-      font-size: 13px; color: #444; letter-spacing: -0.2px;
+      font-size: 13px; color: #5A5048; letter-spacing: -0.2px;
       transition: color 0.2s ease;
     }
     a.hero-headline:hover { color: #1B5E3B; }
@@ -362,57 +592,57 @@
       padding: 2px 5px; border-radius: 2px;
       flex-shrink: 0;
     }
-    .hero-headline-title {
-      min-width: 0;
-    }
+    .hero-headline-title { min-width: 0; }
     .hero-new-dot {
       font-family: 'DM Mono', monospace;
       font-size: 9px; font-weight: 500;
       color: #e74c3c; letter-spacing: 0.3px;
-      margin-left: 2px;
-      vertical-align: middle;
+      margin-left: 2px; vertical-align: middle;
     }
-
-    /* ── Careers ── */
-    .careers-empty { text-align: center; padding: 80px 0; }
-    .careers-empty p { font-size: 15px; color: #bbb; letter-spacing: -0.3px; margin-bottom: 12px; }
-    .careers-empty a {
-      font-size: 13px; color: #888;
-      border-bottom: 1px solid #ddd; padding-bottom: 2px;
-      transition: all 0.25s ease;
-    }
-    .careers-empty a:hover { color: #1B5E3B; border-color: #1B5E3B; }
 
     /* ── Footer ── */
     footer {
-      border-top: 1px solid #eee;
-      padding: 10px 32px 12px;
-      background: #fff; max-width: 1100px; width: 100%; margin: 0 auto;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      padding: 12px 32px 10px;
+      max-width: 1100px; width: 100%; margin: 0 auto;
     }
-    .footer-top {
-      display: flex; justify-content: space-between;
-      align-items: flex-start; margin-bottom: 12px;
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 8px;
     }
-    .footer-logo { margin-bottom: 0; display: flex; align-items: baseline; gap: 6px; }
-    .footer-corp { font-family: 'Gowun Batang', serif; font-size: 11px; font-weight: 400; color: #aaa; letter-spacing: 2px; margin-bottom: 0; }
-    .footer-name { font-family: 'Gowun Batang', serif; font-size: 18px; font-weight: 700; letter-spacing: 2px; margin-top: 0; }
+    .footer-logo { margin-bottom: 6px; display: flex; align-items: baseline; gap: 6px; }
+    .footer-corp { font-family: 'Gowun Batang', serif; font-size: 11px; font-weight: 400; color: #aaa; letter-spacing: 2px; }
+    .footer-name { font-family: 'Gowun Batang', serif; font-size: 19px; font-weight: 700; letter-spacing: 2px; }
     .footer-name b { font-weight: 700; color: #1a1a1a; }
     .footer-name span { font-weight: 700; color: #5A7D62; }
     .footer-info { font-size: 11px; color: #bbb; line-height: 1.9; }
-    .footer-info span { margin-right: 16px; }
+    .footer-info span { display: block; }
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      justify-content: flex-start;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: #888;
+      transition: color 0.25s ease;
+    }
+    .footer-links a:hover { color: #1B5E3B; }
     .footer-bottom {
-      margin-top: 6px; padding-top: 6px;
-      border-top: 1px solid #f0f0f0;
+      padding-top: 8px;
+      border-top: 1px solid rgba(0,0,0,0.06);
       font-family: 'DM Mono', monospace;
       font-size: 10px; color: #ccc; letter-spacing: 0.5px;
       display: flex; justify-content: space-between; align-items: center;
     }
     .footer-bottom a {
       font-family: inherit; font-size: 11px; color: #aaa;
-      border-bottom: 1px solid #ddd; padding-bottom: 1px;
       transition: color 0.25s ease;
     }
-    .footer-bottom a:hover { color: #1B5E3B; border-color: #1B5E3B; }
+    .footer-bottom a:hover { color: #1B5E3B; }
 
     /* ── Hamburger ── */
     .menu-btn {
@@ -445,47 +675,66 @@
     }
 
     /* ── Mobile ── */
+    /* Mobile typographic scale (1.2 ratio): 12 / 14 / 17 / 20 / 24 / 29px */
     @media (max-width: 768px) {
       .header-inner { padding: 0 20px; height: 60px; }
       nav { display: none; }
       .header-inner > .lang { margin-left: auto; margin-right: 12px; }
       .menu-btn { display: block; }
-      .hero { min-height: auto; align-items: flex-start; padding-top: 100px; }
+      .hero { min-height: auto; align-items: flex-start; padding-top: 100px; padding-bottom: 24px; }
       .hero-inner { padding: 0 20px; grid-template-columns: 1fr; }
       .hero-label { margin-bottom: 20px; }
-      .hero h1 { font-size: 32px; letter-spacing: -1px; margin-bottom: 20px; }
-      .hero-sub { font-size: 15px; }
-      .hero-visual { height: auto; min-height: auto; margin-top: -30px; padding-bottom: 0; flex-direction: column; }
-      .blob-wrap { width: 200px; height: 200px; }
-      .blob-ring { width: 170px; height: 170px; }
-      .blob-ring-2 { width: 120px; height: 120px; }
-      .hero-headlines {
-        margin-top: 40px;
-        padding-top: 20px;
-      }
-      .hero-headline { line-height: 1.6; }
+      .hero h1 { font-size: 29px; letter-spacing: -1px; margin-bottom: 16px; }
+      .hero-sub { font-size: 14px; margin-bottom: 24px; }
+      .hero-visual { height: auto; min-height: auto; margin-top: -20px; padding-bottom: 0; }
+      .first-light-wrap { width: 200px; height: 200px; }
+      .first-light-glow { width: 160px; height: 160px; }
+      .first-light-ring { width: 170px; height: 170px; }
+      .first-light-ring-2 { width: 120px; height: 120px; }
+      .first-light-symbol svg { width: 80px; height: 80px; }
+      .hero-cta { flex-direction: column; gap: 10px; }
+      .btn-primary, .btn-secondary { width: 100%; text-align: center; }
+      .hero-headlines { margin-top: 32px; padding-top: 20px; }
       .hero-badge { margin-top: 3px; }
-      .hero-new-dot { display: inline; vertical-align: top; margin-left: 2px; line-height: 1.6; }
       .scroll-hint { display: none; }
-      .about { padding: 48px 20px; padding-top: 48px; }
+      .about { padding: 48px 20px; }
       .section-line { margin-bottom: 36px; }
-      .about-grid { grid-template-columns: 1fr; gap: 56px; }
-      .values { gap: 36px; }
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .about h2 { font-size: 24px; }
+      .about p { font-size: 14px; }
       .section { padding: 48px 20px; }
-
+      .founder-section { padding: 48px 20px; }
+      .founder-grid { grid-template-columns: 1fr; gap: 36px; }
+      .founder-photo { max-width: 200px; margin: 0 auto; }
+      .founder-quote { font-size: 20px; }
+      .founder-bio { font-size: 14px; }
       .brand-split { grid-template-columns: 1fr; gap: 48px; }
       .brand-divider { height: 1px; align-self: auto; }
       .brand-col { padding: 0; }
-      footer { padding: 10px 16px 12px; width: auto; max-width: none; }
-      .footer-logo { display: flex; align-items: baseline; gap: 5px; margin-bottom: 0; }
-      .footer-corp { font-size: 10px; letter-spacing: 1.5px; margin-bottom: 0; }
-      .footer-name { font-size: 15px; letter-spacing: 1px; }
-      .footer-info { font-size: 10px; line-height: 1.5; margin-top: 1px; }
-      .footer-info span { display: inline; margin-right: 0; }
-      .hero { padding-bottom: 24px; }
-      .footer-bottom { margin-top: 6px; padding-top: 6px; font-size: 9px; }
-      .footer-top { flex-direction: column; gap: 16px; }
-      .footer-info span { display: block; margin-right: 0; }
+      .brand-name { font-size: 29px; }
+      .brand-meaning { font-size: 14px; }
+      .product-preview { padding: 48px 20px; }
+      .product-preview h2 { font-size: 24px !important; }
+      .product-grid { grid-template-columns: 1fr !important; max-width: none !important; }
+      .product-card { padding: 24px 20px; }
+      .product-card h4 { font-size: 17px; }
+      .product-card p { font-size: 13px; }
+      .value-item h4 { font-size: 17px; }
+      .value-item p { font-size: 13px; }
+      .trust-section { padding: 48px 20px; }
+      .trust-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .trust-item h4 { font-size: 14px; }
+      .trust-item p { font-size: 11px; }
+      .blog-preview { padding: 48px 20px; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .blog-card-title { font-size: 14px; }
+      .blog-card-summary { font-size: 12px; }
+      .partners { gap: 24px; }
+      .partner { font-size: 14px; }
+      footer { padding: 10px 20px 8px; max-width: none; }
+      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+      .footer-info span { display: block; }
+      .footer-bottom { font-size: 9px; flex-direction: column; gap: 8px; align-items: flex-start; }
     }
   </style>
 </head>
@@ -497,6 +746,7 @@
       <nav>
         <a href="#about">회사소개</a>
         <a href="#brand">브랜드</a>
+        <a href="#products">제품</a>
         <a href="ko/blog/">블로그</a>
         <a href="ko/news/">뉴스</a>
         <a href="ko/careers/">채용</a>
@@ -510,6 +760,7 @@
   <div class="mobile-nav" id="mobileNav">
     <a href="#about" onclick="toggleMenu()">회사소개</a>
     <a href="#brand" onclick="toggleMenu()">브랜드</a>
+    <a href="#products" onclick="toggleMenu()">제품</a>
     <a href="ko/blog/">블로그</a>
     <a href="ko/news/" onclick="toggleMenu()">뉴스</a>
     <a href="ko/careers/" onclick="toggleMenu()">채용</a>
@@ -517,26 +768,26 @@
     <a href="/en/" class="lang">EN</a>
   </div>
 
+  <!-- ════ HERO ════ -->
   <section class="hero">
     <div class="hero-inner">
-    <div class="hero-text">
-      <p class="hero-label">LIVE WELL. AGE BEAUTIFULLY.</p>
-      <h1>
-        건강에서&nbsp;피어나는<br>
-        <em>아름다움</em>
-      </h1>
-      <p class="hero-sub">약사가 만드는 건강기능식품과 화장품</p>
-      <div class="hero-headlines" id="heroHeadlines"></div>
-    </div>
-    <div class="hero-visual">
-      <div class="blob-wrap">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-        <div class="blob-ring"></div>
-        <div class="blob-ring blob-ring-2"></div>
+      <div class="hero-text">
+        <p class="hero-label">LIVE WELL. AGE BEAUTIFULLY.</p>
+        <h1>
+          건강에서&nbsp;피어나는<br>
+          <em>아름다움</em>
+        </h1>
+        <p class="hero-sub">약사가 만드는 건강기능식품과 화장품</p>
+        <div class="hero-headlines" id="heroHeadlines"></div>
       </div>
-    </div>
+      <div class="hero-visual">
+        <div class="first-light-wrap">
+          <div class="first-light-glow"></div>
+          <div class="first-light-ring"></div>
+          <div class="first-light-ring first-light-ring-2"></div>
+          <div class="first-light-symbol"></div>
+        </div>
+      </div>
     </div>
     <div class="scroll-hint">
       <span>SCROLL</span>
@@ -544,13 +795,14 @@
     </div>
   </section>
 
+  <!-- ════ ABOUT ════ -->
   <section class="about" id="about">
     <div class="section-line"></div>
     <div class="about-grid">
       <div>
         <p class="about-label">ABOUT US</p>
         <h2>약을 검증하던 눈으로<br>원료부터 다시 봅니다</h2>
-        <div class="about-accent"></div>
+        <div class="section-accent"></div>
         <p>
           약이 세상에 나오는 전&nbsp;과정<br>
           <strong>개발, 검증, 분석, 마케팅, 글로벌&nbsp;사업</strong>을<br>
@@ -559,30 +811,35 @@
         </p>
         <p>
           <strong>건강기능식품과 화장품</strong>을 직접 기획하고 만듭니다.<br>
-          원료 하나하나에 의약품을 다루던 기준을 그대로 적용하고,<br>
-          검증한 모든 정보를 소비자에게 투명하게 공개합니다.
+          과학 위에 담고, 바르게 만듭니다.<br>
+          오늘도 건강하고 아름답기를.
         </p>
+        <div style="margin-top:32px;">
+          <img src="img/약사부부_그림_팔자없앰.png" alt="약사 부부 일러스트" style="width:100%; max-width:320px;">
+        </div>
       </div>
-      <div class="values">
+      <div>
         <div class="value-item">
-          <h4>터</h4>
-          <p class="en">GROUND</p>
-          <p>과학 위에 담았습니다.</p>
+          <h4>약사 직접 설계</h4>
+          <p>배합 비율부터 부형제 선택까지 약사가 직접 결정합니다</p>
         </div>
         <div class="value-item">
-          <h4>참</h4>
-          <p class="en">TRUE</p>
-          <p>바르게 만듭니다.</p>
+          <h4>논문 검증 원료</h4>
+          <p>SCI급 임상 데이터가 있는 기능성 원료만 선별합니다</p>
         </div>
         <div class="value-item">
-          <h4>품</h4>
-          <p class="en">WARM</p>
-          <p>오늘도 건강하고 아름답기를.</p>
+          <h4>GMP 인증 생산</h4>
+          <p>식약처 인증 시설에서 의약품 수준의 공정 관리</p>
+        </div>
+        <div class="value-item">
+          <h4>전 성분 공개</h4>
+          <p>원산지, 함량, 시험성적서까지 모두 투명하게 공개합니다</p>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ════ BRAND ════ -->
   <section class="section" id="brand">
     <div class="section-line"></div>
     <p class="section-label">BRAND</p>
@@ -599,21 +856,6 @@
           <strong>온</strong> — 오다, 온전하다, 따뜻하다.<br>
           세 가지 뜻을 하나의 이름에 담았습니다.
         </p>
-        <div class="brand-lily-row">
-          <p class="brand-meaning">
-            첫번째 제품을 준비하고 있습니다.<br>
-            은방울꽃 피어나는 5월이면 만나보실 수 있습니다.
-          </p>
-          <svg class="lily-sketch" viewBox="0 0 60 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M30 88 C30 88 28 45 32 20 C34 8 30 2 30 2" stroke="#a8c0a0" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M32 20 C32 20 22 18 18 24 C15 28 18 32 22 30 C26 28 28 22 32 20Z" stroke="#a8c0a0" stroke-width="1.3" fill="none" stroke-linecap="round"/>
-            <path d="M31 30 C31 30 21 29 17 35 C14 39 17 43 21 41 C25 39 27 33 31 30Z" stroke="#a8c0a0" stroke-width="1.3" fill="none" stroke-linecap="round"/>
-            <path d="M30.5 42 C30.5 42 20 41 16 47 C13 51 16 55 20 53 C24 51 26.5 45 30.5 42Z" stroke="#a8c0a0" stroke-width="1.3" fill="none" stroke-linecap="round"/>
-            <path d="M30 55 C30 55 22 55 19 60 C16 64 19 67 22 65 C25 63 27 58 30 55Z" stroke="#a8c0a0" stroke-width="1.3" fill="none" stroke-linecap="round"/>
-            <path d="M30 68 C30 68 24 68 22 72 C20 75 22 77 24 76 C26 75 28 71 30 68Z" stroke="#a8c0a0" stroke-width="1.3" fill="none" stroke-linecap="round"/>
-            <path d="M30 5 C30 5 42 15 48 40 C52 55 46 70 46 70" stroke="#a8c0a0" stroke-width="1.3" stroke-linecap="round" fill="none"/>
-          </svg>
-        </div>
         <div class="brand-links">
           <a href="https://smartstore.naver.com/onlon" target="_blank" class="brand-link">스마트스토어</a>
           <a href="https://instagram.com/oneul_pharmacy" target="_blank" class="brand-link">Instagram <span class="followers" id="igFollowers"></span></a>
@@ -624,12 +866,90 @@
         <p class="brand-name">피부미학</p>
         <p class="brand-name-en">DERMA SCIENCE</p>
         <div class="section-accent"></div>
-        <p class="brand-meaning">곧, 피부 위에도 봄이 옵니다.</p>
+        <p class="brand-meaning">
+          곧, 피부 위에도 봄이 옵니다.
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- Partners -->
+  <!-- ════ PRODUCTS ════ -->
+  <section class="product-preview" id="products">
+    <div class="section-line"></div>
+    <p class="section-label">PRODUCTS</p>
+    <h2 style="font-family:'Noto Serif KR',serif; font-size:30px; font-weight:700; letter-spacing:-0.5px; margin-bottom:8px;">오늘부터 건강하게</h2>
+    <p class="product-subline">Start today, Stay healthy.</p>
+
+    <div class="product-grid">
+      <!-- KIDS -->
+      <div class="product-card">
+        <span class="product-badge" style="background:rgba(27,94,59,0.06); color:#1B5E3B;">KIDS</span>
+        <div class="product-icon" style="background:rgba(27,94,59,0.06);">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="11" r="5" stroke="#1B5E3B" stroke-width="1.2" fill="none" opacity="0.6"/>
+            <path d="M8 28 Q8 20 16 18 Q24 20 24 28" stroke="#1B5E3B" stroke-width="1.2" fill="none" opacity="0.4"/>
+            <path d="M16 6 L16 3" stroke="#1B5E3B" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+            <path d="M12 7 L10 5" stroke="#1B5E3B" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
+            <path d="M20 7 L22 5" stroke="#1B5E3B" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
+          </svg>
+        </div>
+        <h4>어린이 건강</h4>
+        <p class="product-en">KIDS LINE</p>
+        <p>성장기에 꼭 필요한 영양을<br>아이 눈높이에 맞춰 설계합니다.</p>
+      </div>
+
+      <!-- FAMILY -->
+      <div class="product-card">
+        <span class="product-badge" style="background:rgba(27,94,59,0.06); color:#1B5E3B;">FAMILY</span>
+        <div class="product-icon" style="background:rgba(27,94,59,0.06);">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <circle cx="11" cy="10" r="4" stroke="#1B5E3B" stroke-width="1.2" fill="none" opacity="0.6"/>
+            <circle cx="21" cy="10" r="4" stroke="#1B5E3B" stroke-width="1.2" fill="none" opacity="0.6"/>
+            <path d="M5 28 Q5 20 11 18" stroke="#1B5E3B" stroke-width="1.2" fill="none" opacity="0.4"/>
+            <path d="M27 28 Q27 20 21 18" stroke="#1B5E3B" stroke-width="1.2" fill="none" opacity="0.4"/>
+            <path d="M11 18 Q16 22 21 18" stroke="#1B5E3B" stroke-width="1" fill="none" opacity="0.3"/>
+          </svg>
+        </div>
+        <h4>온 가족 건강</h4>
+        <p class="product-en">FAMILY LINE</p>
+        <p>세대를 아우르는 건강 솔루션.<br>온 가족이 함께 나누는 하루.</p>
+      </div>
+
+      <!-- CLASSIC -->
+      <div class="product-card">
+        <span class="product-badge" style="background:rgba(27,94,59,0.06); color:#1B5E3B;">CLASSIC</span>
+        <div class="product-icon" style="background:rgba(27,94,59,0.06);">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <rect x="10" y="6" width="12" height="20" rx="3" stroke="#1B5E3B" stroke-width="1.2" fill="none" opacity="0.5"/>
+            <path d="M13 10 L19 10" stroke="#1B5E3B" stroke-width="0.8" opacity="0.3" stroke-linecap="round"/>
+            <path d="M13 14 L19 14" stroke="#1B5E3B" stroke-width="0.8" opacity="0.3" stroke-linecap="round"/>
+            <circle cx="16" cy="20" r="2" stroke="#1B5E3B" stroke-width="0.8" fill="none" opacity="0.4"/>
+            <path d="M16 18 L16 22" stroke="#1B5E3B" stroke-width="0.6" opacity="0.3"/>
+            <path d="M14 20 L18 20" stroke="#1B5E3B" stroke-width="0.6" opacity="0.3"/>
+          </svg>
+        </div>
+        <h4>클래식 라인</h4>
+        <p class="product-en">CLASSIC LINE</p>
+        <p>오래 검증된 처방,<br>오늘의 생활에 맞게.</p>
+      </div>
+    </div>
+
+    <div class="product-more" style="display:flex; align-items:center; justify-content:center; gap:12px; margin-top:40px;">
+      <svg class="lily-sketch" viewBox="0 0 60 90" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:36px; height:54px; flex-shrink:0; opacity:0.6;">
+        <path d="M30 88 C30 88 28 45 32 20 C34 8 30 2 30 2" stroke="#1B5E3B" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+        <path d="M32 20 C32 20 22 18 18 24 C15 28 18 32 22 30 C26 28 28 22 32 20Z" stroke="#1B5E3B" stroke-width="1.3" fill="none" stroke-linecap="round" opacity="0.4"/>
+        <path d="M31 30 C31 30 21 29 17 35 C14 39 17 43 21 41 C25 39 27 33 31 30Z" stroke="#1B5E3B" stroke-width="1.3" fill="none" stroke-linecap="round" opacity="0.4"/>
+        <path d="M30.5 42 C30.5 42 20 41 16 47 C13 51 16 55 20 53 C24 51 26.5 45 30.5 42Z" stroke="#1B5E3B" stroke-width="1.3" fill="none" stroke-linecap="round" opacity="0.4"/>
+        <path d="M30 55 C30 55 22 55 19 60 C16 64 19 67 22 65 C25 63 27 58 30 55Z" stroke="#1B5E3B" stroke-width="1.3" fill="none" stroke-linecap="round" opacity="0.4"/>
+        <path d="M30 68 C30 68 24 68 22 72 C20 75 22 77 24 76 C26 75 28 71 30 68Z" stroke="#1B5E3B" stroke-width="1.3" fill="none" stroke-linecap="round" opacity="0.4"/>
+        <path d="M30 5 C30 5 42 15 48 40 C52 55 46 70 46 70" stroke="#1B5E3B" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="0.4"/>
+      </svg>
+      <p style="font-family:'Noto Serif KR',serif; font-size:15px; color:#666; letter-spacing:-0.3px;">은방울꽃 피어나는 5월, 첫 번째 제품으로 만나겠습니다.</p>
+    </div>
+  </section>
+
+
+  <!-- ════ PARTNERS ════ -->
   <section class="section" id="partners">
     <div class="section-line"></div>
     <p class="section-label">OUR PARTNERS</p>
@@ -639,21 +959,27 @@
     </div>
   </section>
 
+  <!-- ════ FOOTER ════ -->
   <footer>
     <div class="footer-logo">
-          <div class="footer-corp">주식회사</div>
-          <div class="footer-name"><b>문래</b><span>컴퍼니</span></div>
-        </div>
+      <div class="footer-corp">주식회사</div>
+      <div class="footer-name"><b>문래</b><span>컴퍼니</span></div>
+    </div>
     <div class="footer-info">
       <span>서울특별시 영등포구 문래동</span>
     </div>
     <div class="footer-bottom" style="display:flex;justify-content:space-between;align-items:center;">
       <span>&copy; 2025 MULLAECOMPANY CO.,LTD. ALL RIGHTS RESERVED.</span>
-      <span style="font-size:10px;color:#ccc;letter-spacing:1px;">TODAY <span id="todayCount">–</span> · TOTAL <span id="totalCount">–</span></span>
+      <span style="display:flex;align-items:center;gap:16px;">
+        <a href="ko/privacy.html" style="font-size:11px;color:#aaa;">개인정보처리방침</a>
+        <span style="font-size:10px;color:#ccc;letter-spacing:1px;">TODAY <span id="todayCount">–</span> · TOTAL <span id="totalCount">–</span></span>
+      </span>
     </div>
   </footer>
 
+  <!-- ════ SCRIPTS ════ -->
   <script>
+    // Hero Headlines
     (function () {
       var container = document.getElementById('heroHeadlines');
       function parseDate(dateStr) {
@@ -693,12 +1019,12 @@
       });
     })();
   </script>
+
   <script>
     function toggleMenu() {
       document.getElementById('mobileNav').classList.toggle('open');
       document.querySelector('.menu-btn').classList.toggle('active');
     }
-    // 앵커 클릭 시 URL 해시 없이 스크롤 → 새로고침해도 상단 유지
     document.querySelectorAll('a[href^="#"]').forEach(function(a) {
       a.addEventListener('click', function(e) {
         var target = document.querySelector(this.getAttribute('href'));
