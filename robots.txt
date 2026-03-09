@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mullae.com/sitemap.xml
+Sitemap: https://www.mullae.com/sitemap.xml
