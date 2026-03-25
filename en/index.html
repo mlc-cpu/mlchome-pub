@@ -617,6 +617,25 @@
     .footer-name { font-family: 'Gowun Batang', serif; font-size: 19px; font-weight: 700; letter-spacing: 2px; }
     .footer-name b { font-weight: 700; color: #1a1a1a; }
     .footer-name span { font-weight: 700; color: #5A7D62; }
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .footer-mark {
+      flex-shrink: 0;
+      color: #7D9487;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      transform: translateY(1px);
+    }
+    .footer-wordmark {
+      display: block;
+      width: 148px;
+      max-width: 100%;
+      height: auto;
+    }
     .footer-info { font-size: 11px; color: #bbb; line-height: 1.9; }
     .footer-info span { display: block; }
     .footer-links {
@@ -733,6 +752,9 @@
       .partner { font-size: 14px; }
       footer { padding: 10px 20px 8px; max-width: none; }
       .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+      .footer-brand { gap: 6px; }
+      .footer-mark { font-size: 11px; }
+      .footer-wordmark { width: 132px; }
       .footer-info span { display: block; }
       .footer-bottom { font-size: 9px; flex-direction: column; gap: 8px; align-items: flex-start; }
     }
@@ -961,11 +983,17 @@
   <!-- ════ FOOTER ════ -->
   <footer>
     <div class="footer-logo">
-      <div class="footer-corp">주식회사</div>
-      <div class="footer-name"><b>문래</b><span>컴퍼니</span></div>
+      <div class="footer-brand">
+        <span class="footer-mark">(주)</span>
+        <svg class="footer-wordmark" viewBox="0 0 180 40" role="img" aria-label="문래컴퍼니" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="30" font-family="'Pretendard', sans-serif" font-size="24" letter-spacing="-0.5">
+            <tspan font-weight="900" fill="#1B5E3B">문래</tspan><tspan font-weight="500" fill="#5A7D62">컴퍼니</tspan>
+          </text>
+        </svg>
+      </div>
     </div>
     <div class="footer-info">
-      <span>Mullae-dong, Yeongdeungpo-gu, Seoul</span>
+      <span>서울시 영등포구 경인로 775 에이스하이테크시티 4동 416호.</span>
     </div>
     <div class="footer-bottom" style="display:flex;justify-content:space-between;align-items:center;">
       <span>&copy; 2025 MULLAECOMPANY CO.,LTD. ALL RIGHTS RESERVED.</span>
