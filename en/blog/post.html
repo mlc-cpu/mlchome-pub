@@ -106,7 +106,7 @@
     .post-nav {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
+      gap: 28px;
       margin-top: 56px;
       padding-top: 32px;
       border-top: 1px solid #f0f0f0;
@@ -114,18 +114,9 @@
     .post-nav-link {
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      min-height: 116px;
-      padding: 20px 24px;
-      border: 1px solid #ece8e2;
-      border-radius: 12px;
-      background: #fcfbf8;
-      transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease;
-    }
-    .post-nav-link:hover {
-      border-color: rgba(27, 94, 59, 0.28);
-      background: #f8fbf8;
-      transform: translateY(-2px);
+      gap: 6px;
+      padding: 4px 0;
+      transition: color 0.25s ease;
     }
     .post-nav-link.next {
       text-align: right;
@@ -144,6 +135,9 @@
       font-size: 16px;
       font-weight: 600;
       line-height: 1.65;
+    }
+    .post-nav-link:hover .post-nav-title {
+      color: #1B5E3B;
     }
 
     /* ── Footer ── */
@@ -200,12 +194,11 @@
       .article-title { font-size: 22px; }
       .post-nav {
         grid-template-columns: 1fr;
-        gap: 12px;
+        gap: 18px;
         margin-top: 48px;
       }
       .post-nav-link {
-        min-height: auto;
-        padding: 18px 20px;
+        padding: 0;
       }
       .post-nav-link.next {
         text-align: left;
