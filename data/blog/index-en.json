@@ -1,11 +1,26 @@
 {
   "posts": [
     {
+      "id": "iron-deficiency-signals",
+      "date": "2026.03.25",
+      "title": "Iron Deficiency: Reading Your Body's Signals",
+      "summary": "Iron deficiency is the world's most common nutritional deficiency, yet its early signals are easily missed. Learn how deficiency progresses, who is most at risk, and how to supplement effectively.",
+      "tags": [
+        "Ingredient Deep Dive",
+        "Iron",
+        "Nutrition"
+      ]
+    },
+    {
       "id": "alcohol-butyric-acid",
       "date": "2026.02.25",
       "title": "How Alcohol Really Damages the Liver — The Role of Butyrate-Producing Gut Bacteria",
       "summary": "Behind the common knowledge that \"drinking harms the liver\" lies the role of beneficial gut bacteria. Chronic alcohol consumption and Westernized diets reduce butyrate-producing bacteria, weaken the gut barrier, and ultimately drive liver inflammation.",
-      "tags": ["Ingredient Deep Dive", "C. butyricum", "Gut-Liver Axis"]
+      "tags": [
+        "Ingredient Deep Dive",
+        "C. butyricum",
+        "Gut-Liver Axis"
+      ]
     },
     {
       "id": "collagen-peptide",
