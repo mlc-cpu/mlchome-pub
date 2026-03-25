@@ -104,15 +104,48 @@
       width: 28px; height: 2px; background: #1B5E3B;
       margin: 48px 0;
     }
-    .article-nav {
-      display: flex; justify-content: space-between; padding-top: 32px;
+    .post-nav {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 56px;
+      padding-top: 32px;
       border-top: 1px solid #f0f0f0;
     }
-    .article-nav a {
-      font-size: 13px; font-weight: 500; color: #888;
-      border-bottom: 1px solid #ddd; padding-bottom: 2px;
+    .post-nav-link {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-height: 116px;
+      padding: 20px 24px;
+      border: 1px solid #ece8e2;
+      border-radius: 12px;
+      background: #fcfbf8;
+      transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease;
     }
-    .article-nav a:hover { color: #1B5E3B; border-color: #1B5E3B; }
+    .post-nav-link:hover {
+      border-color: rgba(27, 94, 59, 0.28);
+      background: #f8fbf8;
+      transform: translateY(-2px);
+    }
+    .post-nav-link.next {
+      text-align: right;
+      align-items: flex-end;
+    }
+    .post-nav-label {
+      display: block;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: #8ea092;
+    }
+    .post-nav-title {
+      display: block;
+      color: #1f1f1f;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.65;
+    }
 
     /* ── Footer ── */
     footer {
@@ -166,6 +199,20 @@
       nav a { font-size: 11px; }
       .article { padding: 100px 20px 60px; }
       .article-title { font-size: 22px; }
+      .post-nav {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-top: 48px;
+      }
+      .post-nav-link {
+        min-height: auto;
+        padding: 18px 20px;
+      }
+      .post-nav-link.next {
+        text-align: left;
+        align-items: flex-start;
+      }
+      .post-nav-title { font-size: 15px; }
       footer { padding: 10px 16px 12px; position: static; left: auto; transform: none; width: auto; max-width: none; }
       .footer-logo { display: flex; align-items: baseline; gap: 5px; margin-bottom: 0; }
       .footer-corp { font-size: 10px; letter-spacing: 1.5px; margin-bottom: 0; }
