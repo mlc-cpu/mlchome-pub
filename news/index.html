@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <title>뉴스 — (주)문래컴퍼니</title>
   <meta name="description" content="(주)문래컴퍼니 최신 소식과 뉴스">
-  <link rel="canonical" href="https://mullae.com/ko/news/">
-  <link rel="alternate" hreflang="ko" href="https://mullae.com/ko/news/">
+  <link rel="canonical" href="https://mullae.com/news/">
+  <link rel="alternate" hreflang="ko" href="https://mullae.com/news/">
   <link rel="alternate" hreflang="en" href="https://mullae.com/en/news/">
   <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Gowun+Batang:wght@400;700&family=Noto+Serif+KR:wght@400;700;900&display=swap" rel="stylesheet">
@@ -200,7 +200,7 @@
         <a href="../careers/">채용</a>
         <a href="mailto:connect@mullae.com">문의하기</a>
       </nav>
-      <a href="../../en/news/" class="lang">EN</a>
+      <a href="../en/news/" class="lang">EN</a>
       <button class="menu-btn" onclick="toggleMenu()"><span></span><span></span><span></span></button>
     </div>
   </header>
@@ -213,7 +213,7 @@
     <a href="./" onclick="toggleMenu()">뉴스</a>
     <a href="../careers/" onclick="toggleMenu()">채용</a>
     <a href="mailto:connect@mullae.com" onclick="toggleMenu()">문의하기</a>
-    <a href="../../en/news/" class="lang">EN</a>
+    <a href="../en/news/" class="lang">EN</a>
   </div>
 
   <div class="content">
@@ -283,7 +283,7 @@
 
       pageNews.forEach(function (item) {
         if (!item.id) return;
-        var newsPath = '/ko/news/' + item.id;
+        var newsPath = '/news/' + item.id;
         fetch('https://mlc.goatcounter.com/counter/' + encodeURIComponent(newsPath) + '.json')
           .then(function(r){return r.json()})
           .then(function(d){
@@ -317,7 +317,7 @@
       renderNews(filtered, 1);
     }
 
-    fetch('../../data/news/index-ko.json')
+    fetch('../data/news/index-ko.json')
       .then(function (r) { return r.json(); })
       .then(function (data) {
         allNews = data.news || [];

@@ -3,8 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
-  <title>블로그 — (주)문래컴퍼니</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <title>오늘:온 이야기 — (주)문래컴퍼니</title>
+  <meta name="description" content="문래컴퍼니 오늘:온 이야기 — 건강기능식품·화장품 원료 트렌드와 인사이트">
+  <link rel="canonical" href="https://mullae.com/blog/">
+  <link rel="alternate" hreflang="ko" href="https://mullae.com/blog/">
+  <link rel="alternate" hreflang="en" href="https://mullae.com/en/blog/">
   <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Gowun+Batang:wght@400;700&family=Noto+Serif+KR:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
@@ -16,6 +20,8 @@
       word-break: keep-all; overflow-wrap: break-word;
       -webkit-font-smoothing: antialiased;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
     a { color: inherit; text-decoration: none; transition: color 0.25s ease; }
 
@@ -43,104 +49,67 @@
     }
     .lang:hover { border-color: #1B5E3B; color: #1B5E3B; }
 
-    /* ── Article ── */
-    .article { max-width: 680px; margin: 0 auto; padding: 140px 32px 150px; }
+    /* ── Back link ── */
     .back-link {
       font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 1px;
       color: #bbb; margin-bottom: 40px; display: inline-block;
     }
     .back-link:hover { color: #1B5E3B; }
-    .article-date {
+
+    /* ── Content ── */
+    .content { max-width: 780px; margin: 0 auto; padding: 140px 32px 80px; }
+    .page-label {
       font-family: 'DM Mono', monospace;
-      font-size: 11px; color: #bbb; letter-spacing: 0.5px; margin-bottom: 12px;
+      font-size: 11px; font-weight: 500; letter-spacing: 3px; color: #bbb; margin-bottom: 16px;
     }
-    .article-views { color: #ccc; margin-left: 8px; }
-    .article-title {
+    .page-title {
       font-family: 'Noto Serif KR', serif;
-      font-size: 28px; font-weight: 700; letter-spacing: -0.5px;
-      line-height: 1.45; margin-bottom: 16px;
+      font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 48px;
     }
-    .article-tags { display: flex; gap: 8px; margin-bottom: 48px; }
-    .article-tag {
+    .tm { font-size: 0.3em; vertical-align: super; font-weight: 400; position: relative; top: -0.5em; }
+
+    /* ── Post list ── */
+    .post-list { }
+    .post-item {
+      display: block; padding: 32px 0; border-bottom: 1px solid #f0f0f0;
+      transition: opacity 0.2s ease;
+    }
+    .post-item:first-child { border-top: 1px solid #f0f0f0; }
+    .post-item:hover { opacity: 0.7; }
+    .post-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; color: #bbb; letter-spacing: 0.5px; margin-bottom: 8px;
+    }
+    .post-title { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 8px; }
+    .post-summary { font-size: 14px; color: #888; line-height: 1.7; }
+    .post-tags { margin-top: 10px; display: flex; gap: 8px; }
+    .post-tag {
       font-family: 'DM Mono', monospace;
       font-size: 10px; color: #aaa; letter-spacing: 0.5px;
       border: 1px solid #eee; padding: 2px 10px;
     }
-    .article-body { font-size: 16px; color: #444; line-height: 2; }
-    .article-body p { margin-bottom: 24px; }
-    .article-body strong { color: #1a1a1a; font-weight: 600; }
-    .article-body h2 {
-      font-family: 'Noto Serif KR', serif;
-      font-size: 20px; font-weight: 700; letter-spacing: -0.3px;
-      margin: 48px 0 16px; color: #1a1a1a;
+    .empty { text-align: center; padding: 80px 0; font-size: 15px; color: #bbb; }
+    .post-views { font-family: 'DM Mono', monospace; font-size: 11px; color: #bbb; margin-left: 12px; }
+    .pagination { display: flex; justify-content: center; gap: 8px; margin-top: 48px; }
+    .pagination a, .pagination span {
+      font-family: 'DM Mono', monospace; font-size: 12px; padding: 6px 14px;
+      border: 1px solid #eee; color: #999; transition: all 0.2s;
     }
-    .article-body h2:first-child { margin-top: 0; }
-    .article-body h3 {
-      font-size: 17px; font-weight: 700; letter-spacing: -0.2px;
-      margin: 32px 0 12px; color: #1a1a1a;
+    .pagination a:hover { border-color: #1B5E3B; color: #1B5E3B; }
+    .pagination .current { background: #1B5E3B; color: #fff; border-color: #1B5E3B; }
+    .search-box {
+      margin-bottom: 32px;
     }
-    .article-body blockquote {
-      border-left: 3px solid #1B5E3B; padding: 16px 20px; margin: 24px 0;
-      background: #f9faf9; color: #555;
+    .search-input {
+      width: 100%; padding: 12px 16px;
+      font-family: 'Pretendard Variable', sans-serif;
+      font-size: 14px; color: #1a1a1a;
+      border: 1px solid #e0e0e0; border-radius: 0;
+      outline: none; transition: border-color 0.2s;
+      background: #fafafa;
     }
-    .article-body blockquote p { margin-bottom: 0; }
-    .article-body em { font-style: italic; }
-    .article-body table {
-      width: 100%; border-collapse: collapse; margin: 24px 0;
-      font-size: 14px; line-height: 1.7;
-    }
-    .article-body th {
-      background: #f8f8f8; font-weight: 600; text-align: left;
-      padding: 10px 12px; border-bottom: 2px solid #eee; color: #1a1a1a;
-    }
-    .article-body td {
-      padding: 10px 12px; border-bottom: 1px solid #f0f0f0; color: #555;
-    }
-    .article-body ul, .article-body ol {
-      margin: 16px 0 24px 20px; color: #444;
-    }
-    .article-body li { margin-bottom: 8px; line-height: 1.8; }
-    .article-divider {
-      width: 28px; height: 2px; background: #1B5E3B;
-      margin: 48px 0;
-    }
-    .post-nav {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 28px;
-      margin-top: 56px;
-      padding-top: 32px;
-      border-top: 1px solid #f0f0f0;
-    }
-    .post-nav-link {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      padding: 4px 0;
-      transition: color 0.25s ease;
-    }
-    .post-nav-link.next {
-      grid-column: 2;
-      text-align: right;
-      align-items: flex-end;
-    }
-    .post-nav-label {
-      display: block;
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 1px;
-      color: #8ea092;
-    }
-    .post-nav-title {
-      display: block;
-      color: #1f1f1f;
-      font-size: 16px;
-      font-weight: 600;
-      line-height: 1.65;
-    }
-    .post-nav-link:hover .post-nav-title {
-      color: #1B5E3B;
-    }
+    .search-input:focus { border-color: #1B5E3B; background: #fff; }
+    .search-input::placeholder { color: #ccc; }
 
     /* ── Footer ── */
     footer {
@@ -211,22 +180,8 @@
       .header-inner { padding: 0 20px; height: 60px; }
       nav { gap: 16px; }
       nav a { font-size: 11px; }
-      .article { padding: 100px 20px 60px; }
-      .article-title { font-size: 22px; }
-      .post-nav {
-        grid-template-columns: 1fr;
-        gap: 18px;
-        margin-top: 48px;
-      }
-      .post-nav-link {
-        padding: 0;
-      }
-      .post-nav-link.next {
-        grid-column: 1;
-        text-align: left;
-        align-items: flex-start;
-      }
-      .post-nav-title { font-size: 15px; }
+      .content { padding: 100px 20px 60px; }
+      .page-title { font-size: 22px; }
       footer { padding: 10px 16px 12px; position: static; left: auto; transform: none; width: auto; max-width: none; }
       .footer-logo { display: flex; align-items: baseline; gap: 5px; margin-bottom: 0; }
       .footer-corp { font-size: 10px; letter-spacing: 1.5px; margin-bottom: 0; }
@@ -259,7 +214,7 @@
         <a href="../careers/">채용</a>
         <a href="mailto:connect@mullae.com">문의하기</a>
       </nav>
-      <a href="../../en/blog/" class="lang">EN</a>
+      <a href="../en/blog/" class="lang">EN</a>
       <button class="menu-btn" onclick="toggleMenu()"><span></span><span></span><span></span></button>
     </div>
   </header>
@@ -272,13 +227,16 @@
     <a href="../news/" onclick="toggleMenu()">뉴스</a>
     <a href="../careers/" onclick="toggleMenu()">채용</a>
     <a href="mailto:connect@mullae.com" onclick="toggleMenu()">문의하기</a>
-    <a href="../../en/blog/" class="lang">EN</a>
+    <a href="../en/blog/" class="lang">EN</a>
   </div>
 
-  <div class="article">
-    <a href="./" class="back-link">← BLOG</a>
-    <div id="article-content">
-      <p style="text-align:center; padding:80px 0; color:#bbb;">로딩 중...</p>
+  <div class="content">
+    <a href="../" class="back-link">← HOME</a>
+    <p class="page-label">BLOG</p>
+    <h1 class="page-title">오늘:온<span class="tm">TM</span> 이야기</h1>
+    <div class="search-box"><input type="text" class="search-input" id="searchInput" placeholder="제목, 내용으로 검색..." oninput="handleSearch()"></div>
+    <div id="post-list">
+      <p class="empty">글을 준비하고 있습니다.</p>
     </div>
   </div>
 
@@ -303,67 +261,89 @@
   </footer>
 
   <script>
+    var allPosts = [];
+    var PER_PAGE = 5;
+
+    function getPage() {
+      return parseInt(new URLSearchParams(window.location.search).get('page')) || 1;
+    }
+
+    function renderPosts(posts, page) {
+      var container = document.getElementById('post-list');
+      if (posts.length === 0) {
+        container.innerHTML = '<p class="empty">검색 결과가 없습니다.</p>';
+        return;
+      }
+      var totalPages = Math.ceil(posts.length / PER_PAGE);
+      if (page > totalPages) page = totalPages;
+      var start = (page - 1) * PER_PAGE;
+      var pagePosts = posts.slice(start, start + PER_PAGE);
+
+      var html = '<div class="post-list">';
+      pagePosts.forEach(function (post) {
+        html += '<a class="post-item" href="post.html?id=' + post.id + '">';
+        html += '<p class="post-date">' + post.date + '<span class="post-views" id="views-' + post.id + '"></span></p>';
+        html += '<p class="post-title">' + post.title + '</p>';
+        html += '<p class="post-summary">' + post.summary + '</p>';
+        if (post.tags && post.tags.length) {
+          html += '<div class="post-tags">';
+          post.tags.forEach(function (t) { html += '<span class="post-tag">' + t + '</span>'; });
+          html += '</div>';
+        }
+        html += '</a>';
+      });
+      html += '</div>';
+
+      if (totalPages > 1) {
+        html += '<div class="pagination">';
+        if (page > 1) html += '<a href="?page=' + (page - 1) + '">&laquo;</a>';
+        for (var i = 1; i <= totalPages; i++) {
+          if (i === page) html += '<span class="current">' + i + '</span>';
+          else html += '<a href="?page=' + i + '">' + i + '</a>';
+        }
+        if (page < totalPages) html += '<a href="?page=' + (page + 1) + '">&raquo;</a>';
+        html += '</div>';
+      }
+      container.innerHTML = html;
+
+      pagePosts.forEach(function (post) {
+        var path = '/blog/post.html?id=' + post.id;
+        fetch('https://mlc.goatcounter.com/counter/' + encodeURIComponent(path) + '.json')
+          .then(function (r) { return r.json(); })
+          .then(function (d) {
+            var el = document.getElementById('views-' + post.id);
+            if (el && d.count) el.textContent = 'VIEW ' + d.count;
+          }).catch(function () {});
+      });
+    }
+
+    function handleSearch() {
+      var query = document.getElementById('searchInput').value.toLowerCase().trim();
+      if (!query) {
+        renderPosts(allPosts, getPage());
+        return;
+      }
+      var filtered = allPosts.filter(function (p) {
+        return (p.title && p.title.toLowerCase().indexOf(query) >= 0) ||
+               (p.summary && p.summary.toLowerCase().indexOf(query) >= 0) ||
+               (p.tags && p.tags.join(' ').toLowerCase().indexOf(query) >= 0);
+      });
+      renderPosts(filtered, 1);
+    }
+
+    fetch('../data/blog/index-ko.json')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        allPosts = data.posts || [];
+        renderPosts(allPosts, getPage());
+      })
+      .catch(function () {});
+  </script>
+  <script>
     function toggleMenu() {
       document.getElementById('mobileNav').classList.toggle('open');
       document.querySelector('.menu-btn').classList.toggle('active');
     }
-  </script>
-  <script>
-    (function () {
-      var params = new URLSearchParams(window.location.search);
-      var postId = params.get('id');
-      if (!postId) { window.location.href = './'; return; }
-
-      Promise.all([
-        fetch('../../data/blog/posts/' + postId + '.json').then(function (r) {
-          if (!r.ok) throw new Error('Not found');
-          return r.json();
-        }),
-        fetch('../../data/blog/index-ko.json').then(function (r) { return r.json(); })
-      ]).then(function (results) {
-        var postData = results[0];
-        var indexData = results[1];
-        var posts = indexData.posts || [];
-        var post = postData.ko || {};
-        post.date = postData.date;
-
-        var container = document.getElementById('article-content');
-        var html = '';
-        html += '<p class="article-date">' + (post.date || '') + '<span class="article-views" id="postViews"></span></p>';
-        html += '<h1 class="article-title">' + (post.title || '') + '</h1>';
-        if (post.tags && post.tags.length) {
-          html += '<div class="article-tags">';
-          post.tags.forEach(function (t) { html += '<span class="article-tag">' + t + '</span>'; });
-          html += '</div>';
-        }
-        html += '<div class="article-body">' + (post.content || '') + '</div>';
-
-        var idx = -1;
-        for (var i = 0; i < posts.length; i++) {
-          if (posts[i].id === postId) { idx = i; break; }
-        }
-        if (idx >= 0) {
-          html += '<div class="post-nav">';
-          if (idx > 0) html += '<a href="post.html?id=' + posts[idx - 1].id + '" class="post-nav-link prev"><span class="post-nav-label">이전 글</span><span class="post-nav-title">' + posts[idx - 1].title + '</span></a>';
-          if (idx < posts.length - 1) html += '<a href="post.html?id=' + posts[idx + 1].id + '" class="post-nav-link next"><span class="post-nav-label">다음 글</span><span class="post-nav-title">' + posts[idx + 1].title + '</span></a>';
-          html += '</div>';
-        }
-
-        container.innerHTML = html;
-        document.title = (post.title || 'Blog') + ' — (주)문래컴퍼니';
-
-        // 포스트 조회수
-        var postPath = '/ko/blog/post.html?id=' + postId;
-        fetch('https://mlc.goatcounter.com/counter/' + encodeURIComponent(postPath) + '.json')
-          .then(function(r){return r.json()})
-          .then(function(d){
-            var el = document.getElementById('postViews');
-            if(el && d.count) el.textContent = ' · VIEW ' + d.count;
-          }).catch(function(){});
-      }).catch(function () {
-        document.getElementById('article-content').innerHTML = '<p style="text-align:center;padding:80px 0;color:#bbb;">글을 찾을 수 없습니다.</p>';
-      });
-    })();
   </script>
   <script data-goatcounter="https://mlc.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   <script>
