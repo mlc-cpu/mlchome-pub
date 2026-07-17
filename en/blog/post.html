@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
   <title>Blog — MullaeCompany</title>
+  <link rel="canonical" href="https://www.mullae.com/en/blog/post.html">
+  <link rel="alternate" hreflang="ko" href="https://www.mullae.com/blog/post.html">
+  <link rel="alternate" hreflang="en" href="https://www.mullae.com/en/blog/post.html">
   <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Gowun+Batang:wght@400;700&family=Noto+Serif+KR:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
@@ -315,6 +318,15 @@
       var params = new URLSearchParams(window.location.search);
       var postId = params.get('id');
       if (!postId) { window.location.href = './'; return; }
+      var encodedPostId = encodeURIComponent(postId);
+      var koCanonical = 'https://www.mullae.com/blog/post.html?id=' + encodedPostId;
+      var enCanonical = 'https://www.mullae.com/en/blog/post.html?id=' + encodedPostId;
+      document.querySelector('link[rel="canonical"]').setAttribute('href', enCanonical);
+      document.querySelector('link[rel="alternate"][hreflang="ko"]').setAttribute('href', koCanonical);
+      document.querySelector('link[rel="alternate"][hreflang="en"]').setAttribute('href', enCanonical);
+      document.querySelectorAll('a.lang').forEach(function (link) {
+        link.setAttribute('href', '/blog/post.html?id=' + encodedPostId);
+      });
 
       Promise.all([
         fetch('../../data/blog/posts/' + postId + '.json').then(function (r) {

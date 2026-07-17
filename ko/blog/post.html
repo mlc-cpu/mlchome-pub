@@ -5,13 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>문래컴퍼니 | 페이지 이동</title>
   <meta name="robots" content="noindex, follow">
-  <meta http-equiv="refresh" content="0; url=https://www.mullae.com/blog/post.html">
+  <meta http-equiv="refresh" content="5; url=/blog/">
   <link rel="canonical" href="https://www.mullae.com/blog/post.html">
   <script>
-    window.location.replace("https://www.mullae.com/blog/post.html" + window.location.search + window.location.hash);
+    (function () {
+      var fallback = '/blog/';
+      var parameters = new URLSearchParams(window.location.search);
+      var ids = parameters.getAll('id');
+      var id = ids.length === 1 ? ids[0] : '';
+      if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id)) {
+        window.location.replace(fallback);
+        return;
+      }
+
+      fetch('/data/blog/index-ko.json', { headers: { Accept: 'application/json' } })
+        .then(function (response) {
+          if (!response.ok) throw new Error('Blog index unavailable');
+          return response.json();
+        })
+        .then(function (data) {
+          var published = Array.isArray(data.posts) && data.posts.some(function (post) {
+            return post && post.id === id;
+          });
+          if (!published) {
+            window.location.replace(fallback);
+            return;
+          }
+          window.location.replace('/blog/post.html' + window.location.search + window.location.hash);
+        })
+        .catch(function () {
+          window.location.replace(fallback);
+        });
+    })();
   </script>
 </head>
 <body>
-  <p>페이지가 이동되었습니다. 자동으로 이동하지 않으면 <a href="https://www.mullae.com/blog/">여기를 클릭하세요</a>.</p>
+  <p>페이지가 이동되었습니다. 자동으로 이동하지 않으면 <a href="/blog/">여기를 클릭하세요</a>.</p>
 </body>
 </html>
