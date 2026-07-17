@@ -72,6 +72,14 @@
     }
     .news-item:first-child { border-top: 1px solid #f0f0f0; }
     .news-item:hover { opacity: 0.7; }
+    .news-layout {
+      display: flex; align-items: flex-start; gap: 24px;
+    }
+    .news-copy { flex: 1; min-width: 0; }
+    .news-thumbnail {
+      display: block; width: 104px; height: 92px; flex: 0 0 auto;
+      object-fit: cover; border: 1px solid #f0f0f0; background: #f8eef1;
+    }
     .news-date {
       font-family: 'DM Mono', monospace;
       font-size: 11px; color: #bbb; letter-spacing: 0.5px; margin-bottom: 8px;
@@ -173,6 +181,8 @@
       .menu-btn { display: block; }
       .content { padding: 100px 20px 60px; }
       .page-title { font-size: 22px; }
+      .news-layout { gap: 14px; }
+      .news-thumbnail { width: 76px; height: 67px; }
       footer { padding: 10px 16px 12px; position: static; left: auto; transform: none; width: auto; max-width: none; }
       .footer-logo { display: flex; align-items: baseline; gap: 5px; margin-bottom: 0; }
       .footer-corp { font-size: 10px; letter-spacing: 1.5px; margin-bottom: 0; }
@@ -256,6 +266,13 @@
       return parseInt(new URLSearchParams(window.location.search).get('page')) || 1;
     }
 
+    function escapeAttribute(value) {
+      var entities = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+      return String(value).replace(/[&<>"']/g, function (character) {
+        return entities[character];
+      });
+    }
+
     function renderNews(news, page) {
       var container = document.getElementById('news-list');
       if (news.length === 0) {
@@ -272,11 +289,18 @@
         var tag = item.link ? 'a' : 'div';
         var href = item.link ? ' href="' + item.link + '" target="_blank"' : '';
         html += '<' + tag + ' class="news-item"' + href + '>';
+        html += '<div class="news-layout">';
+        html += '<div class="news-copy">';
         html += '<p class="news-date">' + item.date;
         if (item.id) html += '<span class="news-views" id="newsViews-' + item.id + '"></span>';
         html += '</p>';
         html += '<p class="news-title">' + item.title + '</p>';
         if (item.body) html += '<p class="news-body">' + item.body + '</p>';
+        html += '</div>';
+        if (item.thumbnail && item.thumbnail_alt) {
+          html += '<img class="news-thumbnail" src="' + item.thumbnail + '" alt="' + escapeAttribute(item.thumbnail_alt) + '" width="104" height="92" loading="lazy" decoding="async">';
+        }
+        html += '</div>';
         html += '</' + tag + '>';
       });
       html += '</div>';
