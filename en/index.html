@@ -1013,7 +1013,7 @@
       ]).then(function (results) {
         var combined = [];
         (results[0] || []).forEach(function (n) {
-          combined.push({ type: 'NEWS', date: n.date, title: n.title, link: n.link, id: null });
+          combined.push({ type: 'NEWS', date: n.date, title: n.title, id: null });
         });
         (results[1] || []).forEach(function (p) {
           combined.push({ type: 'BLOG', date: p.date, title: p.title, link: null, id: p.id });
@@ -1023,14 +1023,13 @@
         var html = '';
         combined.forEach(function (item) {
           var newDot = isNew(item.date) ? '<span class="hero-new-dot">NEW</span>' : '';
-          var href, target = '';
+          var href;
           if (item.type === 'NEWS') {
-            href = item.link ? item.link : 'news/';
-            target = item.link ? ' target="_blank"' : '';
+            href = '/en/news/';
           } else {
             href = 'blog/post.html?id=' + item.id;
           }
-          html += '<a class="hero-headline" href="' + href + '"' + target + '><span class="hero-badge">' + item.type + '</span><span class="hero-headline-title">' + item.title + (newDot ? ' ' + newDot : '') + '</span></a>';
+          html += '<a class="hero-headline" href="' + href + '"><span class="hero-badge">' + item.type + '</span><span class="hero-headline-title">' + item.title + (newDot ? ' ' + newDot : '') + '</span></a>';
         });
         if (html) container.innerHTML = html;
       });
