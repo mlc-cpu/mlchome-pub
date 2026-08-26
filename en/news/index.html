@@ -286,15 +286,21 @@
 
       var html = '<div class="news-list">';
       pageNews.forEach(function (item) {
-        var tag = item.link ? 'a' : 'div';
-        var href = item.link ? ' href="' + item.link + '" target="_blank"' : '';
+        var bodyHasLink = item.body && /<a(?:\s|>)/i.test(item.body);
+        var linkWrapsItem = item.link && !bodyHasLink;
+        var tag = linkWrapsItem ? 'a' : 'div';
+        var href = linkWrapsItem ? ' href="' + item.link + '" target="_blank"' : '';
         html += '<' + tag + ' class="news-item"' + href + '>';
         html += '<div class="news-layout">';
         html += '<div class="news-copy">';
         html += '<p class="news-date">' + item.date;
         if (item.id) html += '<span class="news-views" id="newsViews-' + item.id + '"></span>';
         html += '</p>';
-        html += '<p class="news-title">' + item.title + '</p>';
+        html += '<p class="news-title">';
+        if (item.link && bodyHasLink) html += '<a href="' + item.link + '" target="_blank">';
+        html += item.title;
+        if (item.link && bodyHasLink) html += '</a>';
+        html += '</p>';
         if (item.body) html += '<p class="news-body">' + item.body + '</p>';
         html += '</div>';
         if (item.thumbnail && item.thumbnail_alt) {
