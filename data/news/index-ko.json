@@ -1,6 +1,15 @@
 {
   "news": [
     {
+      "id": "news-2026-08-31-classic-ssanghwa-launch",
+      "date": "2026.08.31",
+      "title": "오늘:온 클래식 쌍화 출시",
+      "body": "문래컴퍼니가 2026년 8월 31일 ‘오늘:온 클래식 쌍화’를 출시했습니다.",
+      "link": "",
+      "thumbnail": "/img/onlon-classic-ssanghwa.png",
+      "thumbnail_alt": "오늘:온 클래식 쌍화 제품과 파란 보자기 선물 포장"
+    },
+    {
       "id": "news-2026-08-21-instagram-34k",
       "date": "2026.08.21",
       "title": "오늘약사 인스타그램 팔로워 3.4만 돌파",
