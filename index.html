@@ -882,7 +882,7 @@
         <div class="brand-links">
           <a href="https://onlon.kr" target="_blank" class="brand-link">오늘:온 스토어</a>
           <a href="https://smartstore.naver.com/onlon" target="_blank" class="brand-link">네이버 스마트스토어</a>
-          <a href="https://instagram.com/oneul_pharmacy" target="_blank" class="brand-link">인스타그램 <span class="followers" id="igFollowers"></span></a>
+          <a href="https://instagram.com/oneul_pharmacy" target="_blank" class="brand-link">인스타그램 <span class="followers" id="igFollowers">3.5만명</span></a>
         </div>
       </div>
       <div class="brand-divider"></div>
@@ -1060,12 +1060,6 @@
         var t=document.getElementById('totalCount');
         if(t&&d.count) t.textContent=d.count;
       }).catch(function(){});
-  </script>
-  <script>
-    fetch('data/social.json').then(function(r){return r.json()}).then(function(d){
-      var el=document.getElementById('igFollowers');
-      if(el&&d.instagram) el.textContent=d.instagram.followers;
-    }).catch(function(){});
   </script>
 </body>
 </html>

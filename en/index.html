@@ -881,7 +881,7 @@
         <div class="brand-links">
           <a href="https://onlon.kr" target="_blank" class="brand-link">onl:on Store</a>
           <a href="https://smartstore.naver.com/onlon" target="_blank" class="brand-link">Naver Smartstore</a>
-          <a href="https://instagram.com/oneul_pharmacy" target="_blank" class="brand-link">Instagram <span class="followers" id="igFollowers"></span></a>
+          <a href="https://instagram.com/oneul_pharmacy" target="_blank" class="brand-link">Instagram <span class="followers" id="igFollowers">35K</span></a>
         </div>
       </div>
       <div class="brand-divider"></div>
@@ -1059,12 +1059,6 @@
         var t=document.getElementById('totalCount');
         if(t&&d.count) t.textContent=d.count;
       }).catch(function(){});
-  </script>
-  <script>
-    fetch('../data/social.json').then(function(r){return r.json()}).then(function(d){
-      var el=document.getElementById('igFollowers');
-      if(el&&d.instagram) el.textContent=d.instagram.followers_en||d.instagram.followers;
-    }).catch(function(){});
   </script>
 </body>
 </html>
