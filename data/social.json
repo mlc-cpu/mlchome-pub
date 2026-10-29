@@ -1,11 +1,10 @@
 {
   "instagram": {
     "handle": "@oneul_pharmacy",
-    "followers": "약 3.8만",
-    "followers_en": "~38K",
-    "followers_raw": 38000,
-    "approximate": true,
-    "updated": "2026-10-28",
-    "source": "instagram-public-page"
+    "followers": "3.9만",
+    "followers_en": "38.8K",
+    "followers_raw": 38816,
+    "updated": "2026-10-29",
+    "source": "html:follower_count"
   }
 }
